@@ -5,5 +5,10 @@
 	<classpathentry kind="lib" path="libs/core.jar"/>
 	<classpathentry kind="lib" path="libs/jbox2d-library-2.2.1-ds.jar"/>
 	<classpathentry kind="lib" path="libs/box2d_processing.jar"/>
+	<classpathentry kind="lib" path="libs/video/gstreamer-java.jar"/>
+	<classpathentry kind="lib" path="libs/video/jna.jar"/>
+	<classpathentry kind="lib" path="libs/video/video.jar"/>
+	<classpathentry kind="lib" path="libs/opencv/opencv_processing.jar"/>
+	<classpathentry kind="lib" path="libs/opencv/opencv-245.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
