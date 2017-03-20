@@ -26,6 +26,7 @@ public class Surface extends SurfaceBack {
 		}
 		app.endShape();
 		app.popMatrix();	
+		Points();
 	}
 
 }

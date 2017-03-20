@@ -2,6 +2,7 @@ package back;
 
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
@@ -41,12 +42,13 @@ public class EmotionBack {
 		fd.shape = cir;
 
 		/// --caracteristicas
-		fd.density = 1;
+		fd.density = 0.1f;
 		fd.friction = 0.3f;
 		fd.restitution = 0.5f;
 
 		// --Unir forma al cuerpo con sus caracteristicas
 		body.createFixture(fd);
 	}
+
 
 }
