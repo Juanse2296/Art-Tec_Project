@@ -5,12 +5,15 @@ import org.jbox2d.common.Vec2;
 import back.SurfaceBack;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
+import tuio.Reactivision;
 
 public class Surface extends SurfaceBack {
 
-	public Surface(PApplet app, Box2DProcessing box2d) {
-		super(app, box2d);
+	public Surface(PApplet app, Box2DProcessing box2d, Reactivision react) {
+		super(app, box2d, react);
 		app.noFill();
+		
+		
 	}
 
 	public void show(PApplet app) {		

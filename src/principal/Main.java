@@ -4,6 +4,7 @@ package principal;
 import front.Display;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
+import tuio.Reactivision;
 
 public class Main extends PApplet {
 
@@ -24,18 +25,18 @@ public class Main extends PApplet {
 	}
 
 	public void setup() {
-		//String[] args = { "VentanaVideo" };
-		//Tracker tk = new Tracker();
-		//PApplet.runSketch(args, tk);
+		String[] args = { "VentanaReactivision" };
+		Reactivision react = new Reactivision();
+		PApplet.runSketch(args, react);		
 		/// ---
 		box2d = new Box2DProcessing(this);
 		box2d.createWorld();
 		/// ---
-		dp = new Display(this, box2d);
+		dp = new Display(this, box2d,react);
 		smooth();
 	}
 
-	public void draw() {
+	public void draw() {		
 		dp.show();
 		box2d.step();
 	}

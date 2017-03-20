@@ -10,5 +10,7 @@
 	<classpathentry kind="lib" path="libs/video/video.jar"/>
 	<classpathentry kind="lib" path="libs/opencv/opencv_processing.jar"/>
 	<classpathentry kind="lib" path="libs/opencv/opencv-245.jar"/>
+	<classpathentry kind="lib" path="libs/libTUIO.jar"/>
+	<classpathentry kind="lib" path="libs/TUIO.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
