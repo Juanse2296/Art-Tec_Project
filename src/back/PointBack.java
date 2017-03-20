@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 
+import TUIO.TuioObject;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 
@@ -65,9 +66,11 @@ public class PointBack {
 		return false;
 	}
 
-	public void move() {
-		
-		body.setTransform(new Vec2(box2d.coordPixelsToWorld(app.mouseX, app.mouseY)), 30);
+	public void move(TuioObject tobj) {
+		body.setTransform(new Vec2(box2d.coordPixelsToWorld(tobj.getScreenX(app.width), tobj.getScreenY(app.height))), 30);
 	}
 
+	public void move() {
+		body.setTransform(new Vec2(box2d.coordPixelsToWorld(app.mouseX, app.mouseY)), 30);
+	}
 }

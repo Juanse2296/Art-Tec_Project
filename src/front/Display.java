@@ -17,7 +17,7 @@ public class Display {
 //		sf= new Surface(app, box2d,react);	
 //		Thread t= new Thread(sf);
 //		t.start();
-		bridge = new Bridge(app,box2d,react,150,20);
+		bridge = new Bridge(app,box2d,react,300,30);
 	}
 
 	public void show() {

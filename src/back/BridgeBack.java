@@ -20,11 +20,13 @@ public class BridgeBack {
 	protected ArrayList<Point> particles;
 	protected PApplet app;
 	Box2DProcessing box2d;
+	protected Reactivision react;
 
 	// Chain constructor
-	protected BridgeBack(PApplet app, Box2DProcessing box2d,Reactivision react, float l, int n) {
+	protected BridgeBack(PApplet app, Box2DProcessing box2d, Reactivision react, float l, int n) {
 		this.app = app;
 		this.box2d = box2d;
+		this.react = react;
 		totalLength = l;
 		numPoints = n;
 
@@ -40,9 +42,9 @@ public class BridgeBack {
 
 			// First and last particles are made with density of zero
 			if (i == 0 || i == numPoints)
-				p = new Point(app,box2d,(550)+i * len, app.height / 2, 4, true);
+				p = new Point(app, box2d, (550) + i * len, app.height / 2, 4, true);
 			else
-				p = new Point(app,box2d,(550)+i * len, app.height / 2, 4, false);
+				p = new Point(app, box2d, (550) + i * len, app.height / 2, 4, false);
 			particles.add(p);
 
 			// Connect the particles with a distance joint
@@ -65,8 +67,4 @@ public class BridgeBack {
 			}
 		}
 	}
-	
-
-	
-
 }
