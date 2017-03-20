@@ -34,7 +34,7 @@ public class EmotionBack {
 
 		// --Creacion del shape
 		CircleShape cir = new CircleShape();
-		cir.m_radius= box2d.scalarPixelsToWorld(w);			
+		cir.m_radius= box2d.scalarPixelsToWorld(w/2);			
 
 		// ----- Creacion de FIxture
 		FixtureDef fd = new FixtureDef();
