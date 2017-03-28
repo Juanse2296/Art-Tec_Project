@@ -8,19 +8,21 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 
+import ddf.minim.AudioSample;
 import shiffman.box2d.Box2DProcessing;
 
 public class EmotionBack {
 	protected float x, y, w, h;
 	protected Box2DProcessing box2d;
 	protected Body body;
-
-	public EmotionBack(Box2DProcessing box2d, float x, float y, float w, float h) {
+	protected AudioSample sound;
+	public EmotionBack(Box2DProcessing box2d, AudioSample sound,float x, float y, float w, float h) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		this.h = h;
 		this.box2d = box2d;
+		this.sound=sound;
 		createBody();
 	}
 
@@ -48,6 +50,42 @@ public class EmotionBack {
 
 		// --Unir forma al cuerpo con sus caracteristicas
 		body.createFixture(fd);
+	}
+	
+	public void soundPlayer(){
+		sound.trigger();
+	}
+
+	public float getX() {
+		return x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public float getW() {
+		return w;
+	}
+
+	public float getH() {
+		return h;
+	}
+
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public void setY(float y) {
+		this.y = y;
+	}
+
+	public void setW(float w) {
+		this.w = w;
+	}
+
+	public void setH(float h) {
+		this.h = h;
 	}
 
 

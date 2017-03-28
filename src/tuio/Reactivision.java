@@ -32,7 +32,7 @@ public class Reactivision extends PApplet {
 	}
 
 	public void settings() {
-		size(CONFIG.width, CONFIG.height);
+		//size(CONFIG.width, CONFIG.height);
 	}
 
 	public void setup() {

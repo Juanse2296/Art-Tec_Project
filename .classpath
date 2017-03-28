@@ -12,5 +12,11 @@
 	<classpathentry kind="lib" path="libs/opencv/opencv-245.jar"/>
 	<classpathentry kind="lib" path="libs/libTUIO.jar"/>
 	<classpathentry kind="lib" path="libs/TUIO.jar"/>
+	<classpathentry kind="lib" path="libs/minim/jl1.0.jar"/>
+	<classpathentry kind="lib" path="libs/minim/jsminim.jar"/>
+	<classpathentry kind="lib" path="libs/minim/minim.jar"/>
+	<classpathentry kind="lib" path="libs/minim/mp3spi1.9.4.jar"/>
+	<classpathentry kind="lib" path="libs/minim/tritonus_aos.jar"/>
+	<classpathentry kind="lib" path="libs/minim/tritonus_share.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

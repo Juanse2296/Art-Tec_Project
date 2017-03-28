@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 
+import TUIO.TuioObject;
 import front.Point;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
@@ -22,6 +23,7 @@ public class BridgeBack {
 	Box2DProcessing box2d;
 	protected Reactivision react;
 
+
 	// Chain constructor
 	protected BridgeBack(PApplet app, Box2DProcessing box2d, Reactivision react, float l, int n) {
 		this.app = app;
@@ -29,7 +31,6 @@ public class BridgeBack {
 		this.react = react;
 		totalLength = l;
 		numPoints = n;
-
 		particles = new ArrayList<Point>();
 
 		float len = totalLength / numPoints;
@@ -42,9 +43,9 @@ public class BridgeBack {
 
 			// First and last particles are made with density of zero
 			if (i == 0 || i == numPoints)
-				p = new Point(app, box2d, (550) + i * len, app.height / 2, 4, true);
+				p = new Point(app, box2d, (80) + i * len, 140, 4, true);
 			else
-				p = new Point(app, box2d, (550) + i * len, app.height / 2, 4, false);
+				p = new Point(app, box2d, (80) + i * len, 140, 4, false);
 			particles.add(p);
 
 			// Connect the particles with a distance joint
@@ -67,4 +68,51 @@ public class BridgeBack {
 			}
 		}
 	}
+
+	public void move() {
+		int t = particles.size();
+		if (react.getTuioClient() != null) {
+			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
+			for (int i = 0; i < tuioObjectList.size(); i++) {
+				TuioObject tobj = tuioObjectList.get(i);
+
+				if (tobj.getSymbolID() == 0) {
+					particles.get(0).move(tobj);
+					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
+				}
+
+				if (tobj.getSymbolID() == 1) {
+					particles.get((t * 1 / 4)).move(tobj);
+					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
+				}
+
+				if (tobj.getSymbolID() == 2) {
+					particles.get((t * 3 / 4)).move(tobj);
+					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
+				}
+
+				if (tobj.getSymbolID() == 3) {
+					particles.get(particles.size() - 1).move(tobj);
+					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
+				}
+
+			}
+		}
+	}
+
+	public void moveOptions() {
+		int t = particles.size();
+		if ((app.mousePressed && app.mouseButton == app.LEFT) && app.key == 'a') {
+			particles.get((t * 1 / 4)).move();
+		} else if ((app.mousePressed && app.mouseButton == app.RIGHT) && app.key == 's') {
+			particles.get((t * 3 / 4)).move();
+		} else if ((app.mousePressed && app.mouseButton == app.LEFT)) {
+
+			particles.get(0).move();
+		} else if ((app.mousePressed && app.mouseButton == app.RIGHT)) {
+			particles.get(particles.size() - 1).move();
+		}
+		move();
+	}
+
 }
