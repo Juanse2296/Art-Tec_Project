@@ -6,40 +6,32 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.contacts.Contact;
 
+import back.DisplayBack;
 import back.SoundController;
 import principal.CONFIG;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 
-public class Display {
+public class Display extends DisplayBack {
 
 	Emotion emo;
-	Surface sf;
-	PApplet app;
-	Bridge bridge;
-	SoundController sc;
-	ArrayList<Platform> plats;
+	
 
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
-		this.app = app;
-		sc = new SoundController(app);
+		super(app, react, box2d);
 		emo = new Emotion(box2d, sc.getPlayer(), 100, 100, 50, 50);
-		// sf= new Surface(app, box2d,react);
-		// Thread t= new Thread(sf);
-		// t.start();
-		bridge = new Bridge(app, box2d, react, 200, 20);
-		plats = new ArrayList<Platform>();
+		
 		createPlatforms(box2d, CONFIG.obstacles);
 	}
 
 	public void show() {
 		app.background(0);
 		emo.show(app);
-		// sf.show(app);
-		bridge.display();
+		showBridge();
 		showPlatforms();
 		finished();
+		showPeople();
 	}
 
 	public void beginCon(Contact cp) {
@@ -71,14 +63,6 @@ public class Display {
 		}
 	}
 
-	public void createPlatforms(Box2DProcessing box2d, int num) {
-		for (int i = 0; i < num; i++) {
-			if (i == num - 1) {
-				plats.add(new Platform(box2d, i, 1100, 600, 160, 20, true));
-			} else {
-				plats.add(new Platform(box2d, i, (int)app.random(200,1000), (int)app.random(200,600), (int)app.random(20,80), (int)app.random(20,80), false));
-			}
-		}
-	}
+	
 
 }

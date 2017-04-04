@@ -15,7 +15,7 @@ public class BridgeBack {
 
 	// Bridge properties
 	float totalLength; // How long
-	int numPoints; // How many points
+	int numPoints, x, y; // How many points
 
 	// Our chain is a list of particles
 	protected ArrayList<Point> particles;
@@ -23,12 +23,13 @@ public class BridgeBack {
 	Box2DProcessing box2d;
 	protected Reactivision react;
 
-
 	// Chain constructor
-	protected BridgeBack(PApplet app, Box2DProcessing box2d, Reactivision react, float l, int n) {
+	protected BridgeBack(PApplet app, Box2DProcessing box2d, Reactivision react, float l, int n, int x, int y) {
 		this.app = app;
 		this.box2d = box2d;
 		this.react = react;
+		this.x = x;
+		this.y = y;
 		totalLength = l;
 		numPoints = n;
 		particles = new ArrayList<Point>();
@@ -43,9 +44,9 @@ public class BridgeBack {
 
 			// First and last particles are made with density of zero
 			if (i == 0 || i == numPoints)
-				p = new Point(app, box2d, (80) + i * len, 140, 4, true);
+				p = new Point(app, box2d, x + i * len, y, 4, true);
 			else
-				p = new Point(app, box2d, (80) + i * len, 140, 4, false);
+				p = new Point(app, box2d, x + i * len, y, 4, false);
 			particles.add(p);
 
 			// Connect the particles with a distance joint
@@ -74,28 +75,17 @@ public class BridgeBack {
 		if (react.getTuioClient() != null) {
 			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
 			for (int i = 0; i < tuioObjectList.size(); i++) {
-				TuioObject tobj = tuioObjectList.get(i);
-
+				TuioObject tobj = tuioObjectList.get(i);						
 				if (tobj.getSymbolID() == 0) {
-					particles.get(0).move(tobj);
-					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
+					particles.get(0).move(tobj, true);
 				}
-
 				if (tobj.getSymbolID() == 1) {
-					particles.get((t * 1 / 4)).move(tobj);
-					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
+					particles.get(particles.size() - 1).move(tobj, true);
 				}
-
 				if (tobj.getSymbolID() == 2) {
-					particles.get((t * 3 / 4)).move(tobj);
-					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
+					particles.get(0).setX(tobj.getScreenX(app.width)-+totalLength/2);
+					particles.get(particles.size() - 1).setX(tobj.getScreenX(app.width)+totalLength/2);
 				}
-
-				if (tobj.getSymbolID() == 3) {
-					particles.get(particles.size() - 1).move(tobj);
-					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
-				}
-
 			}
 		}
 	}
@@ -103,14 +93,13 @@ public class BridgeBack {
 	public void moveOptions() {
 		int t = particles.size();
 		if ((app.mousePressed && app.mouseButton == app.LEFT) && app.key == 'a') {
-			particles.get((t * 1 / 4)).move();
+			particles.get((t * 1 / 4)).move(false);
 		} else if ((app.mousePressed && app.mouseButton == app.RIGHT) && app.key == 's') {
-			particles.get((t * 3 / 4)).move();
+			particles.get((t * 3 / 4)).move(false);
 		} else if ((app.mousePressed && app.mouseButton == app.LEFT)) {
-
-			particles.get(0).move();
+			particles.get(0).move(true);
 		} else if ((app.mousePressed && app.mouseButton == app.RIGHT)) {
-			particles.get(particles.size() - 1).move();
+			particles.get(particles.size() - 1).move(true);
 		}
 		move();
 	}

@@ -13,8 +13,8 @@ import tuio.Reactivision;
 
 public class Bridge extends BridgeBack {
 
-	Bridge(PApplet app, Box2DProcessing box2d, Reactivision react, float l, int n) {
-		super(app, box2d, react, l, n);
+	public Bridge(PApplet app, Box2DProcessing box2d, Reactivision react, float l, int n, int x, int y) {
+		super(app, box2d, react, l, n,x,y);
 		// TODO Auto-generated constructor stub
 	}
 
