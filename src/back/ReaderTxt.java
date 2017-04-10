@@ -6,6 +6,7 @@ import org.jbox2d.common.Vec2;
 
 import front.Form;
 import processing.core.PApplet;
+import shiffman.box2d.Box2DProcessing;
 
 public class ReaderTxt {
 
@@ -20,19 +21,14 @@ public class ReaderTxt {
 		lvlsDat = app.loadStrings("data/levels/level" + l + ".txt");
 	}
 
-	public ArrayList<Form> getObjects() {
+	public ArrayList<Form> getObjects(Box2DProcessing box2d) {
 		ArrayList<Form> forms = new ArrayList<Form>();
 		if (lvlsDat != null) {			
 			for (int i = 1; i < lvlsDat.length; i++) {
-				forms.add(new Form(lvlsDat[i]));
+				forms.add(new Form(box2d,lvlsDat[i]));
 			}
 		}
 		return forms;
-	}
-
-	public int[] getForm() {
-		return null;
-
 	}
 
 }

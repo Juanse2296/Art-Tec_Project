@@ -97,7 +97,7 @@ public class DisplayBack {
 
 	public void startLevel(ReaderTxt rt) {
 		rt.readTxt(1);
-		forms.addAll(rt.getObjects());
+		forms.addAll(rt.getObjects(box2d));
 	}
 
 }
