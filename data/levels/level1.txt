@@ -1,2 +1,2 @@
-posicionX,posicionY,tamaño,forma,circular(no/si),radio
-200,300,20,30;20/85;20/85;75/30;75,0,15
+posicionX,posicionY,forma,circular(no/si),radio
+200,300,30;20/85;20/85;75/30;75,0,15

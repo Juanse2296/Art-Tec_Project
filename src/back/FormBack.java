@@ -13,7 +13,6 @@ import shiffman.box2d.Box2DProcessing;
 public class FormBack {
 
 	protected Vec2 pos;
-	protected int size;
 	protected Body body;
 	protected Box2DProcessing box2d;
 	private String[] points;
@@ -30,13 +29,12 @@ public class FormBack {
 
 	public int getData(String data) {
 		String[] d = data.split(",");
-		type = Integer.valueOf(d[4]);
+		type = Integer.valueOf(d[3]);
 		pos = new Vec2(Integer.valueOf(d[0]), Integer.valueOf(d[1]));
 		if (type > 0) {
-			r = Integer.valueOf(d[5]);
+			r = Integer.valueOf(d[4]);
 		} else {
-			size = Integer.valueOf(d[2]);
-			points = d[3].split("/");
+			points = d[2].split("/");
 		}
 		return type;
 	}
