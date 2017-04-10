@@ -6,7 +6,9 @@ import org.jbox2d.common.Vec2;
 
 import TUIO.TuioObject;
 import front.Bridge;
+import front.Form;
 import front.Platform;
+import principal.CONFIG;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
@@ -19,13 +21,18 @@ public class DisplayBack {
 	protected SoundController sc;
 	boolean created;
 	protected ArrayList<Platform> plats;
+	protected ArrayList<Form> forms;
+	private ReaderTxt rt;
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
 		this.app = app;
 		this.box2d = box2d;
+		rt = new ReaderTxt(app);
 		sc = new SoundController(app);
 		plats = new ArrayList<Platform>();
+		forms = new ArrayList<Form>();
+		startLevel(rt);
 	}
 
 	public void createBridge(int numPoints, int x, int y) {
@@ -57,14 +64,20 @@ public class DisplayBack {
 			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
 			for (int i = 0; i < tuioObjectList.size(); i++) {
 				TuioObject tobj = tuioObjectList.get(i);
+
+				int b = 400;
+				int c = 500;
 				if (tobj.getSymbolID() == 0) {
-					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
+					int y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
 				}
 				if (tobj.getSymbolID() == 1) {
-					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
+					int y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
 				}
 				if (tobj.getSymbolID() == 2) {
-					app.ellipse(tobj.getScreenX(app.width), tobj.getScreenY(app.height), 20, 20);
+					int y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
 				}
 
 			}
@@ -80,6 +93,11 @@ public class DisplayBack {
 						(int) app.random(20, 80), (int) app.random(20, 80), false));
 			}
 		}
+	}
+
+	public void startLevel(ReaderTxt rt) {
+		rt.readTxt(1);
+		forms.addAll(rt.getObjects());
 	}
 
 }

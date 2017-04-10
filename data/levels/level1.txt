@@ -1,0 +1,2 @@
+posicionX,posicionY,tamaño,forma
+200,300,20,30;20/85;20/85;75/30;75

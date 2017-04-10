@@ -14,7 +14,7 @@ import shiffman.box2d.Box2DProcessing;
 public class PointBack {
 
 	protected Body body;
-	protected float r,x=100;
+	protected float r, x = 100;
 	protected Box2DProcessing box2d;
 	protected PApplet app;
 
@@ -67,13 +67,12 @@ public class PointBack {
 	}
 
 	public void move(TuioObject tobj, boolean corner) {
-		if (corner) {		
-			body.setTransform(
-					new Vec2(box2d.coordPixelsToWorld(x, tobj.getScreenY(app.height))), 30);
+		if (corner) {
+			int y = (int) app.map(tobj.getScreenY(app.height), 0, 100, 0, 720);
+			body.setTransform(new Vec2(box2d.coordPixelsToWorld(x, y)), 30);
 		} else {
 			Vec2 v = body.getPosition();
-			body.setTransform(
-					new Vec2(box2d.coordPixelsToWorld(v.x, tobj.getScreenY(app.height))), 30);
+			body.setTransform(new Vec2(box2d.coordPixelsToWorld(v.x, tobj.getScreenY(app.height))), 30);
 		}
 	}
 
@@ -85,16 +84,16 @@ public class PointBack {
 		this.x = x;
 	}
 
-	public void move(boolean corner) {		
-		if (corner) {			
+	public void move(boolean corner) {
+		if (corner) {
 			body.setTransform(new Vec2(box2d.coordPixelsToWorld(app.mouseX, app.mouseY)), 30);
 		} else {
 			Vec2 v = body.getPosition();
-			Vec2 a= box2d.coordWorldToPixels(v.x,v.y);
+			Vec2 a = box2d.coordWorldToPixels(v.x, v.y);
 			body.setTransform(new Vec2(box2d.coordPixelsToWorld(a.x, app.mouseY)), 30);
 
 		}
-		
+
 	}
 
 }

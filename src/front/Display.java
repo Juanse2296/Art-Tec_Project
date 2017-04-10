@@ -16,12 +16,10 @@ import tuio.Reactivision;
 public class Display extends DisplayBack {
 
 	Emotion emo;
-	
 
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
 		super(app, react, box2d);
 		emo = new Emotion(box2d, sc.getPlayer(), 100, 100, 50, 50);
-		
 		createPlatforms(box2d, CONFIG.obstacles);
 	}
 
@@ -32,6 +30,7 @@ public class Display extends DisplayBack {
 		showPlatforms();
 		finished();
 		showPeople();
+		showForms();
 	}
 
 	public void beginCon(Contact cp) {
@@ -50,19 +49,24 @@ public class Display extends DisplayBack {
 
 	}
 
-	public void finished() {
+	private void finished() {
 		if (app.dist(emo.getX(), emo.getY(), plats.get(plats.size() - 1).getX(),
 				plats.get(plats.size() - 1).getY()) < emo.getW() + 4) {
 			System.out.println("interaccion terminada");
 		}
 	}
 
-	public void showPlatforms() {
+	private void showPlatforms() {
 		for (int i = 0; i < plats.size(); i++) {
 			plats.get(i).show(app);
 		}
 	}
 
-	
+	private void showForms(){
+		for (int i = 0; i < forms.size(); i++) {
+			forms.get(i).show(app);
+			
+		}
+	}
 
 }
