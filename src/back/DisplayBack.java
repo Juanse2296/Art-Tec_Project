@@ -19,7 +19,7 @@ public class DisplayBack {
 	protected PApplet app;
 	protected Box2DProcessing box2d;
 	protected SoundController sc;
-	boolean created;
+	private boolean created;
 	protected ArrayList<Platform> plats;
 	protected ArrayList<Form> forms;
 	private ReaderTxt rt;
@@ -99,5 +99,8 @@ public class DisplayBack {
 		rt.readTxt(1);
 		forms.addAll(rt.getObjects(box2d));
 	}
-
+	
+	public void loadShape(){
+		
+	}
 }
