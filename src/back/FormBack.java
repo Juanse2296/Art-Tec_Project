@@ -14,12 +14,11 @@ public class FormBack {
 
 	protected Vec2 pos;
 	protected int size;
-
 	protected Body body;
 	protected Box2DProcessing box2d;
-
 	private String[] points;
-	private float r = 0;
+	protected float r = 0;
+	protected int type;
 
 	public FormBack(Box2DProcessing box2d, String data) {
 		this.box2d = box2d;
@@ -31,7 +30,7 @@ public class FormBack {
 
 	public int getData(String data) {
 		String[] d = data.split(",");
-		int type = Integer.valueOf(d[4]);
+		type = Integer.valueOf(d[4]);
 		pos = new Vec2(Integer.valueOf(d[0]), Integer.valueOf(d[1]));
 		if (type > 0) {
 			r = Integer.valueOf(d[5]);
@@ -69,21 +68,17 @@ public class FormBack {
 		bd.position = box2d.coordPixelsToWorld(center.x, center.y);
 		bd.type = BodyType.DYNAMIC;
 		body = box2d.createBody(bd);
-
 		// Make the body's shape a circle
 		CircleShape cs = new CircleShape();
 		cs.m_radius = box2d.scalarPixelsToWorld(r);
-
 		FixtureDef fd = new FixtureDef();
 		fd.shape = cs;
 		// Parameters that affect physics
 		fd.density = 1;
 		fd.friction = 0.01f;
 		fd.restitution = 0.3f;
-
 		// Attach fixture to body
 		body.createFixture(fd);
-
 		// body.setAngularVelocity(random(-10, 10));
 	}
 }
