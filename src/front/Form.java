@@ -11,8 +11,8 @@ import shiffman.box2d.Box2DProcessing;
 
 public class Form extends FormBack {
 
-	public Form(PApplet app, Box2DProcessing box2d, String lvlsDat) {
-		super(app, box2d, lvlsDat);
+	public Form(PApplet app, Box2DProcessing box2d, String lvlsDat, int lvl) {
+		super(app, box2d, lvlsDat,lvl);
 	}
 
 	public void show(PApplet app) {

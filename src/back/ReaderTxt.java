@@ -23,13 +23,13 @@ public class ReaderTxt {
 		lvlsDat = app.loadStrings("data/levels/level" + l + ".txt");
 	}
 
-	public ArrayList<Form> getObjects(Box2DProcessing box2d) {
+	public ArrayList<Form> getObjects(Box2DProcessing box2d,int lvl) {
 		//getShapes();
 		
 		ArrayList<Form> forms = new ArrayList<Form>();
 		if (lvlsDat != null) {
 			for (int i = 1; i < lvlsDat.length; i++) {
-				forms.add(new Form(app,box2d, lvlsDat[i]));
+				forms.add(new Form(app,box2d, lvlsDat[i], lvl));
 			}
 		}
 		return forms;

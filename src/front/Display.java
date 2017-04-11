@@ -25,7 +25,9 @@ public class Display extends DisplayBack {
 
 	public void show() {
 		app.background(0);
+		app.shapeMode(app.CORNER);
 		app.shape(background);
+		app.shapeMode(app.CENTER);
 		emo.show(app);
 		showBridge();
 		//showPlatforms();

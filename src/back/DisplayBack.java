@@ -99,8 +99,9 @@ public class DisplayBack {
 
 	protected void startLevel(int l) {		
 		rt.readTxt(l);
-		forms.addAll(rt.getObjects(box2d));
-		background=app.loadShape("data/shapes/fondo"+l+".svg");
+		forms.addAll(rt.getObjects(box2d,l));
+		background=app.loadShape("data/shapes/"+l+"/fondo.svg");
+		System.out.println(background);
 	}
 	protected void nextLevel(int l) {
 		for (int i = 0; i < forms.size(); i++) {

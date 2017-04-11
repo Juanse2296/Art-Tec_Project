@@ -1,1 +1,12 @@
 posicionX,posicionY,circular(no/si),radio,shape,static
+1197,148,0,0,poste,1
+1113,214,0,0,salida,1
+875,355,0,0,obstaculo,1
+487,178,0,0,obstaculo,1
+323,647,0,0,obstaculo,1
+866,616,1,40,checkpoint,1
+683,99,1,40,checkpoint,1
+153,474,1,40,checkpoint,1
+91,181,0,0,poste,1
+239,181,0,0,poste,1
+164,245,0,0,llegada,1

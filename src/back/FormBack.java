@@ -23,10 +23,10 @@ public class FormBack {
 	protected PShape s;
 	PApplet app;
 
-	public FormBack(PApplet app, Box2DProcessing box2d, String data) {
+	public FormBack(PApplet app, Box2DProcessing box2d, String data,int lvl) {
 		this.box2d = box2d;
 		this.app = app;
-		if (getData(data) == 1 && r > 0)
+		if (getData(data,lvl) == 1 && r > 0)
 			makeCircleBody(pos, r);
 		else
 			makeBody(pos);
@@ -36,12 +36,12 @@ public class FormBack {
 		box2d.destroyBody(body);
 	}
 
-	private int getData(String data) {
+	private int getData(String data, int lvl) {
 		String[] d = data.split(",");
 		type = Integer.valueOf(d[2]);
 		stat = Integer.valueOf(d[5]);
 		pos = new Vec2(Integer.valueOf(d[0]), Integer.valueOf(d[1]));
-		s = app.loadShape("data/shapes/" + d[4] + ".svg");
+		s = app.loadShape("data/shapes/"+lvl+"/" + d[4] + ".svg");
 		if (type > 0) {
 			r = Integer.valueOf(d[3]);
 		}
