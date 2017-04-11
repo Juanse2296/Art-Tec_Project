@@ -32,7 +32,7 @@ public class DisplayBack {
 		sc = new SoundController(app);
 		plats = new ArrayList<Platform>();
 		forms = new ArrayList<Form>();
-		startLevel(rt);
+		startLevel(1);
 	}
 
 	public void createBridge(int numPoints, int x, int y) {
@@ -95,8 +95,8 @@ public class DisplayBack {
 		}
 	}
 
-	public void startLevel(ReaderTxt rt) {
-		rt.readTxt(1);
+	public void startLevel(int l) {
+		rt.readTxt(l);
 		forms.addAll(rt.getObjects(box2d));
 	}
 	

@@ -1,2 +1,4 @@
-posicionX,posicionY,forma,circular(no/si),radio
-200,300,30;20/85;20/85;75/30;75,0,15
+posicionX,posicionY,circular(no/si),radio,shape,static
+108,209,0,0,imgOne4,1
+1025,617,0,0,imgOne4,1
+500,215,0,0,imgOne2,1

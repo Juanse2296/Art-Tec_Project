@@ -8,6 +8,8 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 
+import processing.core.PApplet;
+import processing.core.PShape;
 import shiffman.box2d.Box2DProcessing;
 
 public class FormBack {
@@ -18,9 +20,13 @@ public class FormBack {
 	private String[] points;
 	protected float r = 0;
 	protected int type;
+	protected int stat;
+	protected PShape s;
+	PApplet app;
 
-	public FormBack(Box2DProcessing box2d, String data) {
+	public FormBack(PApplet app, Box2DProcessing box2d, String data) {
 		this.box2d = box2d;
+		this.app = app;
 		if (getData(data) == 1 && r > 0)
 			makeCircleBody(pos, r);
 		else
@@ -29,34 +35,45 @@ public class FormBack {
 
 	public int getData(String data) {
 		String[] d = data.split(",");
-		type = Integer.valueOf(d[3]);
+		type = Integer.valueOf(d[2]);
+		stat = Integer.valueOf(d[5]);
 		pos = new Vec2(Integer.valueOf(d[0]), Integer.valueOf(d[1]));
+		s = app.loadShape("data/shapes/" + d[4] + ".svg");
 		if (type > 0) {
-			r = Integer.valueOf(d[4]);
-		} else {
-			points = d[2].split("/");
-		}
+			r = Integer.valueOf(d[3]);
+		} 
 		return type;
 	}
 
 	private void makeBody(Vec2 center) {
 		// Define a polygon (this is what we use for a rectangle)
 		PolygonShape sd = new PolygonShape();
-		Vec2[] vertices = new Vec2[points.length];
-		for (int i = 0; i < points.length; i++) {
-			String[] a = points[i].split(";");
-			vertices[i] = box2d.vectorPixelsToWorld(new Vec2(Integer.valueOf(a[0]), Integer.valueOf(a[1])));
-		}
-		sd.set(vertices, vertices.length);
+		
+		 float box2dW = box2d.scalarPixelsToWorld(s.getWidth()/2);
+		    float box2dH = box2d.scalarPixelsToWorld(s.getHeight()/2);
+		    sd.setAsBox(box2dW, box2dH);
+		    
+		    FixtureDef fd = new FixtureDef();
+		    fd.shape = sd;
+		    // Parameters that affect physics
+		    fd.density = 1;
+		    fd.friction = 0.3f;
+		    fd.restitution = 0.5f;
 		// Define the body and make it from the shape
 		BodyDef bd = new BodyDef();
-		bd.type = BodyType.DYNAMIC;
+		
+		if (stat > 0)
+			bd.type = BodyType.STATIC;
+		else
+			bd.type = BodyType.DYNAMIC;
+		
 		bd.position.set(box2d.coordPixelsToWorld(center));
 		body = box2d.createBody(bd);
-		body.createFixture(sd, 1.0f);
+		body.createFixture(fd);
 		// Give it some initial random velocity
 		// body.setLinearVelocity(new Vec2(random(-5, 5), random(2, 5)));
 		// body.setAngularVelocity(random(-5, 5));
+		
 	}
 
 	private void makeCircleBody(Vec2 center, float r) {
@@ -64,7 +81,12 @@ public class FormBack {
 		BodyDef bd = new BodyDef();
 		// Set its position
 		bd.position = box2d.coordPixelsToWorld(center.x, center.y);
-		bd.type = BodyType.DYNAMIC;
+
+		if (stat > 0)
+			bd.type = BodyType.STATIC;
+		else
+			bd.type = BodyType.DYNAMIC;
+		
 		body = box2d.createBody(bd);
 		// Make the body's shape a circle
 		CircleShape cs = new CircleShape();
