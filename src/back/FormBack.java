@@ -21,7 +21,9 @@ public class FormBack {
 	protected int type;
 	protected int stat;
 	protected PShape s;
-	PApplet app;
+	private PApplet app;
+	protected String name;
+	
 
 	public FormBack(PApplet app, Box2DProcessing box2d, String data,int lvl) {
 		this.box2d = box2d;
@@ -38,6 +40,7 @@ public class FormBack {
 
 	private int getData(String data, int lvl) {
 		String[] d = data.split(",");
+		name=d[4];
 		type = Integer.valueOf(d[2]);
 		stat = Integer.valueOf(d[5]);
 		pos = new Vec2(Integer.valueOf(d[0]), Integer.valueOf(d[1]));
@@ -91,5 +94,21 @@ public class FormBack {
 		fd.friction = 0.01f;
 		fd.restitution = 0.3f;
 		body.createFixture(fd);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Vec2 getPos() {
+		return pos;
+	}
+
+	public void setPos(Vec2 pos) {
+		this.pos = pos;
 	}
 }

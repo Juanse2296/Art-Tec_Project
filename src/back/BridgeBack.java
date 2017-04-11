@@ -79,10 +79,10 @@ public class BridgeBack {
 				if (tobj.getSymbolID() == 0) {
 					particles.get(0).move(tobj, true);
 				}
-				if (tobj.getSymbolID() == 1) {
+				if (tobj.getSymbolID() == 2) {
 					particles.get(particles.size() - 1).move(tobj, true);
 				}
-				if (tobj.getSymbolID() == 2) {
+				if (tobj.getSymbolID() == 1) {
 					particles.get(0).setX(tobj.getScreenX(app.width)-+totalLength/2);
 					particles.get(particles.size() - 1).setX(tobj.getScreenX(app.width)+totalLength/2);
 				}

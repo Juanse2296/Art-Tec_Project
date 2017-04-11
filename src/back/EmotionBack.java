@@ -12,32 +12,33 @@ import ddf.minim.AudioSample;
 import shiffman.box2d.Box2DProcessing;
 
 public class EmotionBack {
-	protected float x, y, w, h;
+	protected float w, h;
 	protected Box2DProcessing box2d;
 	protected Body body;
 	protected AudioSample sound;
-	public EmotionBack(Box2DProcessing box2d, AudioSample sound,float x, float y, float w, float h) {
-		this.x = x;
-		this.y = y;
+	protected Vec2 pos;
+
+	public EmotionBack(Box2DProcessing box2d, AudioSample sound, Vec2 pos, float w, float h) {
+		this.pos = pos;
 		this.w = w;
 		this.h = h;
 		this.box2d = box2d;
-		this.sound=sound;
+		this.sound = sound;
 		createBody();
 	}
 
-	public void createBody() {
+	private void createBody() {
 		// ---- posicionamiento de objeto en coordenadas de box
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.DYNAMIC;
-		bd.position.set(box2d.coordPixelsToWorld(x, y));
+		bd.position.set(box2d.coordPixelsToWorld(pos.x, pos.y));
 
 		// Creacion del body
-		 body = box2d.createBody(bd);
+		body = box2d.createBody(bd);
 
 		// --Creacion del shape
 		CircleShape cir = new CircleShape();
-		cir.m_radius= box2d.scalarPixelsToWorld(w/2);			
+		cir.m_radius = box2d.scalarPixelsToWorld(w / 2);
 
 		// ----- Creacion de FIxture
 		FixtureDef fd = new FixtureDef();
@@ -51,17 +52,13 @@ public class EmotionBack {
 		// --Unir forma al cuerpo con sus caracteristicas
 		body.createFixture(fd);
 	}
-	
-	public void soundPlayer(){
+
+	public void restartPosition(Vec2 start) {
+		body.setTransform(new Vec2(box2d.coordPixelsToWorld(start.x, start.y-100)), 30);
+	}
+
+	public void soundPlayer() {
 		sound.trigger();
-	}
-
-	public float getX() {
-		return x;
-	}
-
-	public float getY() {
-		return y;
 	}
 
 	public float getW() {
@@ -72,14 +69,6 @@ public class EmotionBack {
 		return h;
 	}
 
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	public void setY(float y) {
-		this.y = y;
-	}
-
 	public void setW(float w) {
 		this.w = w;
 	}
@@ -88,5 +77,12 @@ public class EmotionBack {
 		this.h = h;
 	}
 
+	public Vec2 getPos() {
+		return pos;
+	}
+
+	public void setPos(Vec2 pos) {
+		this.pos = pos;
+	}
 
 }

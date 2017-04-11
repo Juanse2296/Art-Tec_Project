@@ -6,6 +6,7 @@ import org.jbox2d.common.Vec2;
 
 import TUIO.TuioObject;
 import front.Bridge;
+import front.Emotion;
 import front.Form;
 import front.Platform;
 import principal.CONFIG;
@@ -25,7 +26,7 @@ public class DisplayBack {
 	protected ArrayList<Form> forms;
 	private ReaderTxt rt;
 	protected PShape background;
-
+	protected Emotion emo;
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
 		this.app = app;
@@ -35,6 +36,7 @@ public class DisplayBack {
 		plats = new ArrayList<Platform>();
 		forms = new ArrayList<Form>();
 		startLevel(1);
+		emo = new Emotion(box2d, sc.getPlayer(),new Vec2( 10, 100), 50, 50);
 	}
 
 	protected void createBridge(int numPoints, int x, int y) {
@@ -44,7 +46,7 @@ public class DisplayBack {
 
 	protected void showBridge() {
 		if (react.getTuioClient() != null) {
-			if (react.getTuioClient().getTuioObjectList().size() > 1) {
+			if (react.getTuioClient().getTuioObjectList().size() > 2) {
 				for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
 					TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
 					int a = 100;
@@ -109,6 +111,9 @@ public class DisplayBack {
 		}
 		forms.clear();
 		startLevel(l);
+	}
+	public void restarEmotion(){
+		emo.restartPosition(rt.getStart());
 	}
 
 }

@@ -9,12 +9,12 @@ import shiffman.box2d.Box2DProcessing;
 
 public class Emotion extends EmotionBack {
 
-	public Emotion(Box2DProcessing box2d, AudioSample sound, float x, float y, float w, float h) {
-		super(box2d, sound, x, y, w, h);
+	public Emotion(Box2DProcessing box2d, AudioSample sound, Vec2 pos, float w, float h) {
+		super(box2d, sound, pos, w, h);
 	}
 
 	public void show(PApplet app) {
-		Vec2 pos = box2d.getBodyPixelCoord(body);
+		pos = box2d.getBodyPixelCoord(body);
 		float a = body.getAngle();
 		app.pushMatrix();
 		app.translate(pos.x, pos.y);
@@ -22,5 +22,4 @@ public class Emotion extends EmotionBack {
 		app.ellipse(0, 0, w, h);
 		app.popMatrix();		
 	}
-
 }

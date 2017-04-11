@@ -15,16 +15,20 @@ import tuio.Reactivision;
 
 public class Display extends DisplayBack {
 
-	Emotion emo;
-	int a = 1;
+
+	
 
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
 		super(app, react, box2d);
-		emo = new Emotion(box2d, sc.getPlayer(), 100, 100, 50, 50);
+		
 		// createPlatforms(box2d, CONFIG.obstacles);
 	}
 
 	public void show() {
+		showGame();
+	}
+	
+	public void showGame(){
 		app.background(0);
 		app.shapeMode(app.CORNER);
 		app.shape(background);
@@ -34,6 +38,9 @@ public class Display extends DisplayBack {
 		// showPlatforms();
 		showPeople();
 		showForms();
+		if(emo.getPos().y>app.height){
+			restarEmotion();			
+		}
 	}
 
 	public void beginCon(Contact cp) {
@@ -49,10 +56,10 @@ public class Display extends DisplayBack {
 	}
 
 	private void finished() {
-		if (app.dist(emo.getX(), emo.getY(), plats.get(plats.size() - 1).getX(),
-				plats.get(plats.size() - 1).getY()) < emo.getW() + 4) {
-			System.out.println("interaccion terminada");
-		}
+//		if (app.dist(emo.getX(), emo.getY(), plats.get(plats.size() - 1).getX(),
+//				plats.get(plats.size() - 1).getY()) < emo.getW() + 4) {
+//			System.out.println("interaccion terminada");
+//		}
 	}
 
 	private void showPlatforms() {
@@ -68,9 +75,11 @@ public class Display extends DisplayBack {
 	}
 
 	public void clic() {		
-		if (a < 3) {
-			a++;
-			nextLevel(a);
+		if (CONFIG.level < 3) {
+			CONFIG.level++;
+			nextLevel(CONFIG.level);
 		}
 	}
+	
+	
 }
