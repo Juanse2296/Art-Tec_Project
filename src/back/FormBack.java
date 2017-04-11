@@ -23,15 +23,21 @@ public class FormBack {
 	protected PShape s;
 	private PApplet app;
 	protected String name;
-	
 
-	public FormBack(PApplet app, Box2DProcessing box2d, String data,int lvl) {
+	public FormBack(PApplet app, Box2DProcessing box2d, String data, int lvl) {
 		this.box2d = box2d;
 		this.app = app;
-		if (getData(data,lvl) == 1 && r > 0)
-			makeCircleBody(pos, r);
-		else
-			makeBody(pos);
+
+		if (getData(data, lvl) == 1 && r > 0) {
+			if (!name.equals("checkpoint")) {
+				makeCircleBody(pos, r);
+			}
+		} else {
+			if (!name.equals("checkpoint")) {
+				makeBody(pos);
+			}
+
+		}
 	}
 
 	public void killBody() {
@@ -40,11 +46,11 @@ public class FormBack {
 
 	private int getData(String data, int lvl) {
 		String[] d = data.split(",");
-		name=d[4];
+		name = d[4];
 		type = Integer.valueOf(d[2]);
 		stat = Integer.valueOf(d[5]);
 		pos = new Vec2(Integer.valueOf(d[0]), Integer.valueOf(d[1]));
-		s = app.loadShape("data/shapes/"+lvl+"/" + d[4] + ".svg");
+		s = app.loadShape("data/shapes/" + lvl + "/" + d[4] + ".svg");
 		if (type > 0) {
 			r = Integer.valueOf(d[3]);
 		}

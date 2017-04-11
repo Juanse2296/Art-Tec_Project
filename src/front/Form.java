@@ -12,14 +12,20 @@ import shiffman.box2d.Box2DProcessing;
 public class Form extends FormBack {
 
 	public Form(PApplet app, Box2DProcessing box2d, String lvlsDat, int lvl) {
-		super(app, box2d, lvlsDat,lvl);
+		super(app, box2d, lvlsDat, lvl);
 	}
 
 	public void show(PApplet app) {
-		if (type > 0) {
-			showCircle(app);
+		if (!name.equals("checkpoint")) {
+			if (type > 0) {
+				showCircle(app);
+			} else {
+				showPolygon(app);
+			}
 		} else {
-			showPolygon(app);
+			app.fill(255);
+			app.shapeMode(app.CENTER);
+			app.shape(s, pos.x, pos.y);
 		}
 	}
 
@@ -41,6 +47,7 @@ public class Form extends FormBack {
 	}
 
 	public void showPolygon(PApplet app) {
+
 		Vec2 pos = box2d.getBodyPixelCoord(body);
 		float a = body.getAngle();
 		Fixture f = body.getFixtureList();
@@ -55,6 +62,7 @@ public class Form extends FormBack {
 		app.shape(s);
 		app.endShape();
 		app.popMatrix();
+
 	}
 
 }

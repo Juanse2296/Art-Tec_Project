@@ -24,12 +24,8 @@ public class Bridge extends BridgeBack {
 			app.fill(255);
 			p.display();
 		}
-		if (CONFIG.makey) {
-			if (app.keyCode == app.UP) {
-				moveOptions();
-			}
-		} else {
+	
 			moveOptions();
-		}
+		
 	}
 }
