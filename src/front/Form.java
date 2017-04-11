@@ -32,9 +32,9 @@ public class Form extends FormBack {
 		app.translate(pos.x, pos.y);
 		app.rotate(a);
 		app.fill(255);
-		app.ellipse(0, 0, r * 2, r * 2);
+		// app.ellipse(0, 0, r * 2, r * 2);
 		// Let's add a line so we can see the rotation
-		app.line(0, 0, r, 0);
+		// app.line(0, 0, r, 0);
 		app.shapeMode(app.CENTER);
 		app.shape(s);
 		app.popMatrix();
@@ -51,10 +51,6 @@ public class Form extends FormBack {
 		app.translate(pos.x, pos.y);
 		app.rotate(-a);
 		app.beginShape();
-		for (int i = 0; i < ps.getVertexCount(); i += 1) {
-			Vec2 v = box2d.vectorWorldToPixels(ps.getVertex(i));
-			app.vertex(v.x, v.y);
-		}
 		app.shapeMode(app.CENTER);
 		app.shape(s);
 		app.endShape();

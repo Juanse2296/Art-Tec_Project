@@ -21,7 +21,6 @@ public class ReaderTxt {
 
 	public void readTxt(int l) {
 		lvlsDat = app.loadStrings("data/levels/level" + l + ".txt");
-
 	}
 
 	public ArrayList<Form> getObjects(Box2DProcessing box2d) {

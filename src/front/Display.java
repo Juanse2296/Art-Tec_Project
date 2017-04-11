@@ -20,15 +20,15 @@ public class Display extends DisplayBack {
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
 		super(app, react, box2d);
 		emo = new Emotion(box2d, sc.getPlayer(), 100, 100, 50, 50);
-		createPlatforms(box2d, CONFIG.obstacles);
+		//createPlatforms(box2d, CONFIG.obstacles);
 	}
 
 	public void show() {
 		app.background(0);
+		app.shape(background);
 		emo.show(app);
 		showBridge();
-		showPlatforms();
-		finished();
+		//showPlatforms();
 		showPeople();
 		showForms();
 	}
@@ -39,14 +39,10 @@ public class Display extends DisplayBack {
 		// Get both bodies
 		Body b1 = f1.getBody();
 		Body b2 = f2.getBody();
-
 		// Get our objects that reference these bodies
 		Object o1 = b1.getUserData();
 		Object o2 = b2.getUserData();
-
 		emo.soundPlayer();
-		finished();
-
 	}
 
 	private void finished() {
@@ -62,11 +58,13 @@ public class Display extends DisplayBack {
 		}
 	}
 
-	private void showForms(){
+	private void showForms() {
 		for (int i = 0; i < forms.size(); i++) {
 			forms.get(i).show(app);
-			
 		}
 	}
 
+	public void clic() {
+		nextLevel(2);		
+	}
 }

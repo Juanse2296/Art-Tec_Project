@@ -43,8 +43,8 @@ public class Main extends PApplet {
 		box2d.step();
 	}
 
-	public void mouseDragged() {
-
+	public void mousePressed() {
+		dp.clic();
 	}
 
 	public void beginContact(Contact cp) {

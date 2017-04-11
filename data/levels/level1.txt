@@ -1,4 +1,12 @@
 posicionX,posicionY,circular(no/si),radio,shape,static
-108,209,0,0,imgOne4,1
-1025,617,0,0,imgOne4,1
-500,215,0,0,imgOne2,1
+69,144,0,0,poste,1
+158,210,0,0,salida,1
+182,527,1,40,checkpoint,1
+550,145,1,40,checkpoint,1
+860,402,1,40,checkpoint,1
+509,547,0,0,obstaculo_uno,1
+733,139,0,0,obstaculo_dos,1
+1143,368,0,0,obstaculo_tres,1
+1051,557,0,0,poste,1
+1200,557,0,0,poste,1
+1125,619,0,0,llegada,1

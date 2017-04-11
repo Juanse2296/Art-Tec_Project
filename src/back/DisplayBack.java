@@ -10,6 +10,7 @@ import front.Form;
 import front.Platform;
 import principal.CONFIG;
 import processing.core.PApplet;
+import processing.core.PShape;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 
@@ -23,6 +24,7 @@ public class DisplayBack {
 	protected ArrayList<Platform> plats;
 	protected ArrayList<Form> forms;
 	private ReaderTxt rt;
+	protected PShape background;
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
@@ -35,7 +37,7 @@ public class DisplayBack {
 		startLevel(1);
 	}
 
-	public void createBridge(int numPoints, int x, int y) {
+	protected void createBridge(int numPoints, int x, int y) {
 		int lenght = numPoints * 10;
 		bridge = new Bridge(app, box2d, react, lenght, numPoints, x, y);
 	}
@@ -59,7 +61,7 @@ public class DisplayBack {
 		}
 	}
 
-	public void showPeople() {
+	protected void showPeople() {
 		if (react.getTuioClient() != null) {
 			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
 			for (int i = 0; i < tuioObjectList.size(); i++) {
@@ -84,7 +86,7 @@ public class DisplayBack {
 		}
 	}
 
-	public void createPlatforms(Box2DProcessing box2d, int num) {
+	protected void createPlatforms(Box2DProcessing box2d, int num) {
 		for (int i = 0; i < num; i++) {
 			if (i == num - 1) {
 				plats.add(new Platform(box2d, i, 1100, 600, 160, 20, true));
@@ -95,12 +97,17 @@ public class DisplayBack {
 		}
 	}
 
-	public void startLevel(int l) {
+	protected void startLevel(int l) {		
 		rt.readTxt(l);
 		forms.addAll(rt.getObjects(box2d));
+		background=app.loadShape("data/shapes/fondo"+l+".svg");
 	}
-	
-	public void loadShape(){
-		
+	protected void nextLevel(int l) {
+		for (int i = 0; i < forms.size(); i++) {
+			forms.get(i).killBody();
+		}
+		forms.clear();
+		startLevel(l);
 	}
+
 }

@@ -1,0 +1,1 @@
+posicionX,posicionY,circular(no/si),radio,shape,static
