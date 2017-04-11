@@ -16,11 +16,12 @@ import tuio.Reactivision;
 public class Display extends DisplayBack {
 
 	Emotion emo;
+	int a = 1;
 
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
 		super(app, react, box2d);
 		emo = new Emotion(box2d, sc.getPlayer(), 100, 100, 50, 50);
-		//createPlatforms(box2d, CONFIG.obstacles);
+		// createPlatforms(box2d, CONFIG.obstacles);
 	}
 
 	public void show() {
@@ -30,7 +31,7 @@ public class Display extends DisplayBack {
 		app.shapeMode(app.CENTER);
 		emo.show(app);
 		showBridge();
-		//showPlatforms();
+		// showPlatforms();
 		showPeople();
 		showForms();
 	}
@@ -66,7 +67,10 @@ public class Display extends DisplayBack {
 		}
 	}
 
-	public void clic() {
-		nextLevel(2);		
+	public void clic() {		
+		if (a < 3) {
+			a++;
+			nextLevel(a);
+		}
 	}
 }
