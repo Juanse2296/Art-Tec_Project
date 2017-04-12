@@ -27,16 +27,24 @@ public class DisplayBack {
 	private ReaderTxt rt;
 	protected PShape background;
 	protected Emotion emo;
+	protected Video v;
+	protected boolean game;
+	
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
 		this.app = app;
 		this.box2d = box2d;
+		v= new Video(app, "tutorial");
+	}
+	
+	public boolean iniGame(){	
 		rt = new ReaderTxt(app);
 		sc = new SoundController(app);
 		plats = new ArrayList<Platform>();
 		forms = new ArrayList<Form>();
 		startLevel(1);
 		emo = new Emotion(box2d, sc.getPlayer(),new Vec2( 10, 100), 50, 50);
+		return game=true;
 	}
 
 	protected void createBridge(int numPoints, int x, int y) {

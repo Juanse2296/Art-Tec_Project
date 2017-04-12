@@ -7,9 +7,11 @@
 	<classpathentry kind="lib" path="libs/box2d_processing.jar"/>
 	<classpathentry kind="lib" path="libs/video/gstreamer-java.jar"/>
 	<classpathentry kind="lib" path="libs/video/jna.jar"/>
-	<classpathentry kind="lib" path="libs/video/video.jar"/>
-	<classpathentry kind="lib" path="libs/opencv/opencv_processing.jar"/>
-	<classpathentry kind="lib" path="libs/opencv/opencv-245.jar"/>
+	<classpathentry kind="lib" path="libs/video/video.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="FinalProject_Art&amp;Tec/libs/video/windows64"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="libs/libTUIO.jar"/>
 	<classpathentry kind="lib" path="libs/TUIO.jar"/>
 	<classpathentry kind="lib" path="libs/minim/jl1.0.jar"/>
