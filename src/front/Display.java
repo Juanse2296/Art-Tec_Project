@@ -1,13 +1,9 @@
 package front;
 
-import java.util.ArrayList;
-
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.contacts.Contact;
-
 import back.DisplayBack;
-import back.SoundController;
 import principal.CONFIG;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
@@ -23,7 +19,7 @@ public class Display extends DisplayBack {
 		if (game) {
 			showGame();
 		} else if (v != null) {
-			v.show(app);
+		v.show(app);
 		}
 	}
 
@@ -40,6 +36,7 @@ public class Display extends DisplayBack {
 		if (emo.getPos().y > app.height) {
 			restarEmotion();
 		}
+		wm.show(app);
 	}
 
 	public void beginCon(Contact cp) {
@@ -77,11 +74,20 @@ public class Display extends DisplayBack {
 	public void clic() {
 		if (CONFIG.level < 3 && game) {
 			CONFIG.level++;
-			nextLevel(CONFIG.level);
+			nextLevel(CONFIG.level);			
 		} else {
-			v.stop();
-			v = null;
-			iniGame();
+			if(v!=null){
+				v.stop();
+				v = null;
+				iniGame();
+			}
+			
+		}
+	}
+	
+	public void key(){
+		if(app.keyPressed){
+			wm.blockOut();
 		}
 	}
 

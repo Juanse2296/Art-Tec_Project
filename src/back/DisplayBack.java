@@ -9,6 +9,7 @@ import front.Bridge;
 import front.Emotion;
 import front.Form;
 import front.Platform;
+import front.Windmill;
 import principal.CONFIG;
 import processing.core.PApplet;
 import processing.core.PShape;
@@ -29,12 +30,13 @@ public class DisplayBack {
 	protected Emotion emo;
 	protected Video v;
 	protected boolean game;
+	protected Windmill wm;
 	
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
 		this.app = app;
 		this.box2d = box2d;
-		v= new Video(app, "tutorial");
+		v= new Video(app, "tutorial");		
 	}
 	
 	public boolean iniGame(){	
@@ -43,7 +45,8 @@ public class DisplayBack {
 		plats = new ArrayList<Platform>();
 		forms = new ArrayList<Form>();
 		startLevel(1);
-		emo = new Emotion(box2d, sc.getPlayer(),new Vec2( 10, 100), 50, 50);
+		emo = new Emotion(box2d, sc.getPlayer(),new Vec2(200, 150), 50, 50);
+		wm= new Windmill(app, box2d, 150, 100);
 		return game=true;
 	}
 
@@ -75,10 +78,7 @@ public class DisplayBack {
 		if (react.getTuioClient() != null) {
 			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
 			for (int i = 0; i < tuioObjectList.size(); i++) {
-				TuioObject tobj = tuioObjectList.get(i);
-
-				int b = 400;
-				int c = 500;
+				TuioObject tobj = tuioObjectList.get(i);			
 				if (tobj.getSymbolID() == 0) {
 					int y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 					app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
@@ -91,7 +91,6 @@ public class DisplayBack {
 					int y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 					app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
 				}
-
 			}
 		}
 	}

@@ -15,7 +15,7 @@ import shiffman.box2d.Box2DProcessing;
 public class FormBack {
 
 	protected Vec2 pos;
-	protected Body body;
+	public Body body;
 	protected Box2DProcessing box2d;
 	protected float r = 0;
 	protected int type;
@@ -23,6 +23,7 @@ public class FormBack {
 	protected PShape s;
 	private PApplet app;
 	protected String name;
+	protected int w, h;
 
 	public FormBack(PApplet app, Box2DProcessing box2d, String data, int lvl) {
 		this.box2d = box2d;
@@ -40,8 +41,50 @@ public class FormBack {
 		}
 	}
 
+	// ----------------------------------
+	public FormBack(PApplet app, Box2DProcessing box2d,int x, int y, int w_, int h_, boolean lock) {
+		this.box2d = box2d;
+		this.w = w_;
+		this.h = h_;
+		// Define and create the body
+		BodyDef bd = new BodyDef();
+		bd.position.set(box2d.coordPixelsToWorld(new Vec2(x, y)));
+		if (lock)
+			bd.type = BodyType.STATIC;
+		else
+			bd.type = BodyType.DYNAMIC;
+		body = box2d.createBody(bd);
+		// Define the shape -- a (this is what we use for a rectangle)
+		PolygonShape sd = new PolygonShape();
+		float box2dW = box2d.scalarPixelsToWorld(w_ / 2);
+		float box2dH = box2d.scalarPixelsToWorld(h_ / 2);
+		sd.setAsBox(box2dW, box2dH);
+		// Define a fixture
+		FixtureDef fd = new FixtureDef();
+		fd.shape = sd;
+		// Parameters that affect physics
+		fd.density = 1;
+		fd.friction = 0.3f;
+		fd.restitution = 0.5f;
+		body.createFixture(fd);
+		// Give it some initial random velocity
+		Vec2 a = new Vec2(app.random(-5, 5), app.random(2, 5));
+		float b = app.random(-5, 5);
+	
+		body.setLinearVelocity(a);
+		body.setAngularVelocity(b);
+		System.out.println(a);
+		System.out.println(b);
+	}
+
+	
+
+	// ----------------------------------------------
+
 	public void killBody() {
-		box2d.destroyBody(body);
+		if(body!=null){
+			box2d.destroyBody(body);
+		}		
 	}
 
 	private int getData(String data, int lvl) {
@@ -116,5 +159,13 @@ public class FormBack {
 
 	public void setPos(Vec2 pos) {
 		this.pos = pos;
+	}
+
+	public Body getBody() {
+		return body;
+	}
+
+	public void setBody(Body body) {
+		this.body = body;
 	}
 }

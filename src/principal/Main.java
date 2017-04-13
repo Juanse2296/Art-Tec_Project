@@ -42,6 +42,10 @@ public class Main extends PApplet {
 		dp.show();
 		box2d.step();
 	}
+	
+	public void keyPressed(){
+		dp.key();
+	}
 
 	public void mousePressed() {
 		dp.clic();
