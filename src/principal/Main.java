@@ -4,6 +4,7 @@ import org.jbox2d.dynamics.contacts.Contact;
 
 import front.Display;
 import processing.core.PApplet;
+import processing.core.PFont;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 
@@ -11,6 +12,7 @@ public class Main extends PApplet {
 
 	Display dp;
 	Box2DProcessing box2d;
+	PFont fon;
 
 	public static void main(String[] args) {
 		String[] appletArgs = new String[] { "principal.Main" };
@@ -27,6 +29,7 @@ public class Main extends PApplet {
 
 	public void setup() {
 		String[] args = { "VentanaReactivision" };
+		fon = createFont("data/HelveticaLTStd-Roman.otf", 14);
 		Reactivision react = new Reactivision();
 		PApplet.runSketch(args, react);
 		/// ---
@@ -39,11 +42,12 @@ public class Main extends PApplet {
 	}
 
 	public void draw() {
+		textFont(fon);
 		dp.show();
 		box2d.step();
 	}
-	
-	public void keyPressed(){
+
+	public void keyPressed() {
 		dp.key();
 	}
 

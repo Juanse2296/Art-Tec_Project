@@ -19,7 +19,7 @@ public class Spinner extends Observable {
 		tm.Count(6.6f);
 	}
 
-	public void show(PApplet app) {
+	public void show(PApplet app, boolean winner) {
 		app.background(0);
 		app.smooth();
 		app.noStroke();
@@ -73,10 +73,20 @@ public class Spinner extends Observable {
 		}
 
 		finish();
-	}
-
-	public void finish() {	
+		app.textSize(50);
+		app.fill(200);
 		
+		if(winner){
+			app.text("¡Juego terminado :( !"+"\n"+ "Espera para volver a intentarlo", 0, -250);
+		}else{
+			app.text("¡Felicitaciones :D !"+"\n"+ "Espera para volver a intentarlo", 0, -250);
+		}
+		
+	}
+	
+	
+
+	public void finish() {		
 		if(tmB.getSeconds()>=10){
 			setChanged();
 			notifyObservers();

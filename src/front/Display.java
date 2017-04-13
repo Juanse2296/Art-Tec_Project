@@ -26,7 +26,7 @@ public class Display extends DisplayBack {
 				v.show(app);
 			}
 		} else {
-			spin.show(app);
+			spin.show(app,winner);
 		}
 	}
 

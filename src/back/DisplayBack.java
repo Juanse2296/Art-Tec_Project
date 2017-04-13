@@ -38,6 +38,7 @@ public class DisplayBack implements Observer {
 	protected int lvSelected, attempts = 4;
 	protected Spinner spin;
 	protected boolean playingGame;
+	protected boolean winner;
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
@@ -137,6 +138,7 @@ public class DisplayBack implements Observer {
 			attempts--;
 			if (attempts < 1) {
 				gameOver();
+				winner = false;
 			}
 		}
 	}
