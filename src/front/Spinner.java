@@ -75,7 +75,8 @@ public class Spinner extends Observable {
 		finish();
 	}
 
-	public void finish() {		
+	public void finish() {	
+		
 		if(tmB.getSeconds()>=10){
 			setChanged();
 			notifyObservers();

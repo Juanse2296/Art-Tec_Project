@@ -22,7 +22,6 @@ public class Video {
 	}
 
 	public void stop() {
-		movie.stop();
-		movie = null;
+		movie.stop();		
 	}
 }

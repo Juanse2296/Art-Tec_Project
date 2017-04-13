@@ -37,14 +37,14 @@ public class DisplayBack implements Observer {
 	protected Windmill wm;
 	protected int lvSelected, attempts = 4;
 	protected Spinner spin;
+	protected boolean playingGame;
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
 		this.app = app;
 		this.box2d = box2d;
-		v = new Video(app, "tutorial");	
-		spin= new Spinner();	
-		spin.addObserver(this);
+		v = new Video(app, "tutorial");
+		v.loop();
 	}
 
 	public boolean iniGame() {
@@ -149,7 +149,8 @@ public class DisplayBack implements Observer {
 	public void gameOver() {
 		System.out.println("juego termnado");
 		destroyGame();
-		spin= new Spinner();
+		spin = new Spinner();
+		spin.addObserver(this);
 	}
 
 	public void destroyGame() {
@@ -160,7 +161,7 @@ public class DisplayBack implements Observer {
 		forms.clear();
 		emo = null;
 		wm = null;
-	}	
+	}
 
 	public boolean validador(float xUno, float xDos, float xTres) {
 		if (xUno < xDos && xUno < xTres && xDos > xUno && xDos < xTres && xTres > xUno && xTres > xDos) {
@@ -170,8 +171,9 @@ public class DisplayBack implements Observer {
 	}
 
 	@Override
-	public void update(Observable obs, Object obj) {				
-		spin=null;	
+	public void update(Observable obs, Object obj) {
+		playingGame = false;
+		spin = null;
 		v.loop();
 	}
 

@@ -56,15 +56,17 @@ public class Display extends DisplayBack {
 	}
 
 	public void beginCon(Contact cp) {
-		Fixture f1 = cp.getFixtureA();
-		Fixture f2 = cp.getFixtureB();
-		// Get both bodies
-		Body b1 = f1.getBody();
-		Body b2 = f2.getBody();
-		// Get our objects that reference these bodies
-		Object o1 = b1.getUserData();
-		Object o2 = b2.getUserData();
-		emo.soundPlayer();
+		if (emo != null) {
+			Fixture f1 = cp.getFixtureA();
+			Fixture f2 = cp.getFixtureB();
+			// Get both bodies
+			Body b1 = f1.getBody();
+			Body b2 = f2.getBody();
+			// Get our objects that reference these bodies
+			Object o1 = b1.getUserData();
+			Object o2 = b2.getUserData();
+			emo.soundPlayer();
+		}
 	}
 
 	private void finished() {
@@ -88,21 +90,26 @@ public class Display extends DisplayBack {
 	}
 
 	public void clic() {
+		if (!playingGame)
+			playingGame = playing();
+	}
+
+	public boolean playing() {
 		if (lvSelected < 4 && game) {
 			lvSelected = lvSelected + 3;
-			System.out.println("siguiente nivel: " + lvSelected);
 			nextLevel(lvSelected);
+			return true;
 		} else {
 			if (v != null) {
 				v.stop();
-				v = null;
 				iniGame();
 			}
 		}
+		return false;
 	}
 
 	public void key() {
-		if (app.keyPressed) {
+		if (app.keyPressed && game) {
 			wm.blockOut();
 		}
 	}

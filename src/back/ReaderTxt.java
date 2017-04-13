@@ -37,12 +37,10 @@ public class ReaderTxt {
 		for (int i = 0; i < forms.size(); i++) {
 			Form f = forms.get(i);
 			if (f.getName().equals("salida")) {
-				start = f.getPos();
-				System.out.println("atrapo el start");
+				start = f.getPos();	
 			}
 			if (f.getName().equals("llegada")) {
-				end = f.getPos();
-				System.out.println("atrapo el end");
+				end = f.getPos();		
 			}
 		}
 
