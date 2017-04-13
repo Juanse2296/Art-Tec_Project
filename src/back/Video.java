@@ -9,9 +9,12 @@ public class Video {
 
 	public Video(PApplet app, String v) {
 		movie = new Movie(app, "data/" + v + ".mp4");
-		movie.loop();
+		
 	}
 
+	public void loop(){
+		movie.loop();
+	}
 	public void show(PApplet app) {
 		if (movie.available())
 			movie.read();

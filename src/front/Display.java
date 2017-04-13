@@ -19,10 +19,14 @@ public class Display extends DisplayBack {
 	}
 
 	public void show() {
-		if (game) {
-			showGame();
-		} else if (v != null) {
-			v.show(app);
+		if (spin == null) {
+			if (game) {
+				showGame();
+			} else if (v != null) {
+				v.show(app);
+			}
+		} else {
+			spin.show(app);
 		}
 	}
 
@@ -36,8 +40,10 @@ public class Display extends DisplayBack {
 		// showPlatforms();
 		showPeople();
 		showForms();
-		tryAgain();
 		wm.show(app);
+
+		/// ------debe estar al final
+		tryAgain();
 	}
 
 	public void tryAgain() {
@@ -82,9 +88,9 @@ public class Display extends DisplayBack {
 	}
 
 	public void clic() {
-		if (lvSelected<4&&game) {
+		if (lvSelected < 4 && game) {
 			lvSelected = lvSelected + 3;
-			System.out.println("siguiente nivel: "+lvSelected);
+			System.out.println("siguiente nivel: " + lvSelected);
 			nextLevel(lvSelected);
 		} else {
 			if (v != null) {

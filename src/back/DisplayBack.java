@@ -1,6 +1,8 @@
 package back;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import org.jbox2d.common.Vec2;
@@ -10,6 +12,7 @@ import front.Bridge;
 import front.Emotion;
 import front.Form;
 import front.Platform;
+import front.Spinner;
 import front.Windmill;
 import principal.CONFIG;
 import processing.core.PApplet;
@@ -17,7 +20,7 @@ import processing.core.PShape;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 
-public class DisplayBack {
+public class DisplayBack implements Observer {
 	protected Reactivision react;
 	protected Bridge bridge;
 	protected PApplet app;
@@ -33,12 +36,15 @@ public class DisplayBack {
 	protected boolean game;
 	protected Windmill wm;
 	protected int lvSelected, attempts = 4;
+	protected Spinner spin;
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
 		this.app = app;
 		this.box2d = box2d;
-		v = new Video(app, "tutorial");
+		v = new Video(app, "tutorial");	
+		spin= new Spinner();	
+		spin.addObserver(this);
 	}
 
 	public boolean iniGame() {
@@ -114,7 +120,6 @@ public class DisplayBack {
 		rt.readTxt(l);
 		forms.addAll(rt.getObjects(box2d, l));
 		background = app.loadShape("data/shapes/" + l + "/fondo.svg");
-		System.out.println(background);
 	}
 
 	protected void nextLevel(int l) {
@@ -128,12 +133,12 @@ public class DisplayBack {
 
 	public void restarEmotion(boolean statusGame) {
 		emo.restartPosition(rt.getStart());
-		if (statusGame){
+		if (statusGame) {
 			attempts--;
-			if(attempts<1){
+			if (attempts < 1) {
 				gameOver();
 			}
-		}		
+		}
 	}
 
 	public int getRandom(int[] array) {
@@ -143,7 +148,31 @@ public class DisplayBack {
 
 	public void gameOver() {
 		System.out.println("juego termnado");
+		destroyGame();
+		spin= new Spinner();
+	}
 
+	public void destroyGame() {
+		game = false;
+		rt = null;
+		sc = null;
+		plats.clear();
+		forms.clear();
+		emo = null;
+		wm = null;
+	}	
+
+	public boolean validador(float xUno, float xDos, float xTres) {
+		if (xUno < xDos && xUno < xTres && xDos > xUno && xDos < xTres && xTres > xUno && xTres > xDos) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void update(Observable obs, Object obj) {				
+		spin=null;	
+		v.loop();
 	}
 
 }
