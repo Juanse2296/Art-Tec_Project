@@ -32,25 +32,26 @@ public class DisplayBack {
 	protected Video v;
 	protected boolean game;
 	protected Windmill wm;
-	protected int lvSelected ;
+	protected int lvSelected, attempts = 4;
+
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
 		this.app = app;
 		this.box2d = box2d;
-		v= new Video(app, "tutorial");		
+		v = new Video(app, "tutorial");
 	}
-	
-	public boolean iniGame(){	
+
+	public boolean iniGame() {
 		rt = new ReaderTxt(app);
 		sc = new SoundController(app);
 		plats = new ArrayList<Platform>();
 		forms = new ArrayList<Form>();
 		int[] n = { 1, 2, 3 };
-		lvSelected=getRandom(n);
+		lvSelected = getRandom(n);
 		startLevel(lvSelected);
-		emo = new Emotion(box2d, sc.getPlayer(),new Vec2(200, 150), 50, 50);
-		wm= new Windmill(app, box2d, 150, 100);
-		return game=true;
+		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(200, 150), 50, 50);
+		wm = new Windmill(app, box2d, 150, 100);
+		return game = true;
 	}
 
 	protected void createBridge(int numPoints, int x, int y) {
@@ -81,7 +82,7 @@ public class DisplayBack {
 		if (react.getTuioClient() != null) {
 			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
 			for (int i = 0; i < tuioObjectList.size(); i++) {
-				TuioObject tobj = tuioObjectList.get(i);			
+				TuioObject tobj = tuioObjectList.get(i);
 				if (tobj.getSymbolID() == 0) {
 					int y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 					app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
@@ -109,28 +110,40 @@ public class DisplayBack {
 		}
 	}
 
-	protected void startLevel(int l) {		
+	protected void startLevel(int l) {
 		rt.readTxt(l);
-		forms.addAll(rt.getObjects(box2d,l));
-		background=app.loadShape("data/shapes/"+l+"/fondo.svg");
+		forms.addAll(rt.getObjects(box2d, l));
+		background = app.loadShape("data/shapes/" + l + "/fondo.svg");
 		System.out.println(background);
 	}
+
 	protected void nextLevel(int l) {
 		for (int i = 0; i < forms.size(); i++) {
 			forms.get(i).killBody();
 		}
 		forms.clear();
 		startLevel(l);
-		restarEmotion();
+		restarEmotion(false);
 	}
-	public void restarEmotion(){
+
+	public void restarEmotion(boolean statusGame) {
 		emo.restartPosition(rt.getStart());
+		if (statusGame){
+			attempts--;
+			if(attempts<1){
+				gameOver();
+			}
+		}		
 	}
 
 	public int getRandom(int[] array) {
 		int rnd = new Random().nextInt(array.length);
 		return array[rnd];
 	}
-	
-	
+
+	public void gameOver() {
+		System.out.println("juego termnado");
+
+	}
+
 }

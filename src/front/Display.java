@@ -1,6 +1,7 @@
 package front;
 
 import java.util.Random;
+import java.util.logging.Level;
 
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
@@ -35,10 +36,17 @@ public class Display extends DisplayBack {
 		// showPlatforms();
 		showPeople();
 		showForms();
-		if (emo.getPos().y > app.height) {
-			restarEmotion();
-		}
+		tryAgain();
 		wm.show(app);
+	}
+
+	public void tryAgain() {
+		if (emo.getPos().y > app.height) {
+			if (lvSelected > 3)
+				restarEmotion(true);
+			else
+				restarEmotion(false);
+		}
 	}
 
 	public void beginCon(Contact cp) {
@@ -74,8 +82,10 @@ public class Display extends DisplayBack {
 	}
 
 	public void clic() {
-		if (game) {		
-			nextLevel(lvSelected+3);
+		if (lvSelected<4&&game) {
+			lvSelected = lvSelected + 3;
+			System.out.println("siguiente nivel: "+lvSelected);
+			nextLevel(lvSelected);
 		} else {
 			if (v != null) {
 				v.stop();
@@ -90,7 +100,5 @@ public class Display extends DisplayBack {
 			wm.blockOut();
 		}
 	}
-
-	
 
 }
