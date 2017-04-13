@@ -69,12 +69,10 @@ public class FormBack {
 		body.createFixture(fd);
 		// Give it some initial random velocity
 		Vec2 a = new Vec2(app.random(-5, 5), app.random(2, 5));
-		float b = app.random(-5, 5);
-	
+		float b = app.random(-5, 5);	
 		body.setLinearVelocity(a);
 		body.setAngularVelocity(b);
-		System.out.println(a);
-		System.out.println(b);
+
 	}
 
 	

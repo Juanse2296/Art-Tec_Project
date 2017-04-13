@@ -1,6 +1,7 @@
 package back;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.jbox2d.common.Vec2;
 
@@ -31,7 +32,7 @@ public class DisplayBack {
 	protected Video v;
 	protected boolean game;
 	protected Windmill wm;
-	
+	protected int lvSelected ;
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
 		this.app = app;
@@ -44,7 +45,9 @@ public class DisplayBack {
 		sc = new SoundController(app);
 		plats = new ArrayList<Platform>();
 		forms = new ArrayList<Form>();
-		startLevel(1);
+		int[] n = { 1, 2, 3 };
+		lvSelected=getRandom(n);
+		startLevel(lvSelected);
 		emo = new Emotion(box2d, sc.getPlayer(),new Vec2(200, 150), 50, 50);
 		wm= new Windmill(app, box2d, 150, 100);
 		return game=true;
@@ -118,9 +121,16 @@ public class DisplayBack {
 		}
 		forms.clear();
 		startLevel(l);
+		restarEmotion();
 	}
 	public void restarEmotion(){
 		emo.restartPosition(rt.getStart());
 	}
 
+	public int getRandom(int[] array) {
+		int rnd = new Random().nextInt(array.length);
+		return array[rnd];
+	}
+	
+	
 }

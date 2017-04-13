@@ -1,5 +1,7 @@
 package front;
 
+import java.util.Random;
+
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.contacts.Contact;
@@ -19,7 +21,7 @@ public class Display extends DisplayBack {
 		if (game) {
 			showGame();
 		} else if (v != null) {
-		v.show(app);
+			v.show(app);
 		}
 	}
 
@@ -72,23 +74,23 @@ public class Display extends DisplayBack {
 	}
 
 	public void clic() {
-		if (CONFIG.level < 6 && game) {
-			CONFIG.level++;
-			nextLevel(CONFIG.level);			
+		if (game) {		
+			nextLevel(lvSelected+3);
 		} else {
-			if(v!=null){
+			if (v != null) {
 				v.stop();
 				v = null;
 				iniGame();
 			}
-			
 		}
 	}
-	
-	public void key(){
-		if(app.keyPressed){
+
+	public void key() {
+		if (app.keyPressed) {
 			wm.blockOut();
 		}
 	}
+
+	
 
 }
