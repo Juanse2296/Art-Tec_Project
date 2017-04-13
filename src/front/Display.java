@@ -72,7 +72,7 @@ public class Display extends DisplayBack {
 	}
 
 	public void clic() {
-		if (CONFIG.level < 3 && game) {
+		if (CONFIG.level < 6 && game) {
 			CONFIG.level++;
 			nextLevel(CONFIG.level);			
 		} else {
