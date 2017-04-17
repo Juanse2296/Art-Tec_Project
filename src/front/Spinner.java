@@ -76,7 +76,7 @@ public class Spinner extends Observable {
 		app.textSize(50);
 		app.fill(200);
 		
-		if(winner){
+		if(!winner){
 			app.text("¡Juego terminado :( !"+"\n"+ "Espera para volver a intentarlo", 0, -250);
 		}else{
 			app.text("¡Felicitaciones :D !"+"\n"+ "Espera para volver a intentarlo", 0, -250);

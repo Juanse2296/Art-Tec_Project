@@ -28,7 +28,6 @@ public class FormBack {
 	public FormBack(PApplet app, Box2DProcessing box2d, String data, int lvl) {
 		this.box2d = box2d;
 		this.app = app;
-
 		if (getData(data, lvl) == 1 && r > 0) {
 			if (!name.equals("checkpoint")) {
 				makeCircleBody(pos, r);
@@ -37,7 +36,6 @@ public class FormBack {
 			if (!name.equals("checkpoint")) {
 				makeBody(pos);
 			}
-
 		}
 	}
 
@@ -72,11 +70,11 @@ public class FormBack {
 		float b = app.random(-5, 5);	
 		body.setLinearVelocity(a);
 		body.setAngularVelocity(b);
-
 	}
-
 	
-
+	public void restartPosition(Vec2 start) {
+		body.setTransform(new Vec2(box2d.coordPixelsToWorld(start.x, start.y-100)), 0);
+	}
 	// ----------------------------------------------
 
 	public void killBody() {

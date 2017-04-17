@@ -67,12 +67,13 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void showBridge() {
-		if (react.getTuioClient() != null) {
+		if (react.getTuioClient() != null && !created) {
 			if (react.getTuioClient().getTuioObjectList().size() > 2) {
+				int x[] = allowBridge();				
 				for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
 					TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
 					int a = 100;
-					if (!created && tobj.getSymbolID() == 2) {
+					if (tobj.getSymbolID() == 1 && validador(x[0], x[1], x[2])) {
 						createBridge(20, tobj.getScreenX(app.width), a);
 						created = !created;
 						break;
@@ -85,6 +86,26 @@ public class DisplayBack implements Observer {
 		}
 	}
 
+	public int[] allowBridge() {
+		int x[] = new int[3];
+		for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
+			TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
+			switch (tobj.getSymbolID()) {
+			case 0:
+				x[0] = tobj.getScreenX(app.width);
+				break;
+			case 1:
+				x[1] = tobj.getScreenX(app.width);
+				break;
+			case 2:
+				x[2] = tobj.getScreenX(app.width);
+				break;
+			}
+		}
+		return x;
+
+	}
+
 	protected void showPeople() {
 		if (react.getTuioClient() != null) {
 			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
@@ -92,13 +113,16 @@ public class DisplayBack implements Observer {
 				TuioObject tobj = tuioObjectList.get(i);
 				if (tobj.getSymbolID() == 0) {
 					int y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					app.fill(0, 0, 255);
 					app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
 				}
 				if (tobj.getSymbolID() == 1) {
+					app.fill(0, 255, 0);
 					int y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 					app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
 				}
 				if (tobj.getSymbolID() == 2) {
+					app.fill(255, 0, 0);
 					int y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 					app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
 				}
@@ -134,6 +158,7 @@ public class DisplayBack implements Observer {
 
 	public void restarEmotion(boolean statusGame) {
 		emo.restartPosition(rt.getStart());
+		wm.restartPosition(rt.getStart());
 		if (statusGame) {
 			attempts--;
 			if (attempts < 1) {

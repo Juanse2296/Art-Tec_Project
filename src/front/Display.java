@@ -14,8 +14,28 @@ import tuio.Reactivision;
 
 public class Display extends DisplayBack {
 
+	Firework[] fs = new Firework[10];
+	boolean once;
+
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
 		super(app, react, box2d);
+		createFireworks();
+	}
+
+	private void createFireworks() {
+		for (int i = 0; i < fs.length; i++) {
+			fs[i] = new Firework(app);
+		}
+	}
+
+	public void launchFireWork() {
+		once = false;
+		for (int i = 0; i < fs.length; i++) {
+			if (fs[i].isHidden() && !once) {
+				fs[i].launch();
+				once = true;
+			}
+		}
 	}
 
 	public void show() {
@@ -26,8 +46,21 @@ public class Display extends DisplayBack {
 				v.show(app);
 			}
 		} else {
-			spin.show(app,winner);
+			spin.show(app, winner);
+			if (winner)			
+				showFireworks();
 		}
+	}
+
+	private void showFireworks() {
+		for (int i = 0; i < fs.length; i++) {
+			fs[i].pintar();
+		}
+		if (app.frameCount % 240 == 0)
+			launchFireWork();
+		for (int i = 0; i < 1000; i++)
+			launchFireWork();
+
 	}
 
 	private void showGame() {

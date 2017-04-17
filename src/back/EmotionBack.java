@@ -31,7 +31,7 @@ public class EmotionBack {
 		// ---- posicionamiento de objeto en coordenadas de box
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.DYNAMIC;
-		bd.position.set(box2d.coordPixelsToWorld(pos.x+200, pos.y));
+		bd.position.set(box2d.coordPixelsToWorld(pos.x, pos.y));
 
 		// Creacion del body
 		body = box2d.createBody(bd);
@@ -54,7 +54,7 @@ public class EmotionBack {
 	}
 
 	public void restartPosition(Vec2 start) {
-		body.setTransform(new Vec2(box2d.coordPixelsToWorld(start.x+200, start.y-100)), 30);
+		body.setTransform(new Vec2(box2d.coordPixelsToWorld(start.x, start.y-100)), 0);
 	}
 
 	public void soundPlayer() {

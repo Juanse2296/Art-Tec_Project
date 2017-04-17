@@ -8,6 +8,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 
 import TUIO.TuioObject;
+import principal.CONFIG;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 
@@ -68,8 +69,8 @@ public class PointBack {
 
 	public void move(TuioObject tobj, boolean corner) {
 		if (corner) {
-			int y = (int) app.map(tobj.getScreenY(app.height), 0, 100, 0, 720);
-			body.setTransform(new Vec2(box2d.coordPixelsToWorld(x, y)), 30);
+			int a = tobj.getScreenY(app.height);
+			body.setTransform(new Vec2(box2d.coordPixelsToWorld(x, a)), 0);
 		} else {
 			Vec2 v = body.getPosition();
 			body.setTransform(new Vec2(box2d.coordPixelsToWorld(v.x, tobj.getScreenY(app.height))), 30);
