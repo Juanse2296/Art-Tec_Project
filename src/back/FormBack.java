@@ -15,7 +15,7 @@ import shiffman.box2d.Box2DProcessing;
 public class FormBack {
 
 	protected Vec2 pos;
-	public Body body;
+	protected Body body;
 	protected Box2DProcessing box2d;
 	protected float r = 0;
 	protected int type;

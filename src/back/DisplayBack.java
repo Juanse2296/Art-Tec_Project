@@ -11,9 +11,9 @@ import TUIO.TuioObject;
 import front.Bridge;
 import front.Emotion;
 import front.Form;
+import front.Going;
 import front.Instruction;
 import front.Spinner;
-import front.Windmill;
 import principal.CONFIG;
 import processing.core.PApplet;
 import processing.core.PShape;
@@ -32,12 +32,12 @@ public class DisplayBack implements Observer {
 	protected PShape background;
 	protected Emotion emo;
 	protected Video v;
-	protected Windmill wm;
 	protected int lvSelected, attempts = 4;
 	protected Spinner spin;
 	protected boolean winner;
 	protected int state;
 	protected Instruction inst;
+	protected Going go;
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
@@ -47,24 +47,24 @@ public class DisplayBack implements Observer {
 		v.loop();
 	}
 
-	
-	protected void startIntruction(){
+	protected void startIntruction() {
 		app.clear();
 		rt = new ReaderTxt(app);
 		rt.readInstructions();
-		String []t=rt.getInstructions();
-		inst= new Instruction(app.width/2, app.height/t.length,t);
+		String[] t = rt.getInstructions();
+		inst = new Instruction(app.width / 2, app.height / t.length, t);
 		inst.addObserver(this);
-		state=1;
+		state = 1;
 	}
-	
-	protected void startGame() {	
+
+	protected void startGame() {
 		app.clear();
-		inst=null;
+		inst = null;
 		sc = new SoundController(app);
 		forms = new ArrayList<Form>();
 		int[] n = { 1, 2, 3 };
-		lvSelected = getRandom(n);
+//		lvSelected = getRandom(n);
+		lvSelected = 2;
 		startLevel(lvSelected);
 	}
 
@@ -76,7 +76,7 @@ public class DisplayBack implements Observer {
 	protected void showBridge() {
 		if (react.getTuioClient() != null && !created) {
 			if (react.getTuioClient().getTuioObjectList().size() > 2) {
-				int x[] = allowBridge();				
+				int x[] = allowBridge();
 				for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
 					TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
 					int a = 100;
@@ -119,9 +119,9 @@ public class DisplayBack implements Observer {
 			for (int i = 0; i < tuioObjectList.size(); i++) {
 				TuioObject tobj = tuioObjectList.get(i);
 				int y = 0;
-				switch(tobj.getSymbolID()){
+				switch (tobj.getSymbolID()) {
 				case 0:
-					y =(int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 					app.fill(0, 0, 255);
 					break;
 				case 1:
@@ -138,14 +138,13 @@ public class DisplayBack implements Observer {
 		}
 	}
 
-
 	protected void startLevel(int l) {
 		rt.readTxtLevels(l);
 		forms.addAll(rt.getObjects(box2d, l));
 		background = app.loadShape("data/shapes/" + l + "/fondo.svg");
 		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(200, 150), 50, 50);
-		wm = new Windmill(app, box2d, 150, 100);
-		state=2;
+		go = new Going(app, box2d, 500, 400, 10);
+		state = 2;
 	}
 
 	protected void nextLevel(int l) {
@@ -159,7 +158,7 @@ public class DisplayBack implements Observer {
 
 	protected void restarEmotion(boolean statusGame) {
 		emo.restartPosition(rt.getStart());
-		wm.restartPosition(rt.getStart());
+
 		if (statusGame) {
 			attempts--;
 			if (attempts < 1) {
@@ -185,7 +184,6 @@ public class DisplayBack implements Observer {
 		rt = null;
 		sc = null;
 		emo = null;
-		wm = null;
 		forms.clear();
 		app.clear();
 	}
@@ -196,21 +194,21 @@ public class DisplayBack implements Observer {
 		}
 		return false;
 	}
-	
-	private void startVideo(){
-		state=0;
+
+	private void startVideo() {
+		state = 0;
 		v.loop();
 		spin = null;
 	}
 
 	@Override
-	public void update(Observable obs, Object obj) {		
-		if(obs instanceof Spinner){
+	public void update(Observable obs, Object obj) {
+		if (obs instanceof Spinner) {
 			startVideo();
-		}		
-		if(obs instanceof InstructionBack){		
+		}
+		if (obs instanceof InstructionBack) {
 			startGame();
-		}		
+		}
 	}
 
 }

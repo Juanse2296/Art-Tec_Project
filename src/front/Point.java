@@ -24,11 +24,7 @@ public class Point extends PointBack {
 		app.ellipse(0, 0, r * 2, r * 2);
 		// Let's add a line so we can see the rotation
 		app.line(0, 0, r, 0);
-		app.popMatrix();		
-		
-	
-			
-		
+		app.popMatrix();			
 	}
 
 	

@@ -73,7 +73,7 @@ public class Display extends DisplayBack {
 		showBridge();
 		showPeople();
 		showForms();
-		wm.show(app);
+		go.show(app);
 		/// ------debe estar al final
 		tryAgain();
 	}
@@ -143,7 +143,7 @@ public class Display extends DisplayBack {
 
 	public void key() {
 		if (state == 2) {
-			wm.blockOut();
+
 		}
 	}
 
