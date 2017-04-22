@@ -12,6 +12,7 @@ import shiffman.box2d.Box2DProcessing;
 public class ReaderTxt {
 
 	private String[] lvlsDat;
+	private String[] instructions;
 
 	PApplet app;
 	Vec2 start, end;
@@ -20,10 +21,13 @@ public class ReaderTxt {
 		this.app = app;
 	}
 
-	public void readTxt(int l) {
-		lvlsDat = app.loadStrings("data/levels/level" + l + ".txt");
+	public void readTxtLevels(int l) {
+		lvlsDat = app.loadStrings("data/levels/level" + l + ".txt");	
 	}
 
+	public void readInstructions() {		
+		instructions = app.loadStrings("data/instructions.txt");
+	}
 	public ArrayList<Form> getObjects(Box2DProcessing box2d, int lvl) {
 		// getShapes();
 
@@ -61,6 +65,14 @@ public class ReaderTxt {
 
 	public void setEnd(Vec2 end) {
 		this.end = end;
+	}
+
+	public String[] getInstructions() {
+		return instructions;
+	}
+
+	public void setInstructions(String[] instructions) {
+		this.instructions = instructions;
 	}
 
 }

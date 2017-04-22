@@ -11,6 +11,7 @@ import TUIO.TuioObject;
 import front.Bridge;
 import front.Emotion;
 import front.Form;
+import front.Instruction;
 import front.Spinner;
 import front.Windmill;
 import principal.CONFIG;
@@ -36,6 +37,7 @@ public class DisplayBack implements Observer {
 	protected Spinner spin;
 	protected boolean winner;
 	protected int state;
+	protected Instruction inst;
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
@@ -45,8 +47,19 @@ public class DisplayBack implements Observer {
 		v.loop();
 	}
 
-	protected void iniGame() {
+	
+	protected void startIntruction(){
+		app.clear();
 		rt = new ReaderTxt(app);
+		rt.readInstructions();
+		String []t=rt.getInstructions();
+		inst= new Instruction(app.width/2, app.height/t.length,t);
+		state=1;
+	}
+	
+	protected void startGame() {	
+		app.clear();
+		inst=null;
 		sc = new SoundController(app);
 		forms = new ArrayList<Form>();
 		int[] n = { 1, 2, 3 };
@@ -126,12 +139,12 @@ public class DisplayBack implements Observer {
 
 
 	protected void startLevel(int l) {
-		rt.readTxt(l);
+		rt.readTxtLevels(l);
 		forms.addAll(rt.getObjects(box2d, l));
 		background = app.loadShape("data/shapes/" + l + "/fondo.svg");
 		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(200, 150), 50, 50);
 		wm = new Windmill(app, box2d, 150, 100);
-		state=1;
+		state=2;
 	}
 
 	protected void nextLevel(int l) {
@@ -173,6 +186,7 @@ public class DisplayBack implements Observer {
 		emo = null;
 		wm = null;
 		forms.clear();
+		app.clear();
 	}
 
 	private boolean validador(float xUno, float xDos, float xTres) {

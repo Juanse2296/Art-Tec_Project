@@ -41,15 +41,21 @@ public class Display extends DisplayBack {
 				v.show(app);
 			break;
 		case 1:
-			showGame();
+			if (v != null)
+			inst.show(app);
 			break;
 		case 2:
+			showGame();
+			break;
+		case 3:
 			spin.show(app, winner);
 			if (winner)
 				showFireworks();
 			break;
 		}
 	}
+	
+	
 
 	private void showFireworks() {
 		for (int i = 0; i < fs.length; i++) {
@@ -112,10 +118,13 @@ public class Display extends DisplayBack {
 	private void Lclick() {
 		switch (state) {
 		case 0:
-			v.stop();
-			iniGame();
+			v.stop();	
+			startIntruction();
 			break;
 		case 1:
+			startGame();
+			break;		
+		case 2:
 			if (lvSelected < 4) {
 				lvSelected = lvSelected + 3;
 				nextLevel(lvSelected);
@@ -126,14 +135,14 @@ public class Display extends DisplayBack {
 
 	private void Rclick() {
 		if (app.mouseButton == app.RIGHT) {
-			state = 2;
+			state = 3;
 			winner = true;
 			gameOver();
 		}
 	}
 
 	public void key() {
-		if (state == 1) {
+		if (state == 2) {
 			wm.blockOut();
 		}
 	}
