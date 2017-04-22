@@ -122,7 +122,7 @@ public class Display extends DisplayBack {
 			startIntruction();
 			break;
 		case 1:
-			startGame();
+		//	startGame();
 			break;		
 		case 2:
 			if (lvSelected < 4) {

@@ -54,6 +54,7 @@ public class DisplayBack implements Observer {
 		rt.readInstructions();
 		String []t=rt.getInstructions();
 		inst= new Instruction(app.width/2, app.height/t.length,t);
+		inst.addObserver(this);
 		state=1;
 	}
 	
@@ -195,12 +196,21 @@ public class DisplayBack implements Observer {
 		}
 		return false;
 	}
-
-	@Override
-	public void update(Observable obs, Object obj) {
+	
+	private void startVideo(){
 		state=0;
 		v.loop();
 		spin = null;
+	}
+
+	@Override
+	public void update(Observable obs, Object obj) {		
+		if(obs instanceof Spinner){
+			startVideo();
+		}		
+		if(obs instanceof InstructionBack){		
+			startGame();
+		}		
 	}
 
 }
