@@ -14,24 +14,39 @@ public class Going extends GoingBack {
 
 	public void show(PApplet app) {
 		showTie(app);
+		createJoint();
+		BridgePosition(app);
 	}
 
 	private void showTie(PApplet app) {
 		app.pushMatrix();
-
 		for (int i = 0; i < particlesLeft.size(); i++) {
 			Point p = particlesLeft.get(i);
 			p.display();
 		}
-
 		for (int i = 0; i < particlesRight.size(); i++) {
 			Point p = particlesRight.get(i);
 			p.display();
 		}
-
 		table.display(app);
 		app.popMatrix();
-		createJoint();
+		
+	}
+	
+	
+	private void BridgePosition(PApplet app){	
+		app.pushMatrix();
+		app.noFill();
+		app.stroke(255);
+		app.rect(pos.x, pos.y+200, 200, 50);
+		app.popMatrix();
+		checkPosition();
+	}
+	
+	private boolean checkPosition(){
+		boolean temp=false;
+		
+		return temp;		
 	}
 
 }

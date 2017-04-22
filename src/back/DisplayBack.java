@@ -63,7 +63,7 @@ public class DisplayBack implements Observer {
 		sc = new SoundController(app);
 		forms = new ArrayList<Form>();
 		int[] n = { 1, 2, 3 };
-		lvSelected = 3;
+		lvSelected = getRandom(n);
 		startLevel(lvSelected);
 	}
 

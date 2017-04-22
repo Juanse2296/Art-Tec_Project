@@ -21,9 +21,11 @@ public class GoingBack {
 	private boolean stateJoint=true;
 	private Time tm;
 	protected Box2DProcessing box2d;
+	protected Vec2 pos;
 
 	public GoingBack(PApplet app, Box2DProcessing box2d, Vec2 pos, int numPoints) {
 		this.box2d=box2d;
+		this.pos=pos;
 		particlesLeft = new ArrayList<Point>();
 		particlesRight = new ArrayList<Point>();
 		this.numPoints=numPoints;
@@ -35,6 +37,8 @@ public class GoingBack {
 		createTie(app, box2d, particlesRight, x + distance, y, numPoints * 10, numPoints);
 		createTable(app, box2d, x, y, numPoints, distance);
 	}
+	
+
 
 	private void createTable(PApplet app, Box2DProcessing box2d, int x, int y, int numPoints, int distance) {
 		table = new Form(app, box2d, x, y + numPoints * 12, distance * 2, 20, false);
