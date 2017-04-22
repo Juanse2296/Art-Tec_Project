@@ -18,12 +18,19 @@ public class GoingBack {
 	protected Form table;
 	private DistanceJoint jointB;
 	private int numPoints;
+	private boolean stateJoint=true;
+	private Time tm;
+	protected Box2DProcessing box2d;
 
-	public GoingBack(PApplet app, Box2DProcessing box2d, int x, int y, int numPoints) {
+	public GoingBack(PApplet app, Box2DProcessing box2d, Vec2 pos, int numPoints) {
+		this.box2d=box2d;
 		particlesLeft = new ArrayList<Point>();
 		particlesRight = new ArrayList<Point>();
 		this.numPoints=numPoints;
 		int distance = 50;
+		int x=(int) pos.x;
+	    int y=(int) pos.y;
+	    tm= new Time();
 		createTie(app, box2d, particlesLeft, x - distance, y, numPoints * 10, numPoints);
 		createTie(app, box2d, particlesRight, x + distance, y, numPoints * 10, numPoints);
 		createTable(app, box2d, x, y, numPoints, distance);
@@ -62,7 +69,7 @@ public class GoingBack {
 			Point p = null;
 
 			// First and last particles are made with density of zero
-			if (i == 0)
+			if (i == 0 || i == numPoints)
 				p = new Point(app, box2d, x, y + i * len, 4, true);
 			else
 				p = new Point(app, box2d, x, y + i * len, 4, false);
@@ -89,13 +96,28 @@ public class GoingBack {
 		}
 	}
 
-	public void destroyJoint(Box2DProcessing box2d) {
+	private void destroyJoint() {
 		box2d.world.destroyJoint(jointB);
 	}
 	
-	public void createJoint(Box2DProcessing box2d) {
-		Point pB = particlesRight.get(particlesRight.size() - 1);
-		jointB = joint(box2d, pB, numPoints, 4);
+	protected void createJoint() {		
+		if(tm.getSeconds()>3 && !stateJoint){			
+			Point pB = particlesRight.get(particlesRight.size() - 1);
+			jointB = joint(box2d, pB, numPoints, 4);
+			tm.setSeconds(0);
+			tm.Stop();
+			stateJoint=!stateJoint;	
+		}	
 	}
+	
+	public void actionJoint(){		
+		if(stateJoint){
+			destroyJoint();
+			tm.Count(1);
+			stateJoint=!stateJoint;	
+		}			
+	}
+	
+
 
 }

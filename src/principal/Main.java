@@ -56,9 +56,7 @@ public class Main extends PApplet {
 	}
 
 	public void beginContact(Contact cp) {
-
 		dp.beginCon(cp);
-
 	}
 
 	public void endContact(Contact cp) {

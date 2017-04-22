@@ -1,5 +1,4 @@
 posicionX,posicionY,circular(no/si),radio,shape,static
-69,545,0,0,poste,1
 158,611,0,0,salida,1
 160,427,0,0,obstaculo_uno,1
 494,173,0,0,obstaculo_dos,1

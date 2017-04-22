@@ -63,8 +63,7 @@ public class DisplayBack implements Observer {
 		sc = new SoundController(app);
 		forms = new ArrayList<Form>();
 		int[] n = { 1, 2, 3 };
-//		lvSelected = getRandom(n);
-		lvSelected = 2;
+		lvSelected = 3;
 		startLevel(lvSelected);
 	}
 
@@ -142,8 +141,8 @@ public class DisplayBack implements Observer {
 		rt.readTxtLevels(l);
 		forms.addAll(rt.getObjects(box2d, l));
 		background = app.loadShape("data/shapes/" + l + "/fondo.svg");
-		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(200, 150), 50, 50);
-		go = new Going(app, box2d, 500, 400, 10);
+		emo = new Emotion(box2d, sc.getPlayer(), rt.getStart(), 50, 50);
+		go = new Going(app, box2d, rt.getStart(), 10);
 		state = 2;
 	}
 

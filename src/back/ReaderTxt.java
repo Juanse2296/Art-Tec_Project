@@ -42,6 +42,8 @@ public class ReaderTxt {
 			Form f = forms.get(i);
 			if (f.getName().equals("salida")) {
 				start = f.getPos();	
+				f.killBody();
+				forms.remove(f);
 			}
 			if (f.getName().equals("llegada")) {
 				end = f.getPos();		

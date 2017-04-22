@@ -143,7 +143,7 @@ public class Display extends DisplayBack {
 
 	public void key() {
 		if (state == 2) {
-
+			go.actionJoint();			
 		}
 	}
 

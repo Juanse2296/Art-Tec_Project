@@ -1,5 +1,4 @@
 posicionX,posicionY,circular(no/si),radio,shape,static
-69,144,0,0,poste,1
 158,210,0,0,salida,1
 182,527,1,40,checkpoint,1
 550,145,1,40,checkpoint,1
