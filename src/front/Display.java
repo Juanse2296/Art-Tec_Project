@@ -1,13 +1,9 @@
 package front;
 
-import java.util.Random;
-import java.util.logging.Level;
-
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.contacts.Contact;
 import back.DisplayBack;
-import principal.CONFIG;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
@@ -39,16 +35,19 @@ public class Display extends DisplayBack {
 	}
 
 	public void show() {
-		if (spin == null) {
-			if (game) {
-				showGame();
-			} else if (v != null) {
+		switch (state) {
+		case 0:
+			if (v != null)
 				v.show(app);
-			}
-		} else {
+			break;
+		case 1:
+			showGame();
+			break;
+		case 2:
 			spin.show(app, winner);
-			if (winner)			
+			if (winner)
 				showFireworks();
+			break;
 		}
 	}
 
@@ -56,30 +55,24 @@ public class Display extends DisplayBack {
 		for (int i = 0; i < fs.length; i++) {
 			fs[i].pintar();
 		}
-		if (app.frameCount % 240 == 0)
+		if (app.frameCount % 30 == 0)
+		for (int i = 0; i < 100; i++)
 			launchFireWork();
-		for (int i = 0; i < 1000; i++)
-			launchFireWork();
-
 	}
 
 	private void showGame() {
 		app.background(0);
-		app.shapeMode(app.CORNER);
 		app.shape(background);
-		app.shapeMode(app.CENTER);
 		emo.show(app);
 		showBridge();
-		// showPlatforms();
 		showPeople();
 		showForms();
 		wm.show(app);
-
 		/// ------debe estar al final
 		tryAgain();
 	}
 
-	public void tryAgain() {
+	private void tryAgain() {
 		if (emo.getPos().y > app.height) {
 			if (lvSelected > 3)
 				restarEmotion(true);
@@ -102,19 +95,8 @@ public class Display extends DisplayBack {
 		}
 	}
 
-	private void finished() {
-		// if (app.dist(emo.getX(), emo.getY(), plats.get(plats.size() -
-		// 1).getX(),
-		// plats.get(plats.size() - 1).getY()) < emo.getW() + 4) {
-		// System.out.println("interaccion terminada");
-		// }
-	}
 
-	private void showPlatforms() {
-		for (int i = 0; i < plats.size(); i++) {
-			plats.get(i).show(app);
-		}
-	}
+
 
 	private void showForms() {
 		for (int i = 0; i < forms.size(); i++) {
@@ -123,26 +105,35 @@ public class Display extends DisplayBack {
 	}
 
 	public void clic() {
-		if (!playingGame)
-			playingGame = playing();
+		Lclick();
+		Rclick();
 	}
 
-	public boolean playing() {
-		if (lvSelected < 4 && game) {
-			lvSelected = lvSelected + 3;
-			nextLevel(lvSelected);
-			return true;
-		} else {
-			if (v != null) {
-				v.stop();
-				iniGame();
+	private void Lclick() {
+		switch (state) {
+		case 0:
+			v.stop();
+			iniGame();
+			break;
+		case 1:
+			if (lvSelected < 4) {
+				lvSelected = lvSelected + 3;
+				nextLevel(lvSelected);
 			}
+			break;
 		}
-		return false;
+	}
+
+	private void Rclick() {
+		if (app.mouseButton == app.RIGHT) {
+			state = 2;
+			winner = true;
+			gameOver();
+		}
 	}
 
 	public void key() {
-		if (app.keyPressed && game) {
+		if (state == 1) {
 			wm.blockOut();
 		}
 	}

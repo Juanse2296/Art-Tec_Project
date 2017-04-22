@@ -48,8 +48,8 @@ public class Firework {
 	public void launch() {
 
 		// REPLACING THE MOUSE
-		float posX = app.random(100, app.width/2);
-		float posY = app.random(100, app.height/2);
+		float posX = app.random(10, app.width-10);
+		float posY = app.random(10, app.height-10);
 
 		x = oldX = posX + ((app.random(5) * 10) - 25);
 		y = oldY = app.height;

@@ -20,7 +20,11 @@ public class Spinner extends Observable {
 	}
 
 	public void show(PApplet app, boolean winner) {
-		app.background(0);
+		app.rectMode(app.CORNER);
+		app.fill(10, 10, 10, 20);
+		app.rect(0, 0, app.width, app.height);
+		app.noFill();
+
 		app.smooth();
 		app.noStroke();
 		time = tm.getSeconds();
@@ -52,7 +56,7 @@ public class Spinner extends Observable {
 		if (time == 59 && mill == 0) {
 			prevSec = 0;
 		}
-
+		app.pushMatrix();
 		app.translate(app.width / 2, app.height / 2);
 		app.fill(255);
 		app.textSize(40);
@@ -75,19 +79,18 @@ public class Spinner extends Observable {
 		finish();
 		app.textSize(50);
 		app.fill(200);
-		
-		if(!winner){
-			app.text("¡Juego terminado :( !"+"\n"+ "Espera para volver a intentarlo", 0, -250);
-		}else{
-			app.text("¡Felicitaciones :D !"+"\n"+ "Espera para volver a intentarlo", 0, -250);
+		if (!winner) {
+			app.text("Â¡Juego terminado :( !" + "\n" + "Espera para volver a intentarlo", 0, -250);
+		} else {
+			app.text("Â¡Felicitaciones :D !" + "\n" + "Espera para volver a intentarlo", 0, -250);
 		}
+		app.popMatrix();
 		
-	}
-	
-	
 
-	public void finish() {		
-		if(tmB.getSeconds()>=10){
+	}
+
+	public void finish() {
+		if (tmB.getSeconds() >= 10) {
 			setChanged();
 			notifyObservers();
 			clearChanged();

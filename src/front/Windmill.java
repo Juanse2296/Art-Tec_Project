@@ -72,6 +72,9 @@ public class Windmill {
 	public void restartPosition(Vec2 start) {
 		box2.restartPosition(start);
 		box1.restartPosition(start);
-		block.restartPosition(start);
+		if (block != null) {
+			block.restartPosition(start);
+		}
+
 	}
 }
