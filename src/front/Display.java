@@ -73,7 +73,9 @@ public class Display extends DisplayBack {
 		showBridge();
 		showPeople();
 		showForms();
-		go.show(app);
+		go.show(app);		
+		showBackground();
+		
 		/// ------debe estar al final
 		tryAgain();
 	}
@@ -145,6 +147,123 @@ public class Display extends DisplayBack {
 		if (state == 2) {
 			go.actionJoint();			
 		}
-	}
+		
+		
+		
+		///-----
+		
+		 if (app.key == 'w') {
 
+			    globalControl=0;
+			    globalHue=0;
+			  }
+			  //--------Activador de TRANQUILIDAD
+			  if (app.key == 's') {
+
+			    globalControl=1;
+			    globalHue=105;
+			  }
+			  //--------Activador de TRISTEZA
+			  if (app.key == 'x') {
+
+			    globalControl=2;
+			    globalHue=180;
+			  }
+	}
+	
+	//----------------------------------
+	
+	
+	private void showBackground(){
+		app.pushMatrix();
+		createParticle();
+		app.popMatrix();
+	}
+	
+	
+	public void manageColorBack() {
+
+		  //----------------------------Controla las tranciones de color de cada emocion
+		  switch(colorManage) {
+		  case 0:
+		    globalHue += 0.1;
+		    break;
+		  case 1:
+		    globalHue -= 0.1;
+		    break;
+
+		  default:
+		    globalHue -= 0.1;
+		    break;
+		  } 
+		  //---------------------------Controla los niveles de Hue para mostrar el color indicado en cada emocion
+		  switch(globalControl) {
+		  case 0:
+		    if (globalHue <=0 ) {
+		      colorManage=0;
+		    }
+		    if (globalHue>=60) {
+		      colorManage=1;
+		    } 
+
+		    break;
+		  case 1:
+		    if (globalHue <=105 ) {
+		      colorManage=0;
+		    }
+		    if (globalHue>=140) {
+		      colorManage=1;
+		    } 
+
+		    break;
+		  case 2:
+		    if (globalHue <=170 ) {
+		      colorManage=0;
+		    }
+		    if (globalHue>=220) {
+		      colorManage=1;
+		    } 
+		    break;
+		  }
+		  for (int i = 0; i<particles.size (); i++) {
+		    particles.get(i).setHue(globalHue);
+		  }
+		}
+
+		//----------------------Metodo que crea administra el funcionamiento del background
+		public void createParticle() {
+		  for (int i = particles.size ()-1; i > -1; i--) {
+		    particles.get(i).pintar(app);
+
+		    if (particles.get(i).getLife() < 0) {
+		      //  particles = splice(i, 1);
+		    }
+		  }
+
+		  if (app.millis() - timer >= 1000  ) {
+		    timer = app.millis();
+
+		    posXran = randomWithRange(10, 1270);
+		    posYran=randomWithRange(10, 710);
+		  }
+		  particles.add(new Particle(app,posXran, posYran));
+
+		  for (int i = 0; i<particles.size (); i++) {
+		    particles.get(i).setControl(globalControl);
+		    if ( particles.get(i).getLife()<=0) {
+		      particles.remove(i);
+		    }
+		  }
+		  manageColorBack();
+		}
+
+		//---------------Metodo contador que gestiona el tiempo de aparicion de las particulas
+		public int randomWithRange(int min, int max)
+		{
+		  int range = (max - min) + 1;     
+		  return (int)(Math.random() * range) + min;
+		}
+	
+	
+///------------------------
 }

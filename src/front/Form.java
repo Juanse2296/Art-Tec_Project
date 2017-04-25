@@ -9,6 +9,8 @@ import shiffman.box2d.Box2DProcessing;
 
 public class Form extends FormBack {
 
+	private float a;
+
 	public Form(PApplet app, Box2DProcessing box2d, String lvlsDat, int lvl) {
 		super(app, box2d, lvlsDat, lvl);
 	}
@@ -25,9 +27,15 @@ public class Form extends FormBack {
 				showPolygon(app);
 			}
 		} else {
+			app.pushMatrix();
+			app.translate(pos.x, pos.y);
 			app.fill(255);
+			app.rotate(a);
 			app.shapeMode(app.CENTER);
-			app.shape(s, pos.x, pos.y);
+			app.shape(s, 0,0);
+			a+=0.01f;
+			app.shapeMode(app.CORNER);
+			app.popMatrix();
 		}
 	}
 
@@ -45,6 +53,7 @@ public class Form extends FormBack {
 		// app.line(0, 0, r, 0);
 		app.shapeMode(app.CENTER);
 		app.shape(s);
+		app.shapeMode(app.CORNER);
 		app.popMatrix();
 	}
 
@@ -61,6 +70,7 @@ public class Form extends FormBack {
 		app.beginShape();
 		app.shapeMode(app.CENTER);
 		app.shape(s);
+		app.shapeMode(app.CORNER);
 		app.endShape();
 		app.popMatrix();
 	}

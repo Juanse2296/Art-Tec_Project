@@ -13,6 +13,7 @@ import front.Emotion;
 import front.Form;
 import front.Going;
 import front.Instruction;
+import front.Particle;
 import front.Spinner;
 import principal.CONFIG;
 import processing.core.PApplet;
@@ -38,6 +39,16 @@ public class DisplayBack implements Observer {
 	protected int state;
 	protected Instruction inst;
 	protected Going go;
+	
+	//--------------
+	
+	protected ArrayList <Particle> particles= new ArrayList <Particle>();
+	protected float globalHue;
+	protected int colorManage;
+	protected int timer;
+	protected float posXran, posYran;
+	protected int globalControl;
+
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
