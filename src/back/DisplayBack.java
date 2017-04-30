@@ -73,9 +73,9 @@ public class DisplayBack implements Observer {
 		inst = null;
 		sc = new SoundController(app);
 		forms = new ArrayList<Form>();
-		int[] n = { 1, 2, 3 };
-		lvSelected = getRandom(n);
-		startLevel(lvSelected);
+		// int[] n = { 1, 2, 3 };
+		// lvSelected = getRandom(n);
+		startLevel(1);
 	}
 
 	protected void createBridge(int numPoints, int x, int y) {
@@ -120,7 +120,6 @@ public class DisplayBack implements Observer {
 			}
 		}
 		return x;
-
 	}
 
 	protected void showPeople() {
@@ -149,39 +148,38 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void startLevel(int l) {
-		makeObstacles();
+		makeObstacles(l);
 		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(app.width / 2, app.height / 2), 50, 50);
 		go = new Going(app, box2d, new Vec2(app.width / 2, app.height / 2), 10);
 		state = 2;
 	}
 
-	public void makeObstacles() {
-		Vec2[] o = obstaclePos(7);
-		for (int i = 0; i < o.length; i++) {
-			Form f = new Form();			
-			f.makeRectBody(box2d, o[i], new Vec2(100,100), true);
-			forms.add(f);			
-			//----soporte
-			Vec2 v = new Vec2(o[i].x,o[i].y-100);
-			Form fb = new Form();		
-			fb.makeRectBody(box2d, v, new Vec2(20,150), true);
-			forms.add(fb);
+	public void makeObstacles(int l) {
+		Vec2[] o = readPos(l);
+		System.out.println(o.length);
+		for (int i = 0; i < o.length; i++) {			
+			Form f = new Form();
+			f.makeRectBody(box2d, o[i], new Vec2(100, 100), true);
+			forms.add(f);
+			// ----soporte
+			// Vec2 v = new Vec2(o[i].x,o[i].y-300);
+			// Form fb = new Form();
+			// fb.makeRectBody(box2d, v, new Vec2(20,500), true);
+			// forms.add(fb);
 		}
-		
-		
 	}
 
-	private Vec2[] obstaclePos(int num) {
-		Vec2[] pos = new Vec2[7];
-		pos[0] = new Vec2(400, 250);
-		pos[1] = new Vec2(880, 300);
-		pos[2] = new Vec2(600, 600);
-		pos[3] = new Vec2(250, 530);
-		pos[4] = new Vec2(640, 360);
-		pos[5] = new Vec2(940, 570);
-		pos[6] = new Vec2(1140, 345);
-		return pos;
+	private Vec2[] readPos(int l) {
+		String[] st = app.loadStrings("data/levels/level" + l + ".txt");
+		Vec2[] v = new Vec2[st.length - 1];
+		for (int i = 1; i < st.length; i++) {
+			String[] temp = st[i].split(",");
+			v[i - 1] = new Vec2(Integer.valueOf(temp[0]), Integer.valueOf(temp[1]));
+		}
+		return v;
 	}
+
+
 
 	protected void nextLevel(int l) {
 		for (int i = 0; i < forms.size(); i++) {

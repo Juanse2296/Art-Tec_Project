@@ -9,30 +9,21 @@ import shiffman.box2d.Box2DProcessing;
 public class Form extends FormBack {
 
 	private float a;
-	
 
 	public Form() {
 		super();
 	}
 
 	public void show(PApplet app, Box2DProcessing box2d) {
-		
-		
-		switch(name){
+		switch (name) {
 		case "obstaculo":
-			pintarObstaculo(app,box2d);
+			pintarObstaculo(app, box2d);
 			break;
-		
-		
 		default:
-			display(app, box2d);
+		//	display(app, box2d);
 			break;
-		
 		}
-		
-		
-		
-		
+
 	}
 
 	public void showViejo(PApplet app, Box2DProcessing box2d) {
@@ -44,7 +35,7 @@ public class Form extends FormBack {
 			}
 		} else {
 			app.pushMatrix();
-			app.translate(pos.x, pos.y);
+		//	app.translate(pos.x, pos.y);
 			app.fill(255);
 			app.rotate(a);
 			app.shapeMode(PApplet.CENTER);
@@ -115,10 +106,10 @@ public class Form extends FormBack {
 	private int NUM = 24;
 
 	public void pintarObstaculo(PApplet app, Box2DProcessing box2d) {
-		PVector[] pts=new PVector[3];
-		Vec2 pos = box2d.getBodyPixelCoord(body);
+		PVector[] pts = new PVector[3];
+		Vec2 pos = box2d.getBodyPixelCoord(body);	
 		app.noStroke();
-		//pintarSoportes(app, posX, posY, dir);	
+		// pintarSoportes(app, posX, posY, dir);
 		app.pushMatrix();
 		app.translate(pos.x, pos.y);
 		for (int i = 0; i < 3; i++) {
@@ -135,7 +126,7 @@ public class Form extends FormBack {
 					app.ellipse(x, y, d / 1.5f, d / 1.5f);
 				}
 			}
-		}	
+		}
 		num += 1;
 		app.popMatrix();
 
@@ -150,8 +141,7 @@ public class Form extends FormBack {
 			app.fill(150);
 			app.rect(posX - 10, posY, 20, -(720));
 			app.fill(200, 100, 100);
-			app.ellipse(posX, posY, 25, 25);
-			app.pushMatrix();
+			app.ellipse(posX, posY, 25, 25);		
 		}
 		if (dir.equals("abajo")) {
 			app.rectMode(PApplet.CORNER);
@@ -162,7 +152,7 @@ public class Form extends FormBack {
 			app.rect(posX - 10, posY, 20, (720));
 			app.fill(200, 100, 100);
 			app.ellipse(posX, posY, 25, 25);
-			app.pushMatrix();
+	
 		}
 		if (dir.equals("izquierda")) {
 			app.rectMode(PApplet.CORNER);
@@ -173,7 +163,7 @@ public class Form extends FormBack {
 			app.rect(posX, posY - 10, -1280, 20);
 			app.fill(200, 100, 100);
 			app.ellipse(posX, posY, 25, 25);
-			app.pushMatrix();
+		
 		}
 		if (dir.equals("derecha")) {
 			app.rectMode(PApplet.CORNER);
@@ -184,7 +174,7 @@ public class Form extends FormBack {
 			app.rect(posX, posY - 10, 1280, (20));
 			app.fill(200, 100, 100);
 			app.ellipse(posX, posY, 25, 25);
-			app.pushMatrix();
+	
 		}
 	}
 

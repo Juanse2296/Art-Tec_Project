@@ -66,16 +66,16 @@ public class Display extends DisplayBack {
 
 	private void showGame() {
 		app.background(0);		
-		showBackground();
-		emo.show(app);
-		showBridge();
-		showPeople();
+		//showBackground();
+		//emo.show(app);
+		//showBridge();
+		//showPeople();
 		showForms();
-		go.show(app);		
+		//go.show(app);		
 		
 		
 		/// ------debe estar al final
-		tryAgain();
+		//tryAgain();
 	}
 
 	private void tryAgain() {
@@ -116,11 +116,8 @@ public class Display extends DisplayBack {
 		case 1:
 		//	startGame();
 			break;		
-		case 2:
-			if (lvSelected < 4) {
-				lvSelected = lvSelected + 3;
-				nextLevel(lvSelected);
-			}
+		case 2:			
+				nextLevel(2);			
 			break;
 		}
 	}
@@ -143,7 +140,6 @@ public class Display extends DisplayBack {
 		///-----
 		
 		 if (app.key == 'w') {
-
 			    globalControl=0;
 			    globalHue=0;
 			  }

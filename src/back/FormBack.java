@@ -12,12 +12,12 @@ import shiffman.box2d.Box2DProcessing;
 
 public class FormBack {
 
-	protected Vec2 pos,size;
+	protected Vec2 size;
 	protected Body body;
 	protected int type;
 	protected int stat;
 	protected PShape s;
-	protected String name="";
+	protected String name="obstaculo";
 	
 
 	public FormBack() {
@@ -57,7 +57,7 @@ public class FormBack {
 		//body.setAngularVelocity(app.random(-5, 5));
 	}
 
-	public void makeRectBody(Box2DProcessing box2d, Vec2 center,Vec2 s,boolean lock ) {
+	public void makeRectBody(Box2DProcessing box2d, Vec2 pos,Vec2 s,boolean lock ) {
 		this.size=s;
 		type=1;
 		// Define a polygon (this is what we use for a rectangle)
@@ -79,7 +79,7 @@ public class FormBack {
 		else
 			bd.type = BodyType.DYNAMIC;
 
-		bd.position.set(box2d.coordPixelsToWorld(center));
+		bd.position.set(box2d.coordPixelsToWorld(pos));
 		body = box2d.createBody(bd);
 		body.createFixture(fd);
 	}
@@ -104,14 +104,6 @@ public class FormBack {
 	}
 
 
-
-	public Vec2 getPos() {
-		return pos;
-	}
-
-	public void setPos(Vec2 pos) {
-		this.pos = pos;
-	}
 
 	public Body getBody() {
 		return body;
