@@ -15,36 +15,17 @@ public class Form extends FormBack {
 	}
 
 	public void show(PApplet app, Box2DProcessing box2d) {
-		switch (name) {
-		case "obstaculo":
-			pintarObstaculo(app, box2d);
+		switch (type) {
+		case 1:
+			showObstacle(app, box2d);
 			break;
 		default:
-		//	display(app, box2d);
+			// display(app, box2d);
 			break;
 		}
 
 	}
 
-	public void showViejo(PApplet app, Box2DProcessing box2d) {
-		if (!name.equals("checkpoint")) {
-			if (type > 0) {
-				showCircle(app, box2d);
-			} else {
-				showPolygon(app, box2d);
-			}
-		} else {
-			app.pushMatrix();
-		//	app.translate(pos.x, pos.y);
-			app.fill(255);
-			app.rotate(a);
-			app.shapeMode(PApplet.CENTER);
-			app.shape(s, 0, 0);
-			a += 0.01f;
-			app.shapeMode(PApplet.CORNER);
-			app.popMatrix();
-		}
-	}
 
 	public void showCircle(PApplet app, Box2DProcessing box2d) {
 		Vec2 pos = box2d.getBodyPixelCoord(body);
@@ -105,9 +86,9 @@ public class Form extends FormBack {
 	// checkpoint
 	private int NUM = 24;
 
-	public void pintarObstaculo(PApplet app, Box2DProcessing box2d) {
+	public void showObstacle(PApplet app, Box2DProcessing box2d) {
 		PVector[] pts = new PVector[3];
-		Vec2 pos = box2d.getBodyPixelCoord(body);	
+		Vec2 pos = box2d.getBodyPixelCoord(body);
 		app.noStroke();
 		// pintarSoportes(app, posX, posY, dir);
 		app.pushMatrix();
@@ -127,9 +108,8 @@ public class Form extends FormBack {
 				}
 			}
 		}
-		num += 1;
+		num += 5;
 		app.popMatrix();
-
 	}
 
 	private void pintarSoportes(PApplet app, int posX, int posY, String dir) {
@@ -141,7 +121,7 @@ public class Form extends FormBack {
 			app.fill(150);
 			app.rect(posX - 10, posY, 20, -(720));
 			app.fill(200, 100, 100);
-			app.ellipse(posX, posY, 25, 25);		
+			app.ellipse(posX, posY, 25, 25);
 		}
 		if (dir.equals("abajo")) {
 			app.rectMode(PApplet.CORNER);
@@ -152,7 +132,7 @@ public class Form extends FormBack {
 			app.rect(posX - 10, posY, 20, (720));
 			app.fill(200, 100, 100);
 			app.ellipse(posX, posY, 25, 25);
-	
+
 		}
 		if (dir.equals("izquierda")) {
 			app.rectMode(PApplet.CORNER);
@@ -163,7 +143,7 @@ public class Form extends FormBack {
 			app.rect(posX, posY - 10, -1280, 20);
 			app.fill(200, 100, 100);
 			app.ellipse(posX, posY, 25, 25);
-		
+
 		}
 		if (dir.equals("derecha")) {
 			app.rectMode(PApplet.CORNER);
@@ -174,7 +154,7 @@ public class Form extends FormBack {
 			app.rect(posX, posY - 10, 1280, (20));
 			app.fill(200, 100, 100);
 			app.ellipse(posX, posY, 25, 25);
-	
+
 		}
 	}
 

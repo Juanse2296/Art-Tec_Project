@@ -1,4 +1,5 @@
 posX, posY, name
-400,250
-880,300
-600,600
+obstacle,400,250
+obstacle,880,300
+obstacle,600,600
+checkpoint,600,680

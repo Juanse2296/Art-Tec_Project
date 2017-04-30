@@ -66,16 +66,14 @@ public class Display extends DisplayBack {
 
 	private void showGame() {
 		app.background(0);		
-		//showBackground();
-		//emo.show(app);
-		//showBridge();
-		//showPeople();
+		showBackground();
+		emo.show(app);
+		showBridge();
+		showPeople();
 		showForms();
-		//go.show(app);		
-		
-		
+		go.show(app);
 		/// ------debe estar al final
-		//tryAgain();
+		tryAgain();
 	}
 
 	private void tryAgain() {
@@ -92,9 +90,6 @@ public class Display extends DisplayBack {
 			emo.soundPlayer();
 		}
 	}
-
-
-
 
 	private void showForms() {
 		for (int i = 0; i < forms.size(); i++) {

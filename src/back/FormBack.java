@@ -17,14 +17,10 @@ public class FormBack {
 	protected int type;
 	protected int stat;
 	protected PShape s;
-	protected String name="obstaculo";
-	
 
 	public FormBack() {
-		
-	}
 
-	
+	}
 
 	public void restartPosition(Box2DProcessing box2d, Vec2 start) {
 		body.setTransform(new Vec2(box2d.coordPixelsToWorld(start.x, start.y - 100)), 0);
@@ -36,8 +32,8 @@ public class FormBack {
 		}
 	}
 
-	public void makeBody( Box2DProcessing box2d, Vec2 center) {
-		type=0;
+	public void makeBody(Box2DProcessing box2d, Vec2 center) {
+		type = 0;
 		// Define a polygon (this is what we use for a rectangle)
 		PolygonShape sd = new PolygonShape();
 		Vec2[] vertices = new Vec2[4];
@@ -53,17 +49,19 @@ public class FormBack {
 		body = box2d.createBody(bd);
 		body.createFixture(sd, 1.0f);
 		// Give it some initial random velocity
-		//body.setLinearVelocity(new Vec2(app.random(-5, 5), app.random(2, 5)));
-		//body.setAngularVelocity(app.random(-5, 5));
+		// body.setLinearVelocity(new Vec2(app.random(-5, 5), app.random(2,
+		// 5)));
+		// body.setAngularVelocity(app.random(-5, 5));
 	}
 
-	public void makeRectBody(Box2DProcessing box2d, Vec2 pos,Vec2 s,boolean lock ) {
-		this.size=s;
-		type=1;
+	public void makeRectBody(Box2DProcessing box2d, String data, Vec2 s, boolean lock) {
+		this.size = s;
+		
+		type = 1;
 		// Define a polygon (this is what we use for a rectangle)
 		PolygonShape sd = new PolygonShape();
-		float box2dW = box2d.scalarPixelsToWorld(s.x/ 2);
-		float box2dH = box2d.scalarPixelsToWorld(s.y / 2);		
+		float box2dW = box2d.scalarPixelsToWorld(s.x / 2);
+		float box2dH = box2d.scalarPixelsToWorld(s.y / 2);
 		sd.setAsBox(box2dW, box2dH);
 		FixtureDef fd = new FixtureDef();
 		fd.shape = sd;
@@ -79,13 +77,19 @@ public class FormBack {
 		else
 			bd.type = BodyType.DYNAMIC;
 
-		bd.position.set(box2d.coordPixelsToWorld(pos));
+		bd.position.set(box2d.coordPixelsToWorld(readPos(data)));
 		body = box2d.createBody(bd);
 		body.createFixture(fd);
 	}
 
+	private Vec2 readPos(String st) {		
+		String[] pos = st.split(",");
+		Vec2 v = new Vec2(Integer.valueOf(pos[1]),Integer.valueOf(pos[2]));
+		return v;
+	}
+
 	public void makeCircleBody(Box2DProcessing box2d, Vec2 center, float r, boolean lock) {
-		type=2;
+		type = 2;
 		BodyDef bd = new BodyDef();
 		bd.position = box2d.coordPixelsToWorld(center.x, center.y);
 		if (lock)
@@ -102,8 +106,6 @@ public class FormBack {
 		fd.restitution = 0.3f;
 		body.createFixture(fd);
 	}
-
-
 
 	public Body getBody() {
 		return body;

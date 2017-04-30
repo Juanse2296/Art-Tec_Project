@@ -148,18 +148,26 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void startLevel(int l) {
-		makeObstacles(l);
+		makeObjects(l);
 		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(app.width / 2, app.height / 2), 50, 50);
 		go = new Going(app, box2d, new Vec2(app.width / 2, app.height / 2), 10);
 		state = 2;
 	}
 
-	public void makeObstacles(int l) {
-		Vec2[] o = readPos(l);
-		System.out.println(o.length);
-		for (int i = 0; i < o.length; i++) {			
+	public void makeObjects(int l) {
+		String[] data = app.loadStrings("data/levels/level" + l + ".txt");
+		String[] names = getName(data);
+
+		for (int i = 1; i < names.length; i++) {
 			Form f = new Form();
-			f.makeRectBody(box2d, o[i], new Vec2(100, 100), true);
+			System.out.println(names[i]);
+			switch (names[i]) {			
+			case "checkpoint":
+				break;
+			case "obstacle":
+				f.makeRectBody(box2d, data[i], new Vec2(100, 100), true);
+				break;
+			}
 			forms.add(f);
 			// ----soporte
 			// Vec2 v = new Vec2(o[i].x,o[i].y-300);
@@ -169,17 +177,14 @@ public class DisplayBack implements Observer {
 		}
 	}
 
-	private Vec2[] readPos(int l) {
-		String[] st = app.loadStrings("data/levels/level" + l + ".txt");
-		Vec2[] v = new Vec2[st.length - 1];
-		for (int i = 1; i < st.length; i++) {
-			String[] temp = st[i].split(",");
-			v[i - 1] = new Vec2(Integer.valueOf(temp[0]), Integer.valueOf(temp[1]));
+	private String[] getName(String[] data) {
+		String[] a = new String[data.length];
+		for (int i = 1; i < data.length; i++) {
+			String[] temp = data[i].split(",");
+			a[i]=temp[0];			
 		}
-		return v;
+		return a;
 	}
-
-
 
 	protected void nextLevel(int l) {
 		for (int i = 0; i < forms.size(); i++) {

@@ -20,6 +20,7 @@ public class Going extends GoingBack {
 
 	private void showTie(PApplet app) {
 		app.pushMatrix();
+		app.fill(255);
 		for (int i = 0; i < particlesLeft.size(); i++) {
 			Point p = particlesLeft.get(i);
 			p.display();
