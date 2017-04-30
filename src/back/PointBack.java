@@ -6,9 +6,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
-
 import TUIO.TuioObject;
-import principal.CONFIG;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 

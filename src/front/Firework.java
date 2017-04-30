@@ -33,8 +33,8 @@ public class Firework {
 			for (int i = 0; i < flareAmount + 1; i++) {
 				app.pushMatrix();
 				app.translate(x, y);
-				app.point(app.sin(app.radians(i * flareAngle)) * explodeTimer,
-						app.cos(app.radians(i * flareAngle)) * explodeTimer);
+				app.point(PApplet.sin(PApplet.radians(i * flareAngle)) * explodeTimer,
+						PApplet.cos(PApplet.radians(i * flareAngle)) * explodeTimer);
 				app.popMatrix();
 			}
 		}
@@ -57,9 +57,9 @@ public class Firework {
 		targetY = posY;
 		ySpeed = app.random(3) + 2;
 		flare = app.color(app.random(3) * 50 + 105, app.random(3) * 50 + 105, app.random(3) * 50 + 105);
-		flareAmount = app.ceil(app.random(30)) + 20;
-		flareWeight = app.ceil(app.random(3));
-		duration = app.ceil(app.random(4)) * 20 + 30;
+		flareAmount = PApplet.ceil(app.random(30)) + 20;
+		flareWeight = PApplet.ceil(app.random(3));
+		duration = PApplet.ceil(app.random(4)) * 20 + 30;
 		flareAngle = 360 / flareAmount;
 		launched = true;
 		exploded = false;
@@ -69,7 +69,7 @@ public class Firework {
 	public void launchMaths() {
 		oldX = x;
 		oldY = y;
-		if (app.dist(x, y, targetX, targetY) > 6) {
+		if (PApplet.dist(x, y, targetX, targetY) > 6) {
 			x += (targetX - x) / 2;
 			y += -ySpeed;
 		} else {

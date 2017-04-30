@@ -1,7 +1,5 @@
 package front;
 
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.contacts.Contact;
 import back.DisplayBack;
 import processing.core.PApplet;
@@ -67,14 +65,14 @@ public class Display extends DisplayBack {
 	}
 
 	private void showGame() {
-		app.background(0);
-		app.shape(background);
+		app.background(0);		
+		showBackground();
 		emo.show(app);
 		showBridge();
 		showPeople();
 		showForms();
 		go.show(app);		
-		showBackground();
+		
 		
 		/// ------debe estar al final
 		tryAgain();
@@ -90,15 +88,7 @@ public class Display extends DisplayBack {
 	}
 
 	public void beginCon(Contact cp) {
-		if (emo != null) {
-			Fixture f1 = cp.getFixtureA();
-			Fixture f2 = cp.getFixtureB();
-			// Get both bodies
-			Body b1 = f1.getBody();
-			Body b2 = f2.getBody();
-			// Get our objects that reference these bodies
-			Object o1 = b1.getUserData();
-			Object o2 = b2.getUserData();
+		if (emo != null) {	
 			emo.soundPlayer();
 		}
 	}
@@ -108,7 +98,7 @@ public class Display extends DisplayBack {
 
 	private void showForms() {
 		for (int i = 0; i < forms.size(); i++) {
-			forms.get(i).show(app);
+			forms.get(i).show(app,box2d);
 		}
 	}
 
@@ -136,7 +126,7 @@ public class Display extends DisplayBack {
 	}
 
 	private void Rclick() {
-		if (app.mouseButton == app.RIGHT) {
+		if (app.mouseButton == PApplet.RIGHT) {
 			state = 3;
 			winner = true;
 			gameOver();
@@ -246,7 +236,7 @@ public class Display extends DisplayBack {
 		    posXran = randomWithRange(10, 1270);
 		    posYran=randomWithRange(10, 710);
 		  }
-		  particles.add(new Particle(app,posXran, posYran));
+		  particles.add(new Particle(posXran, posYran,app));
 
 		  for (int i = 0; i<particles.size (); i++) {
 		    particles.get(i).setControl(globalControl);
@@ -254,7 +244,7 @@ public class Display extends DisplayBack {
 		      particles.remove(i);
 		    }
 		  }
-		  manageColorBack();
+	//	  manageColorBack();
 		}
 
 		//---------------Metodo contador que gestiona el tiempo de aparicion de las particulas

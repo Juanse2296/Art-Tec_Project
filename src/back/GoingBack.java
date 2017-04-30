@@ -35,13 +35,13 @@ public class GoingBack {
 	    tm= new Time();
 		createTie(app, box2d, particlesLeft, x - distance, y, numPoints * 10, numPoints);
 		createTie(app, box2d, particlesRight, x + distance, y, numPoints * 10, numPoints);
-		createTable(app, box2d, x, y, numPoints, distance);
+	//	createTable(app, box2d, x, y, numPoints, distance);
 	}
 	
 
 
 	private void createTable(PApplet app, Box2DProcessing box2d, int x, int y, int numPoints, int distance) {
-		table = new Form(app, box2d, x, y + numPoints * 12, distance * 2, 20, false);
+	//	table = new Form(app, box2d, x, y + numPoints * 12, distance * 2, 20, false);
 		Point pA = particlesLeft.get(particlesLeft.size() - 1);
 		Point pB = particlesRight.get(particlesRight.size() - 1);
 		// --
@@ -95,7 +95,8 @@ public class GoingBack {
 				// Make the joint. Note we aren't storing a reference to the
 				// joint ourselves anywhere!
 				// We might need to someday, but for now it's ok
-				DistanceJoint dj = (DistanceJoint) box2d.world.createJoint(djd);
+				//DistanceJoint dj = (DistanceJoint) 
+						box2d.world.createJoint(djd);
 			}
 		}
 	}

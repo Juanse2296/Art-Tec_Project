@@ -14,7 +14,7 @@ public class Instruction extends InstructionBack {
 			int tam = 25;
 			app.fill(255);
 			app.textSize(tam);
-			app.textAlign(app.CENTER, app.CENTER);
+			app.textAlign(PApplet.CENTER, PApplet.CENTER);
 			for (int j = 0; j < txt.length; j++) {
 				app.text(txt[j], x, y + (j * tam));
 			}

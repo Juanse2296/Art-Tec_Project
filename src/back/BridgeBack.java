@@ -1,10 +1,7 @@
 package back;
 
 import java.util.ArrayList;
-
-import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
-
 import TUIO.TuioObject;
 import front.Point;
 import processing.core.PApplet;
@@ -65,13 +62,13 @@ public class BridgeBack {
 				// Make the joint. Note we aren't storing a reference to the
 				// joint ourselves anywhere!
 				// We might need to someday, but for now it's ok
-				DistanceJoint dj = (DistanceJoint) box2d.world.createJoint(djd);
+			//	DistanceJoint dj = (DistanceJoint) 
+						box2d.world.createJoint(djd);
 			}
 		}
 	}
 
-	public void move() {
-		int t = particles.size();
+	public void move() {		
 		if (react.getTuioClient() != null) {
 			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
 			for (int i = 0; i < tuioObjectList.size(); i++) {
@@ -92,13 +89,13 @@ public class BridgeBack {
 
 	public void moveOptions() {
 		int t = particles.size();
-		if ((app.mousePressed && app.mouseButton == app.LEFT) && app.key == 'a') {
+		if ((app.mousePressed && app.mouseButton == PApplet.LEFT) && app.key == 'a') {
 			particles.get((t * 1 / 4)).move(false);
-		} else if ((app.mousePressed && app.mouseButton == app.RIGHT) && app.key == 's') {
+		} else if ((app.mousePressed && app.mouseButton == PApplet.RIGHT) && app.key == 's') {
 			particles.get((t * 3 / 4)).move(false);
-		} else if ((app.mousePressed && app.mouseButton == app.LEFT)) {
+		} else if ((app.mousePressed && app.mouseButton == PApplet.LEFT)) {
 			particles.get(0).move(true);
-		} else if ((app.mousePressed && app.mouseButton == app.RIGHT)) {
+		} else if ((app.mousePressed && app.mouseButton == PApplet.RIGHT)) {
 			particles.get(particles.size() - 1).move(true);
 		}
 		move();

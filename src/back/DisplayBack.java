@@ -29,7 +29,6 @@ public class DisplayBack implements Observer {
 	protected SoundController sc;
 	private boolean created;
 	protected ArrayList<Form> forms;
-	private ReaderTxt rt;
 	protected PShape background;
 	protected Emotion emo;
 	protected Video v;
@@ -54,18 +53,19 @@ public class DisplayBack implements Observer {
 		this.react = react;
 		this.app = app;
 		this.box2d = box2d;
+		video();
+	}
+	private void video(){
 		v = new Video(app, "tutorial");
 		v.loop();
 	}
 
 	protected void startIntruction() {
 		app.clear();
-		rt = new ReaderTxt(app);
-		rt.readInstructions();
-		String[] t = rt.getInstructions();
+		String[] t = app.loadStrings("data/instructions.txt");
 		inst = new Instruction(app.width / 2, app.height / t.length, t);
 		inst.addObserver(this);
-		state = 1;
+		state = CONFIG.state;
 	}
 
 	protected void startGame() {
@@ -131,16 +131,16 @@ public class DisplayBack implements Observer {
 				int y = 0;
 				switch (tobj.getSymbolID()) {
 				case 0:
-					y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 					app.fill(0, 0, 255);
 					break;
 				case 1:
 					app.fill(0, 255, 0);
-					y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 					break;
 				case 2:
 					app.fill(255, 0, 0);
-					y = (int) app.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 					break;
 				}
 				app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
@@ -149,17 +149,17 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void startLevel(int l) {
-		rt.readTxtLevels(l);
-		forms.addAll(rt.getObjects(box2d, l));
-		background = app.loadShape("data/shapes/" + l + "/fondo.svg");
-		emo = new Emotion(box2d, sc.getPlayer(), rt.getStart(), 50, 50);
-		go = new Going(app, box2d, rt.getStart(), 10);
+	
+	
+		
+		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(app.width/2,app.height/2), 50, 50);
+		go = new Going(app, box2d, new Vec2(app.width/2,app.height/2), 10);
 		state = 2;
 	}
 
 	protected void nextLevel(int l) {
 		for (int i = 0; i < forms.size(); i++) {
-			forms.get(i).killBody();
+			forms.get(i).killBody(box2d);
 		}
 		forms.clear();
 		startLevel(l);
@@ -167,7 +167,7 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void restarEmotion(boolean statusGame) {
-		emo.restartPosition(rt.getStart());
+		emo.restartPosition(new Vec2(app.width/2,app.height/2));
 
 		if (statusGame) {
 			attempts--;
@@ -191,7 +191,6 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void destroyGame() {
-		rt = null;
 		sc = null;
 		emo = null;
 		forms.clear();

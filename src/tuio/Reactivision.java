@@ -2,11 +2,8 @@ package tuio;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-
 import java.util.ArrayList;
-
 import TUIO.*;
-import principal.CONFIG;
 
 public class Reactivision extends PApplet {
 

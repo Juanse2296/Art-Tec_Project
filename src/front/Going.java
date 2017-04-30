@@ -28,7 +28,8 @@ public class Going extends GoingBack {
 			Point p = particlesRight.get(i);
 			p.display();
 		}
-		table.display(app);
+		if(table!=null)
+		table.display(app,box2d);
 		app.popMatrix();
 		
 	}

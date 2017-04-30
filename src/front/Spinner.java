@@ -20,7 +20,7 @@ public class Spinner extends Observable {
 	}
 
 	public void show(PApplet app, boolean winner) {
-		app.rectMode(app.CORNER);
+		app.rectMode(PApplet.CORNER);
 		app.fill(10, 10, 10, 20);
 		app.rect(0, 0, app.width, app.height);
 		app.noFill();
@@ -60,13 +60,13 @@ public class Spinner extends Observable {
 		app.translate(app.width / 2, app.height / 2);
 		app.fill(255);
 		app.textSize(40);
-		app.textAlign(app.CENTER, app.CENTER);
+		app.textAlign(PApplet.CENTER, PApplet.CENTER);
 		app.text(tmB.getSeconds(), 0, 0);
 		for (int i = 0; i < 360; i += 6) {
 			float angle = 0; // sin(radians(i*3+frameCount)) * 30;
-			float x = app.sin(app.radians(i));
-			float y = app.cos(app.radians(i));
-			app.fill(app.map(i, 0, 360, 0, 255), app.map(i, 0, 360, 255, 0), 0);
+			float x = PApplet.sin(PApplet.radians(i));
+			float y = PApplet.cos(PApplet.radians(i));
+			app.fill(PApplet.map(i, 0, 360, 0, 255), PApplet.map(i, 0, 360, 255, 0), 0);
 			/* Moving ellipse from center to posision */
 			// if (a*3 == i) clockDot(x*(mill*3-angle), y*(mill*3-angle), 6, 30,
 			// i);
@@ -100,7 +100,7 @@ public class Spinner extends Observable {
 	void clockDot(PApplet app, float x, float y, float w, float h, float angle) {
 		app.pushMatrix();
 		app.translate(x, y);
-		app.rotate(app.radians(-angle));
+		app.rotate(PApplet.radians(-angle));
 		app.rect(0, 0, w, h, w);
 		app.popMatrix();
 	}
