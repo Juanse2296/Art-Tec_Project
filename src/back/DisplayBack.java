@@ -38,16 +38,15 @@ public class DisplayBack implements Observer {
 	protected int state;
 	protected Instruction inst;
 	protected Going go;
-	
-	//--------------
-	
-	protected ArrayList <Particle> particles= new ArrayList <Particle>();
+
+	// --------------
+
+	protected ArrayList<Particle> particles = new ArrayList<Particle>();
 	protected float globalHue;
 	protected int colorManage;
 	protected int timer;
 	protected float posXran, posYran;
 	protected int globalControl;
-
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
@@ -55,7 +54,8 @@ public class DisplayBack implements Observer {
 		this.box2d = box2d;
 		video();
 	}
-	private void video(){
+
+	private void video() {
 		v = new Video(app, "tutorial");
 		v.loop();
 	}
@@ -149,12 +149,38 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void startLevel(int l) {
-	
-	
-		
-		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(app.width/2,app.height/2), 50, 50);
-		go = new Going(app, box2d, new Vec2(app.width/2,app.height/2), 10);
+		makeObstacles();
+		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(app.width / 2, app.height / 2), 50, 50);
+		go = new Going(app, box2d, new Vec2(app.width / 2, app.height / 2), 10);
 		state = 2;
+	}
+
+	public void makeObstacles() {
+		Vec2[] o = obstaclePos(7);
+		for (int i = 0; i < o.length; i++) {
+			Form f = new Form();			
+			f.makeRectBody(box2d, o[i], new Vec2(100,100), true);
+			forms.add(f);			
+			//----soporte
+			Vec2 v = new Vec2(o[i].x,o[i].y-100);
+			Form fb = new Form();		
+			fb.makeRectBody(box2d, v, new Vec2(20,150), true);
+			forms.add(fb);
+		}
+		
+		
+	}
+
+	private Vec2[] obstaclePos(int num) {
+		Vec2[] pos = new Vec2[7];
+		pos[0] = new Vec2(400, 250);
+		pos[1] = new Vec2(880, 300);
+		pos[2] = new Vec2(600, 600);
+		pos[3] = new Vec2(250, 530);
+		pos[4] = new Vec2(640, 360);
+		pos[5] = new Vec2(940, 570);
+		pos[6] = new Vec2(1140, 345);
+		return pos;
 	}
 
 	protected void nextLevel(int l) {
@@ -167,7 +193,7 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void restarEmotion(boolean statusGame) {
-		emo.restartPosition(new Vec2(app.width/2,app.height/2));
+		emo.restartPosition(new Vec2(app.width / 2, app.height / 2));
 
 		if (statusGame) {
 			attempts--;
