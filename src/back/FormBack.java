@@ -38,11 +38,23 @@ public class FormBack {
 		if (posCheck != null) {
 			if (PApplet.dist(posCheck.x, posCheck.y, posB.x, posB.y) < r && name.equals("checkpoint")) {
 				checkVisible = false;
-				System.out.println("atrapo checkpoint");
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public boolean finishPracticeLeve(Box2DProcessing box2d, Vec2 posB) {
+		boolean temp = false;
+		if (body != null) {
+			Vec2 posA = box2d.getBodyPixelCoord(body);
+			if (((posB.x >= posA.x - size.x / 2) && (posB.x <= posA.x + size.x / 2) && (posB.y <= posA.y + size.y / 2)
+					&& (posB.y >= (posA.y - size.y / 2) - 10)) && (name.equals("finish"))) {
+				System.out.println("siguiente nivel");
+				return true;
+			}
+		}
+		return temp;
 	}
 
 	public void makeRectBody(Box2DProcessing box2d, String data, Vec2 s, boolean lock) {
@@ -60,7 +72,6 @@ public class FormBack {
 		fd.restitution = 0.5f;
 		// Define the body and make it from the shape
 		BodyDef bd = new BodyDef();
-
 		if (lock)
 			bd.type = BodyType.STATIC;
 		else

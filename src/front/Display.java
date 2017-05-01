@@ -107,6 +107,9 @@ public class Display extends DisplayBack {
 				forms.remove(f);
 				break;
 			}
+			if(f.finishPracticeLeve(box2d, new Vec2(app.mouseX, app.mouseY)) && point>3){
+				nextLevel(2);
+			}
 		}
 	}
 
