@@ -71,12 +71,12 @@ public class DisplayBack implements Observer {
 	protected void startGame() {
 		app.clear();
 		inst = null;
-		if(sc==null){
+		if (sc == null) {
 			sc = new SoundController(app);
 		}
-		if(forms==null){
+		if (forms == null) {
 			forms = new ArrayList<Form>();
-		}	
+		}
 		startLevel(1);
 	}
 
@@ -151,12 +151,12 @@ public class DisplayBack implements Observer {
 
 	protected void startLevel(int l) {
 		makeObjects(l);
-		if(emo==null){
-			emo = new Emotion(app,box2d, sc.getPlayer(), new Vec2(CONFIG.emoX,CONFIG.emoY), 50, 50);
+		if (emo == null) {
+			emo = new Emotion(app, box2d, sc.getPlayer(), new Vec2(CONFIG.emoX, CONFIG.emoY), 50, 50);
 		}
-		if(go==null){
-			go = new Going(app, box2d, new Vec2(CONFIG.emoX,CONFIG.emoY), 10);
-		}		
+		if (go == null) {
+			go = new Going(app, box2d, new Vec2(CONFIG.emoX, CONFIG.emoY), 10);
+		}
 		state = 2;
 	}
 
@@ -164,14 +164,17 @@ public class DisplayBack implements Observer {
 		String[] data = app.loadStrings("data/levels/level" + l + ".txt");
 		String[] names = getName(data);
 		for (int i = 1; i < names.length; i++) {
-			Form f = new Form();
+			Form f = new Form(names[i]);
 			System.out.println(names[i]);
-			switch (names[i]) {			
+			switch (names[i]) {
 			case "checkpoint":
-				f.makeCircleBody(app,box2d, data[i]);
+				f.makeCircleBody(app, box2d, data[i]);
 				break;
 			case "obstacle":
-				f.makeRectBody(box2d, data[i], new Vec2(100, 100),true);
+				f.makeRectBody(box2d, data[i], new Vec2(100, 100), true);
+				break;
+			case "finish":
+				f.makeRectBody(box2d, data[i], new Vec2(150,50), true);
 				break;
 			}
 			forms.add(f);
@@ -187,7 +190,7 @@ public class DisplayBack implements Observer {
 		String[] a = new String[data.length];
 		for (int i = 1; i < data.length; i++) {
 			String[] temp = data[i].split(",");
-			a[i]=temp[0];			
+			a[i] = temp[0];
 		}
 		return a;
 	}
@@ -220,10 +223,10 @@ public class DisplayBack implements Observer {
 
 	protected void gameOver() {
 		destroyGame();
-		if(spin==null){
+		if (spin == null) {
 			spin = new Spinner();
 			spin.addObserver(this);
-		}		
+		}
 	}
 
 	protected void destroyGame() {

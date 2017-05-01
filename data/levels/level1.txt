@@ -6,3 +6,4 @@ checkpoint,250,530,25
 checkpoint,640,360,25
 checkpoint,940,570,25
 checkpoint,1140,345,25
+finish,1100,500

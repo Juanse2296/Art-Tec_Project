@@ -12,5 +12,5 @@ public class CONFIG {
 	public static int level = 1;
 	public static int instructionTime= 1;
 	public static int state=1;
-	public static int emoX=50, emoY=50;
+	public static int emoX=200, emoY=100;
 }

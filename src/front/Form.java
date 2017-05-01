@@ -10,25 +10,25 @@ public class Form extends FormBack {
 
 	private float a;
 
-	public Form() {
-		super();
+	public Form(String name) {
+		super(name);
 	}
 
 	public void show(PApplet app, Box2DProcessing box2d) {
-		switch (type) {
-		case 1:
+		switch (name) {
+		case "obstacle":
 			showObstacle(app, box2d);
 			break;
-		case 2:			
+		case "checkpoint":
 			showCircle(app, box2d);
 			break;
-		default:
+		case "finish":
+			display(app, box2d);
 			break;
 		}
 	}
 
-
-	public void showCircle(PApplet app, Box2DProcessing box2d) {	
+	public void showCircle(PApplet app, Box2DProcessing box2d) {
 		app.ellipseMode(PApplet.CENTER);
 		app.pushMatrix();
 		app.translate(posCheck.x, posCheck.y);
@@ -40,10 +40,9 @@ public class Form extends FormBack {
 		app.ellipse(0, 0, r * 3, r * 3);
 		app.noStroke();
 		app.fill(255);
-		app.ellipse(0, 0, r * 2, r * 2);	
+		app.ellipse(0, 0, r * 2, r * 2);
 		app.popMatrix();
 	}
-
 
 	public void display(PApplet app, Box2DProcessing box2d) {
 		// We look at each body and get its screen position
@@ -55,7 +54,10 @@ public class Form extends FormBack {
 		app.translate(pos.x, pos.y);
 		app.rotate(-a);
 		app.stroke(255);
-		app.rect(0, 0, size.x, size.y);
+		app.noFill();
+		app.rect(0, 0, size.x, size.y);		
+		app.fill(255);
+		app.rect(0, 0, size.x-20, size.y-20);
 		app.popMatrix();
 	}
 
@@ -152,8 +154,8 @@ public class Form extends FormBack {
 	}
 
 	public void showCheckpoint(PApplet app) {
-		int posX=0;
-		int posY=0;
+		int posX = 0;
+		int posY = 0;
 		app.pushMatrix();
 		app.translate(posX, posY);
 		for (int i = 0; i < NUM; i++) {

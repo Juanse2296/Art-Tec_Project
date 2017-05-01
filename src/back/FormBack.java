@@ -1,13 +1,11 @@
 package back;
 
-import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
-
 import processing.core.PApplet;
 import processing.core.PShape;
 import shiffman.box2d.Box2DProcessing;
@@ -16,13 +14,13 @@ public class FormBack {
 
 	protected Vec2 size;
 	protected Body body;
-	protected int type;
+	protected String name = "";
 	protected float r;
 	protected PShape s;
 	protected Vec2 posCheck;
 
-	public FormBack() {
-
+	public FormBack(String name) {
+		this.name = name;
 	}
 
 	public void restartPosition(Box2DProcessing box2d, Vec2 start) {
@@ -35,10 +33,8 @@ public class FormBack {
 		}
 	}
 
-
 	public void makeRectBody(Box2DProcessing box2d, String data, Vec2 s, boolean lock) {
 		this.size = s;
-		type = 1;
 		// Define a polygon (this is what we use for a rectangle)
 		PolygonShape sd = new PolygonShape();
 		float box2dW = box2d.scalarPixelsToWorld(s.x / 2);
@@ -75,10 +71,9 @@ public class FormBack {
 		return r;
 	}
 
-	public void makeCircleBody(PApplet app,Box2DProcessing box2d, String data) {
-		 posCheck = readPos(data);
-		type = 2;
-		r=getRad(data);
+	public void makeCircleBody(PApplet app, Box2DProcessing box2d, String data) {
+		posCheck = readPos(data);
+		r = getRad(data);
 	}
 
 	public Body getBody() {

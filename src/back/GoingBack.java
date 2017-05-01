@@ -41,7 +41,7 @@ public class GoingBack {
 
 
 	private void createTable(PApplet app, Box2DProcessing box2d, int x, int y, int numPoints, int distance) {
-		table = new Form();
+		table = new Form("table");
 		table.makeRectBody(box2d, new String("table,"+x+","+(y + numPoints * 12)), new Vec2(distance*2, 20), false);		
 		Point pA = particlesLeft.get(particlesLeft.size() - 1);
 		Point pB = particlesRight.get(particlesRight.size() - 1);
