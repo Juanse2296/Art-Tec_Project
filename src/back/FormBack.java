@@ -7,6 +7,8 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+
+import processing.core.PApplet;
 import processing.core.PShape;
 import shiffman.box2d.Box2DProcessing;
 
@@ -15,8 +17,9 @@ public class FormBack {
 	protected Vec2 size;
 	protected Body body;
 	protected int type;
-	protected int stat;
+	protected float r;
 	protected PShape s;
+	protected Vec2 posCheck;
 
 	public FormBack() {
 
@@ -32,31 +35,9 @@ public class FormBack {
 		}
 	}
 
-	public void makeBody(Box2DProcessing box2d, Vec2 center) {
-		type = 0;
-		// Define a polygon (this is what we use for a rectangle)
-		PolygonShape sd = new PolygonShape();
-		Vec2[] vertices = new Vec2[4];
-		vertices[0] = box2d.vectorPixelsToWorld(new Vec2(-15, 25));
-		vertices[1] = box2d.vectorPixelsToWorld(new Vec2(15, 0));
-		vertices[2] = box2d.vectorPixelsToWorld(new Vec2(20, -15));
-		vertices[3] = box2d.vectorPixelsToWorld(new Vec2(-10, -10));
-		sd.set(vertices, vertices.length);
-		// Define the body and make it from the shape
-		BodyDef bd = new BodyDef();
-		bd.type = BodyType.DYNAMIC;
-		bd.position.set(box2d.coordPixelsToWorld(center));
-		body = box2d.createBody(bd);
-		body.createFixture(sd, 1.0f);
-		// Give it some initial random velocity
-		// body.setLinearVelocity(new Vec2(app.random(-5, 5), app.random(2,
-		// 5)));
-		// body.setAngularVelocity(app.random(-5, 5));
-	}
 
 	public void makeRectBody(Box2DProcessing box2d, String data, Vec2 s, boolean lock) {
 		this.size = s;
-		
 		type = 1;
 		// Define a polygon (this is what we use for a rectangle)
 		PolygonShape sd = new PolygonShape();
@@ -82,29 +63,28 @@ public class FormBack {
 		body.createFixture(fd);
 	}
 
-	private Vec2 readPos(String st) {		
+	private Vec2 readPos(String st) {
 		String[] pos = st.split(",");
-		Vec2 v = new Vec2(Integer.valueOf(pos[1]),Integer.valueOf(pos[2]));
+		Vec2 v = new Vec2(Integer.valueOf(pos[1]), Integer.valueOf(pos[2]));
 		return v;
 	}
 
-	public void makeCircleBody(Box2DProcessing box2d, Vec2 center, float r, boolean lock) {
+	private float getRad(String st) {
+		String[] pos = st.split(",");
+		float r = Float.valueOf(pos[1]);
+		return r;
+	}
+
+	private String getShape(String st) {
+		String[] pos = st.split(",");
+		String s = pos[0];
+		return s;
+	}
+	public void makeCircleBody(PApplet app,Box2DProcessing box2d, String data) {
+		 posCheck = readPos(data);
+		//s=app.loadShape("data/shape/"+getShape(data)+".svg");
 		type = 2;
-		BodyDef bd = new BodyDef();
-		bd.position = box2d.coordPixelsToWorld(center.x, center.y);
-		if (lock)
-			bd.type = BodyType.STATIC;
-		else
-			bd.type = BodyType.DYNAMIC;
-		body = box2d.createBody(bd);
-		CircleShape cs = new CircleShape();
-		cs.m_radius = box2d.scalarPixelsToWorld(r);
-		FixtureDef fd = new FixtureDef();
-		fd.shape = cs;
-		fd.density = 1;
-		fd.friction = 0.01f;
-		fd.restitution = 0.3f;
-		body.createFixture(fd);
+		r=getRad(data);
 	}
 
 	public Body getBody() {

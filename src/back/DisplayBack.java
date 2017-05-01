@@ -149,8 +149,8 @@ public class DisplayBack implements Observer {
 
 	protected void startLevel(int l) {
 		makeObjects(l);
-		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(app.width / 2, app.height / 2), 50, 50);
-		go = new Going(app, box2d, new Vec2(app.width / 2, app.height / 2), 10);
+		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(CONFIG.emoX,CONFIG.emoY), 50, 50);
+		go = new Going(app, box2d, new Vec2(CONFIG.emoX,CONFIG.emoY), 10);
 		state = 2;
 	}
 
@@ -163,9 +163,10 @@ public class DisplayBack implements Observer {
 			System.out.println(names[i]);
 			switch (names[i]) {			
 			case "checkpoint":
+				f.makeCircleBody(app,box2d, data[i]);
 				break;
 			case "obstacle":
-				f.makeRectBody(box2d, data[i], new Vec2(100, 100), true);
+				f.makeRectBody(box2d, data[i], new Vec2(100, 100),true);
 				break;
 			}
 			forms.add(f);

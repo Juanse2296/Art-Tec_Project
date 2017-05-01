@@ -1,5 +1,8 @@
-posX, posY, name
+posX, posY, name, radio (si lo tiene)
 obstacle,400,250
 obstacle,880,300
 obstacle,600,600
-checkpoint,600,680
+checkpoint,250,530,25
+checkpoint,640,360,25
+checkpoint,940,570,25
+checkpoint,1140,345,25

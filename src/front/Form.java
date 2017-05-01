@@ -19,49 +19,28 @@ public class Form extends FormBack {
 		case 1:
 			showObstacle(app, box2d);
 			break;
+		case 2:			
+			showCircle(app, box2d);
+			break;
 		default:
 			// display(app, box2d);
 			break;
 		}
-
 	}
 
 
-	public void showCircle(PApplet app, Box2DProcessing box2d) {
-		Vec2 pos = box2d.getBodyPixelCoord(body);
-		// Get its angle of rotation
-		float a = body.getAngle();
+	public void showCircle(PApplet app, Box2DProcessing box2d) {	
 		app.ellipseMode(PApplet.CENTER);
 		app.pushMatrix();
-		app.translate(pos.x, pos.y);
+		app.translate(posCheck.x, posCheck.y);
+		if(s!=null)app.shape(s);
+		showCheckpoint(app);
 		app.rotate(a);
 		app.fill(255);
-		// app.ellipse(0, 0, r * 2, r * 2);
-		// Let's add a line so we can see the rotation
-		// app.line(0, 0, r, 0);
-		app.shapeMode(PApplet.CENTER);
-		app.shape(s);
-		app.shapeMode(PApplet.CORNER);
+		app.ellipse(0, 0, 25 * 2, 25 * 2);	
 		app.popMatrix();
 	}
 
-	public void showPolygon(PApplet app, Box2DProcessing box2d) {
-		Vec2 pos = box2d.getBodyPixelCoord(body);
-		float a = body.getAngle();
-		// Fixture f = body.getFixtureList();
-		// PolygonShape ps = (PolygonShape) f.getShape();
-		app.fill(255);
-		app.rectMode(PApplet.CENTER);
-		app.pushMatrix();
-		app.translate(pos.x, pos.y);
-		app.rotate(-a);
-		app.beginShape();
-		app.shapeMode(PApplet.CENTER);
-		app.shape(s);
-		app.shapeMode(PApplet.CORNER);
-		app.endShape();
-		app.popMatrix();
-	}
 
 	public void display(PApplet app, Box2DProcessing box2d) {
 		// We look at each body and get its screen position
@@ -169,7 +148,9 @@ public class Form extends FormBack {
 		return 0 <= a && a <= 1 && 0 <= b && b <= 1 && 0 <= c && c <= 1;
 	}
 
-	public void pintarCheckpoint(PApplet app, int posX, int posY) {
+	public void showCheckpoint(PApplet app) {
+		int posX=0;
+		int posY=0;
 		app.pushMatrix();
 		app.translate(posX, posY);
 		for (int i = 0; i < NUM; i++) {
