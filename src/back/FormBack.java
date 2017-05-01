@@ -18,6 +18,7 @@ public class FormBack {
 	protected float r;
 	protected PShape s;
 	protected Vec2 posCheck;
+	protected boolean checkVisible = true;
 
 	public FormBack(String name) {
 		this.name = name;
@@ -31,6 +32,17 @@ public class FormBack {
 		if (body != null) {
 			box2d.destroyBody(body);
 		}
+	}
+
+	public boolean catchChekpoin(Vec2 posB) {
+		if (posCheck != null) {
+			if (PApplet.dist(posCheck.x, posCheck.y, posB.x, posB.y) < r && name.equals("checkpoint")) {
+				checkVisible = false;
+				System.out.println("atrapo checkpoint");
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void makeRectBody(Box2DProcessing box2d, String data, Vec2 s, boolean lock) {
