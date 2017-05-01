@@ -8,6 +8,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 
 import ddf.minim.AudioSample;
+import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 
 public class EmotionBack {
@@ -16,14 +17,26 @@ public class EmotionBack {
 	protected Body body;
 	protected AudioSample sound;
 	protected Vec2 pos;
+	
+	
+	///-----
+	
+	protected int f, numEsf = 10, vari = 10;
+	protected float sz, posX , posY, posXM, posYM;
+	protected int col[] = new int[numEsf];
+	protected boolean save;
 
-	public EmotionBack(Box2DProcessing box2d, AudioSample sound, Vec2 pos, float w, float h) {
+	public EmotionBack(PApplet app,Box2DProcessing box2d, AudioSample sound, Vec2 pos, float w, float h) {
 		this.pos = pos;
 		this.w = w;
 		this.h = h;
 		this.box2d = box2d;
 		this.sound = sound;
 		createBody();
+		
+		for (int i = 0; i < numEsf; i++) {
+			col[i] = (int) app.random(360);
+		}
 	}
 
 	private void createBody() {

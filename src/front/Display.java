@@ -13,6 +13,7 @@ public class Display extends DisplayBack {
 
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
 		super(app, react, box2d);
+		app.colorMode(PApplet.HSB);
 		createFireworks();
 	}
 
@@ -92,6 +93,7 @@ public class Display extends DisplayBack {
 	}
 
 	private void showForms() {
+		
 		for (int i = 0; i < forms.size(); i++) {
 			forms.get(i).show(app,box2d);
 		}

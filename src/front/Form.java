@@ -23,7 +23,6 @@ public class Form extends FormBack {
 			showCircle(app, box2d);
 			break;
 		default:
-			// display(app, box2d);
 			break;
 		}
 	}
