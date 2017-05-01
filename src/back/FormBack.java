@@ -71,18 +71,12 @@ public class FormBack {
 
 	private float getRad(String st) {
 		String[] pos = st.split(",");
-		float r = Float.valueOf(pos[1]);
+		float r = Float.valueOf(pos[3]);
 		return r;
 	}
 
-	private String getShape(String st) {
-		String[] pos = st.split(",");
-		String s = pos[0];
-		return s;
-	}
 	public void makeCircleBody(PApplet app,Box2DProcessing box2d, String data) {
 		 posCheck = readPos(data);
-		//s=app.loadShape("data/shape/"+getShape(data)+".svg");
 		type = 2;
 		r=getRad(data);
 	}

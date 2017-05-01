@@ -1,9 +1,9 @@
-posX, posY, name
-200,300
-200,550
-1000,600
-920,150
-1050,450
-620,450
-710,340
-520,390
+posX, posY, name, radio (si lo tiene)
+obstacle,200,300
+obstacle,200,550
+obstacle,1000,600
+obstacle,920,150
+obstacle,1050,450
+obstacle,620,450
+obstacle,710,340
+obstacle,520,390

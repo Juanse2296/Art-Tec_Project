@@ -71,10 +71,12 @@ public class DisplayBack implements Observer {
 	protected void startGame() {
 		app.clear();
 		inst = null;
-		sc = new SoundController(app);
-		forms = new ArrayList<Form>();
-		// int[] n = { 1, 2, 3 };
-		// lvSelected = getRandom(n);
+		if(sc==null){
+			sc = new SoundController(app);
+		}
+		if(forms==null){
+			forms = new ArrayList<Form>();
+		}	
 		startLevel(1);
 	}
 
@@ -149,24 +151,27 @@ public class DisplayBack implements Observer {
 
 	protected void startLevel(int l) {
 		makeObjects(l);
-		emo = new Emotion(box2d, sc.getPlayer(), new Vec2(CONFIG.emoX,CONFIG.emoY), 50, 50);
-		go = new Going(app, box2d, new Vec2(CONFIG.emoX,CONFIG.emoY), 10);
+		if(emo==null){
+			emo = new Emotion(box2d, sc.getPlayer(), new Vec2(CONFIG.emoX,CONFIG.emoY), 50, 50);
+		}
+		if(go==null){
+			go = new Going(app, box2d, new Vec2(CONFIG.emoX,CONFIG.emoY), 10);
+		}		
 		state = 2;
 	}
 
 	public void makeObjects(int l) {
 		String[] data = app.loadStrings("data/levels/level" + l + ".txt");
 		String[] names = getName(data);
-
 		for (int i = 1; i < names.length; i++) {
 			Form f = new Form();
 			System.out.println(names[i]);
 			switch (names[i]) {			
 			case "checkpoint":
-				f.makeCircleBody(app,box2d, data[i]);
+				//f.makeCircleBody(app,box2d, data[i]);
 				break;
 			case "obstacle":
-				f.makeRectBody(box2d, data[i], new Vec2(100, 100),true);
+				//f.makeRectBody(box2d, data[i], new Vec2(100, 100),true);
 				break;
 			}
 			forms.add(f);
@@ -214,10 +219,11 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void gameOver() {
-		System.out.println("juego termnado");
 		destroyGame();
-		spin = new Spinner();
-		spin.addObserver(this);
+		if(spin==null){
+			spin = new Spinner();
+			spin.addObserver(this);
+		}		
 	}
 
 	protected void destroyGame() {

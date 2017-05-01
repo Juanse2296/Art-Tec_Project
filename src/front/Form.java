@@ -33,11 +33,15 @@ public class Form extends FormBack {
 		app.ellipseMode(PApplet.CENTER);
 		app.pushMatrix();
 		app.translate(posCheck.x, posCheck.y);
-		if(s!=null)app.shape(s);
 		showCheckpoint(app);
 		app.rotate(a);
+		app.noFill();
+		app.stroke(255);
+		app.strokeWeight(2);
+		app.ellipse(0, 0, r * 3, r * 3);
+		app.noStroke();
 		app.fill(255);
-		app.ellipse(0, 0, 25 * 2, 25 * 2);	
+		app.ellipse(0, 0, r * 2, r * 2);	
 		app.popMatrix();
 	}
 
