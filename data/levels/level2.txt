@@ -6,3 +6,4 @@ obstacle,1050,450
 obstacle,620,450
 obstacle,710,340
 obstacle,520,390
+finish,1100,280

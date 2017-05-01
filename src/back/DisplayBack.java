@@ -38,6 +38,7 @@ public class DisplayBack implements Observer {
 	protected int state;
 	protected Instruction inst;
 	protected Going go;
+	protected boolean practicelevel=true;
 
 	// --------------
 
@@ -206,7 +207,6 @@ public class DisplayBack implements Observer {
 
 	protected void restarEmotion(boolean statusGame) {
 		emo.restartPosition(new Vec2(app.width / 2, app.height / 2));
-
 		if (statusGame) {
 			attempts--;
 			if (attempts < 1) {
@@ -234,6 +234,7 @@ public class DisplayBack implements Observer {
 		emo = null;
 		forms.clear();
 		app.clear();
+		state=3;
 	}
 
 	private boolean validador(float xUno, float xDos, float xTres) {

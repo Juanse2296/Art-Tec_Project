@@ -74,7 +74,7 @@ public class Display extends DisplayBack {
 		showForms();
 		go.show(app);
 		/// ------debe estar al final
-		tryAgain();
+		if(!winner)tryAgain();
 	}
 
 	private void tryAgain() {
@@ -103,12 +103,19 @@ public class Display extends DisplayBack {
 			// System.out.println(point);
 			if (f.catchChekpoin(new Vec2(app.mouseX, app.mouseY))) {
 				point++;
-				System.out.println(point);
+				if(point>3){
+					practicelevel=false;
+				}
 				forms.remove(f);
 				break;
 			}
-			if(f.finishPracticeLeve(box2d, new Vec2(app.mouseX, app.mouseY)) && point>3){
+			if(f.finishPracticeLeve(box2d, new Vec2(app.mouseX, app.mouseY)) && practicelevel){
 				nextLevel(2);
+			}else if(f.finishPracticeLeve(box2d, new Vec2(app.mouseX, app.mouseY)) && !practicelevel){
+				state = 3;
+				winner = true;
+				gameOver();
+				//break;
 			}
 		}
 	}
