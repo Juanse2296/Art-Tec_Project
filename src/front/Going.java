@@ -40,20 +40,19 @@ public class Going extends GoingBack {
 		app.noFill();
 		app.stroke(255);
 		app.rectMode(PApplet.CORNER);
-		app.rect(pos.x, pos.y + 200, CONFIG.sensibleAreaW, CONFIG.sensibleAreaH);
+		app.rect(pos.x, pos.y, CONFIG.sensibleAreaW, CONFIG.sensibleAreaH);
 		app.popMatrix();
 	}
 
 	public boolean checkPosition(Vec2 a, Vec2 b, Vec2 c) {
 		boolean temp = false;
-		if ((a.x >= pos.x && a.x <= pos.x + CONFIG.sensibleAreaW && a.y >= pos.y && a.y <= pos.y + CONFIG.camHeight)
-				&& (b.x >= pos.x && b.x <= pos.x + CONFIG.sensibleAreaW && b.y >= pos.y
-						&& b.y <= pos.y + CONFIG.camHeight)
-				&& (c.x >= pos.x && c.x <= pos.x + CONFIG.sensibleAreaW && c.y >= pos.y
-						&& c.y <= pos.y + CONFIG.camHeight)) {
+		if ((a.x > pos.x && a.x <= pos.x + CONFIG.sensibleAreaW && a.y > pos.y && a.y <= pos.y + CONFIG.sensibleAreaH)
+				&& (b.x > pos.x && b.x <= pos.x + CONFIG.sensibleAreaW && b.y > pos.y
+						&& b.y <= pos.y + CONFIG.sensibleAreaH)
+				&& (c.x > pos.x && c.x <= pos.x + CONFIG.sensibleAreaW && c.y > pos.y
+						&& c.y <= pos.y + CONFIG.sensibleAreaH)) {
 			return true;
 		}
 		return temp;
 	}
-
 }

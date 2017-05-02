@@ -12,5 +12,5 @@ public class CONFIG {
 	public static int level = 1;
 	public static int instructionTime= 1;
 	public static int state=1;	
-	public static int sensibleAreaW=200,sensibleAreaH=50;
+	public static int sensibleAreaW=500,sensibleAreaH=100;
 }

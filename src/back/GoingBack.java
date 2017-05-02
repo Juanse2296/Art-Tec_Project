@@ -8,6 +8,7 @@ import org.jbox2d.dynamics.joints.DistanceJointDef;
 
 import front.Form;
 import front.Point;
+import principal.CONFIG;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 
@@ -25,7 +26,7 @@ public class GoingBack {
 
 	public GoingBack(PApplet app, Box2DProcessing box2d, Vec2 pos, int numPoints) {
 		this.box2d=box2d;
-		this.pos=pos;
+		this.pos=new Vec2(pos.x-CONFIG.sensibleAreaW/2,pos.y+200);
 		particlesLeft = new ArrayList<Point>();
 		particlesRight = new ArrayList<Point>();
 		this.numPoints=numPoints;
