@@ -15,10 +15,12 @@ public class FormBack {
 	protected Vec2 size;
 	protected Body body;
 	protected String name = "";
-	protected float r;
+	protected float r,a;
 	protected PShape s;
 	protected Vec2 posCheck;
 	protected boolean checkVisible = true;
+	protected float hue;
+
 
 	public FormBack(String name) {
 		this.name = name;
@@ -106,4 +108,14 @@ public class FormBack {
 	public void setBody(Body body) {
 		this.body = body;
 	}
+
+	public float getHue() {
+		return hue;
+	}
+
+	public void setHue(float hue) {
+		this.hue = hue;
+	}
+
+
 }

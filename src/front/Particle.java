@@ -57,7 +57,7 @@ public class Particle {
 		float opacity = PApplet.map(life, 1, 0, 255, 0);
 
 		app.strokeWeight(5);
-		hue=PApplet.map(app.mouseY, 0, app.height, 0, 255);
+		
 		
 		app.stroke(app.color(hue, 255, 100, (float) (opacity * 0.5))); // Show
 																		// stroke

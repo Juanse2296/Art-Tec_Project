@@ -8,20 +8,21 @@ import shiffman.box2d.Box2DProcessing;
 
 public class Form extends FormBack {
 
-	private float a;
-
 	public Form(String name) {
 		super(name);
 	}
 
 	public void show(PApplet app, Box2DProcessing box2d) {
+		app.colorMode(PApplet.HSB, 255);
+		app.stroke(app.color(hue, 255, 100)); 
+		app.fill(app.color(hue, 255, 150));
 		switch (name) {
 		case "obstacle":
 			showObstacle(app, box2d);
 			break;
 		case "checkpoint":
-			if(checkVisible)
-			showCircle(app, box2d);
+			if (checkVisible)
+				showCircle(app, box2d);
 			break;
 		case "finish":
 			display(app, box2d);
@@ -40,7 +41,7 @@ public class Form extends FormBack {
 		app.strokeWeight(2);
 		app.ellipse(0, 0, r * 3, r * 3);
 		app.noStroke();
-		app.fill(255);
+		app.fill(app.color(hue, 255, 100));
 		app.ellipse(0, 0, r * 2, r * 2);
 		app.popMatrix();
 	}
@@ -56,9 +57,9 @@ public class Form extends FormBack {
 		app.rotate(-a);
 		app.stroke(255);
 		app.noFill();
-		app.rect(0, 0, size.x, size.y);		
+		app.rect(0, 0, size.x, size.y);
 		app.fill(255);
-		app.rect(0, 0, size.x-20, size.y-20);
+		app.rect(0, 0, size.x - 20, size.y - 20);
 		app.popMatrix();
 	}
 
@@ -85,7 +86,7 @@ public class Form extends FormBack {
 		for (int x = -sa; x <= sa; x += d) {
 			for (int y = -sa; y <= sa; y += d) {
 				if (crearTriangulo(new PVector(x, y), pts)) {
-					app.fill(255);
+					app.fill(app.color(hue, 255, 100));
 					app.ellipse(x, y, d / 1, d / 1);
 				} else {
 					app.fill(0, 0);

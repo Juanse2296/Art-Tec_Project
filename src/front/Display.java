@@ -67,6 +67,7 @@ public class Display extends DisplayBack {
 
 	private void showGame() {
 		app.background(0);
+		changeHue();
 		showBackground();
 		emo.show(app);
 		showBridge();
@@ -74,7 +75,8 @@ public class Display extends DisplayBack {
 		showForms();
 		go.show(app);
 		/// ------debe estar al final
-		if(!winner)tryAgain();
+		if (!winner)
+			tryAgain();
 	}
 
 	private void tryAgain() {
@@ -101,21 +103,23 @@ public class Display extends DisplayBack {
 			Form f = forms.get(i);
 			// if(f.catchChekpoin(box2d,emo.getPos()))point++;
 			// System.out.println(point);
-			if (f.catchChekpoin(new Vec2(app.mouseX, app.mouseY))) {
+			if ((f.catchChekpoin(new Vec2(app.mouseX, app.mouseY))) || (f.catchChekpoin(emo.getPos()))) {
 				point++;
-				if(point>3){
-					practicelevel=false;
+				if (point > 3) {
+					practicelevel = false;
 				}
 				forms.remove(f);
 				break;
 			}
-			if(f.finishPracticeLeve(box2d, new Vec2(app.mouseX, app.mouseY)) && practicelevel){
+			if (((f.finishPracticeLeve(box2d, new Vec2(app.mouseX, app.mouseY)))
+					|| (f.finishPracticeLeve(box2d, emo.getPos()))) && point > 3) {
 				nextLevel(2);
-			}else if(f.finishPracticeLeve(box2d, new Vec2(app.mouseX, app.mouseY)) && !practicelevel){
+			} else if (((f.finishPracticeLeve(box2d, new Vec2(app.mouseX, app.mouseY)))
+					|| (f.finishPracticeLeve(box2d, emo.getPos()))) && !practicelevel) {
 				state = 3;
 				winner = true;
 				gameOver();
-				//break;
+				break;
 			}
 		}
 	}
@@ -230,6 +234,18 @@ public class Display extends DisplayBack {
 		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).setHue(globalHue);
 		}
+	}
+	
+	private void changeHue(){
+		float col = PApplet.map(app.mouseY, 0, 850, 0, 255);		
+		for (int i = 0; i < particles.size(); i++) {
+			particles.get(i).setHue(col);
+		}
+		
+		for (int i = 0; i < forms.size(); i++) {
+			forms.get(i).setHue(col);
+		}
+		
 	}
 
 	// ----------------------Metodo que crea administra el funcionamiento del
