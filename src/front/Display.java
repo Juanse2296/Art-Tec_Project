@@ -73,6 +73,8 @@ public class Display extends DisplayBack {
 		showBridge();
 		showPeople();
 		showForms();
+		if (!practicelevel)
+			showAttemps();
 		go.show(app);
 		/// ------debe estar al final
 		if (!winner)
@@ -81,10 +83,10 @@ public class Display extends DisplayBack {
 
 	private void tryAgain() {
 		if (emo.getPos().y > app.height) {
-			if (lvSelected > 3)
-				restarEmotion(true,startPostionTemp);
+			if (!practicelevel)
+				restarEmotion(true, startPostionTemp);
 			else
-				restarEmotion(false,startPostionTemp);
+				restarEmotion(false, startPostionTemp);
 		}
 	}
 
@@ -105,14 +107,12 @@ public class Display extends DisplayBack {
 			// System.out.println(point);
 			if ((f.catchChekpoin(emo.getPos()))) {
 				point++;
-				if (point > 3) {
-					practicelevel = false;
-				}
 				forms.remove(f);
 				break;
 			}
-			if (((f.finishLevel(box2d, emo.getPos()))) && point > 3) {
+			if (((f.finishLevel(box2d, emo.getPos()))) && point > 3 && practicelevel) {
 				nextLevel(2);
+				practicelevel = false;
 			} else if (((f.finishLevel(box2d, emo.getPos()))) && !practicelevel) {
 				state = 3;
 				winner = true;
@@ -280,10 +280,16 @@ public class Display extends DisplayBack {
 	}
 
 	public void catchEmotion() {
-		if (state > 1) {			
+		if (state > 1 && emo != null) {
 			if (PApplet.dist(emo.getPos().x, emo.getPos().y, app.mouseX, app.mouseY) < 100 && app.mousePressed) {
 				emo.setPos(new Vec2(app.mouseX, app.mouseY));
 			}
+		}
+	}
+
+	private void showAttemps() {
+		for (int i = 0; i < attempts; i++) {
+			app.ellipse(100 + (25 * i), 50, 20, 20);
 		}
 	}
 

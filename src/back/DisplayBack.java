@@ -32,7 +32,7 @@ public class DisplayBack implements Observer {
 	protected PShape background;
 	protected Emotion emo;
 	protected Video v;
-	protected int lvSelected, attempts = 4;
+	protected int attempts = 4;
 	protected Spinner spin;
 	protected boolean winner;
 	protected int state;
@@ -179,8 +179,8 @@ public class DisplayBack implements Observer {
 				f.makeRectBody(box2d, data[i], new Vec2(150, 50), true);
 				break;
 			case "start":
-				String[] temp = data[i].split(",");				
-				startPostionTemp = new Vec2(Integer.valueOf(temp[1]),Integer.valueOf(temp[2]));
+				String[] temp = data[i].split(",");
+				startPostionTemp = new Vec2(Integer.valueOf(temp[1]), Integer.valueOf(temp[2]));
 				break;
 			}
 			forms.add(f);
@@ -207,7 +207,7 @@ public class DisplayBack implements Observer {
 		}
 		forms.clear();
 		startLevel(l);
-		restarEmotion(false,startPostionTemp);
+		restarEmotion(false, startPostionTemp);
 	}
 
 	protected void restarEmotion(boolean statusGame, Vec2 pos) {
@@ -237,7 +237,8 @@ public class DisplayBack implements Observer {
 	protected void destroyGame() {
 		sc = null;
 		emo = null;
-		forms.clear();
+		if (forms != null)
+			forms.clear();
 		app.clear();
 		state = 3;
 	}

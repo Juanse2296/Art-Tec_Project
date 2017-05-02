@@ -1,11 +1,9 @@
 package principal;
 
 import org.jbox2d.dynamics.contacts.Contact;
-
 import front.Display;
 import processing.core.PApplet;
 import processing.core.PFont;
-import processing.core.PImage;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 

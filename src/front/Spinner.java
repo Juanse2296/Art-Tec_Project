@@ -20,11 +20,10 @@ public class Spinner extends Observable {
 	}
 
 	public void show(PApplet app, boolean winner) {
+		app.colorMode(PApplet.RGB, 255);
 		app.rectMode(PApplet.CORNER);
 		app.fill(10, 10, 10, 20);
-		app.rect(0, 0, app.width, app.height);
-		app.noFill();
-
+		app.rect(0, 0, app.width, app.height);	
 		app.smooth();
 		app.noStroke();
 		time = tm.getSeconds();
@@ -80,9 +79,9 @@ public class Spinner extends Observable {
 		app.textSize(50);
 		app.fill(200);
 		if (!winner) {
-			app.text("Â¡Juego terminado :( !" + "\n" + "Espera para volver a intentarlo", 0, -250);
+			app.text("¡Juego terminado :( !" + "\n" + "Espera para volver a intentarlo", 0, -250);
 		} else {
-			app.text("Â¡Felicitaciones :D !" + "\n" + "Espera para volver a intentarlo", 0, -250);
+			app.text("¡Felicitaciones :D !" + "\n" + "Espera para volver a intentarlo", 0, -250);
 		}
 		app.popMatrix();
 		
