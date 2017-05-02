@@ -64,7 +64,7 @@ public class DisplayBack implements Observer {
 	protected void startIntruction() {
 		app.clear();
 		String[] t = app.loadStrings("data/instructions.txt");
-		inst = new Instruction(app.width / 2, app.height / t.length, t);
+		inst = new Instruction(app,app.width / 2, app.height / t.length, t);
 		inst.addObserver(this);
 		state = CONFIG.state;
 	}

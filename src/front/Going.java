@@ -48,6 +48,11 @@ public class Going extends GoingBack {
 	private boolean checkPosition(){
 		boolean temp=false;
 		
+		
+		
+		
+		
+		
 		return temp;		
 	}
 

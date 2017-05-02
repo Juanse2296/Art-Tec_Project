@@ -139,7 +139,7 @@ public class Display extends DisplayBack {
 			// startGame();
 			break;
 		case 2:
-			nextLevel(2);
+			//nextLevel(2);
 			break;
 		}
 	}
@@ -235,17 +235,17 @@ public class Display extends DisplayBack {
 			particles.get(i).setHue(globalHue);
 		}
 	}
-	
-	private void changeHue(){
-		float col = PApplet.map(app.mouseY, 0, 850, 0, 255);		
+
+	private void changeHue() {
+		float col = PApplet.map(app.mouseY, 0, 850, 0, 255);
 		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).setHue(col);
 		}
-		
+
 		for (int i = 0; i < forms.size(); i++) {
 			forms.get(i).setHue(col);
 		}
-		
+
 	}
 
 	// ----------------------Metodo que crea administra el funcionamiento del
@@ -281,6 +281,14 @@ public class Display extends DisplayBack {
 	public int randomWithRange(int min, int max) {
 		int range = (max - min) + 1;
 		return (int) (Math.random() * range) + min;
+	}
+
+	public void catchEmotion() {
+		if(state==2){
+			if (PApplet.dist(emo.getPos().x, emo.getPos().y, app.mouseX, app.mouseY) < 50 && app.mousePressed) {
+				emo.setPos(new Vec2(app.mouseX, app.mouseY));
+			}
+		}		
 	}
 
 	/// ------------------------

@@ -3,36 +3,39 @@ package back;
 import java.util.Observable;
 
 import principal.CONFIG;
+import processing.core.PApplet;
+import processing.core.PImage;
 
-public class InstructionBack extends Observable  {
+public class InstructionBack extends Observable {
 
-	
-	protected String []txt;
+	protected String[] txt;
 	protected int x, y;
 	protected Time tim;
-	
-	public InstructionBack(int x, int y, String []txt) {
-		this.x=x;
-		this.y=y;
-		this.txt=txt;
-		tim= new Time();
+	protected PImage img;
+
+	public InstructionBack(PApplet app, int x, int y, String[] txt) {
+		this.x = x;
+		this.y = y;
+		this.txt = txt;
+		tim = new Time();
 		tim.Count(1);
-	}	
-	
-	protected boolean endTime(){
-		if(tim.getSeconds()>CONFIG.instructionTime){			
+		img = app.loadImage("data/context_ui.png");
+	}
+
+	protected boolean endTime() {
+		if (tim.getSeconds() > CONFIG.instructionTime) {
 			setChanged();
 			notifyObservers();
-			clearChanged();			
-			return true;	
-		}		
-		return false;		
+			clearChanged();
+			return true;
+		}
+		return false;
 	}
-	
-	public void clear(){
-		x=0;
-		y=0;
-		tim=null;
-		txt=null;
+
+	public void clear() {
+		x = 0;
+		y = 0;
+		tim = null;
+		txt = null;
 	}
 }
