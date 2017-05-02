@@ -3,6 +3,7 @@ package front;
 import org.jbox2d.common.Vec2;
 
 import back.GoingBack;
+import principal.CONFIG;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 
@@ -29,31 +30,30 @@ public class Going extends GoingBack {
 			Point p = particlesRight.get(i);
 			p.display();
 		}
-		if(table!=null)
-		table.display(app,box2d);
+		if (table != null)
+			table.display(app, box2d);
 		app.popMatrix();
-		
 	}
-	
-	
-	private void BridgePosition(PApplet app){	
+
+	private void BridgePosition(PApplet app) {
 		app.pushMatrix();
 		app.noFill();
 		app.stroke(255);
-		app.rect(pos.x, pos.y+200, 200, 50);
+		app.rectMode(PApplet.CORNER);
+		app.rect(pos.x, pos.y + 200, CONFIG.sensibleAreaW, CONFIG.sensibleAreaH);
 		app.popMatrix();
-		checkPosition();
 	}
-	
-	private boolean checkPosition(){
-		boolean temp=false;
-		
-		
-		
-		
-		
-		
-		return temp;		
+
+	public boolean checkPosition(Vec2 a, Vec2 b, Vec2 c) {
+		boolean temp = false;
+		if ((a.x >= pos.x && a.x <= pos.x + CONFIG.sensibleAreaW && a.y >= pos.y && a.y <= pos.y + CONFIG.camHeight)
+				&& (b.x >= pos.x && b.x <= pos.x + CONFIG.sensibleAreaW && b.y >= pos.y
+						&& b.y <= pos.y + CONFIG.camHeight)
+				&& (c.x >= pos.x && c.x <= pos.x + CONFIG.sensibleAreaW && c.y >= pos.y
+						&& c.y <= pos.y + CONFIG.camHeight)) {
+			return true;
+		}
+		return temp;
 	}
 
 }

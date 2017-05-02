@@ -40,6 +40,7 @@ public class DisplayBack implements Observer {
 	protected Going go;
 	protected boolean practicelevel = true;
 	protected Vec2 startPostionTemp;
+	protected boolean insideSensibleArea;
 
 	// --------------
 
@@ -90,11 +91,13 @@ public class DisplayBack implements Observer {
 	protected void showBridge() {
 		if (react.getTuioClient() != null && !created) {
 			if (react.getTuioClient().getTuioObjectList().size() > 2) {
-				int x[] = allowBridge();
+				Vec2 v[] = allowBridge();
 				for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
 					TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
 					int a = 100;
-					if (tobj.getSymbolID() == 1 && validador(x[0], x[1], x[2])) {
+					System.out.println("orden: "+(validador(v[0].x, v[1].x, v[2].x)));
+					System.out.println("dentro: "+(go.checkPosition(v[0], v[1], v[2])));
+					if ((tobj.getSymbolID() == 1) && (validador(v[0].x, v[1].x, v[2].x)) && (go.checkPosition(v[0], v[1], v[2]))) {
 						createBridge(20, tobj.getScreenX(app.width), a);
 						created = !created;
 						break;
@@ -107,26 +110,27 @@ public class DisplayBack implements Observer {
 		}
 	}
 
-	private int[] allowBridge() {
-		int x[] = new int[3];
+	private Vec2[] allowBridge() {
+		Vec2 v[] = new Vec2[3];
 		for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
 			TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
 			switch (tobj.getSymbolID()) {
 			case 0:
-				x[0] = tobj.getScreenX(app.width);
+				v[0] = new Vec2( tobj.getScreenX(app.width), tobj.getScreenY(app.height));
 				break;
 			case 1:
-				x[1] = tobj.getScreenX(app.width);
+				v[1] = new Vec2( tobj.getScreenX(app.width), tobj.getScreenY(app.height));
 				break;
 			case 2:
-				x[2] = tobj.getScreenX(app.width);
+				v[2] = new Vec2( tobj.getScreenX(app.width), tobj.getScreenY(app.height));
 				break;
 			}
 		}
-		return x;
+		return v;
 	}
 
 	protected void showPeople() {
+		Vec2 [] v= new Vec2[3];
 		if (react.getTuioClient() != null) {
 			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
 			for (int i = 0; i < tuioObjectList.size(); i++) {
@@ -134,21 +138,25 @@ public class DisplayBack implements Observer {
 				int y = 0;
 				switch (tobj.getSymbolID()) {
 				case 0:
-					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
-					app.fill(0, 0, 255);
+					app.fill(0, 255, 0);
+					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);					
+					v[0]=new Vec2(tobj.getScreenY(app.height),tobj.getScreenX(app.width));
 					break;
 				case 1:
-					app.fill(0, 255, 0);
+					app.fill(0, 0, 255);
 					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					v[1]=new Vec2(tobj.getScreenY(app.height),tobj.getScreenX(app.width));
 					break;
 				case 2:
 					app.fill(255, 0, 0);
 					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					v[2]=new Vec2(tobj.getScreenY(app.height),tobj.getScreenX(app.width));
 					break;
 				}
 				app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
 			}
-		}
+			
+		}		 
 	}
 
 	protected void startLevel(int l) {
