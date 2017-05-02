@@ -82,9 +82,9 @@ public class Display extends DisplayBack {
 	private void tryAgain() {
 		if (emo.getPos().y > app.height) {
 			if (lvSelected > 3)
-				restarEmotion(true);
+				restarEmotion(true,startPostionTemp);
 			else
-				restarEmotion(false);
+				restarEmotion(false,startPostionTemp);
 		}
 	}
 
@@ -103,7 +103,7 @@ public class Display extends DisplayBack {
 			Form f = forms.get(i);
 			// if(f.catchChekpoin(box2d,emo.getPos()))point++;
 			// System.out.println(point);
-			if ((f.catchChekpoin(new Vec2(app.mouseX, app.mouseY))) || (f.catchChekpoin(emo.getPos()))) {
+			if ((f.catchChekpoin(emo.getPos()))) {
 				point++;
 				if (point > 3) {
 					practicelevel = false;
@@ -111,11 +111,9 @@ public class Display extends DisplayBack {
 				forms.remove(f);
 				break;
 			}
-			if (((f.finishPracticeLeve(box2d, new Vec2(app.mouseX, app.mouseY)))
-					|| (f.finishPracticeLeve(box2d, emo.getPos()))) && point > 3) {
+			if (((f.finishLevel(box2d, emo.getPos()))) && point > 3) {
 				nextLevel(2);
-			} else if (((f.finishPracticeLeve(box2d, new Vec2(app.mouseX, app.mouseY)))
-					|| (f.finishPracticeLeve(box2d, emo.getPos()))) && !practicelevel) {
+			} else if (((f.finishLevel(box2d, emo.getPos()))) && !practicelevel) {
 				state = 3;
 				winner = true;
 				gameOver();
@@ -139,7 +137,7 @@ public class Display extends DisplayBack {
 			// startGame();
 			break;
 		case 2:
-			//nextLevel(2);
+			// nextLevel(2);
 			break;
 		}
 	}
@@ -237,15 +235,13 @@ public class Display extends DisplayBack {
 	}
 
 	private void changeHue() {
-		float col = PApplet.map(app.mouseY, 0, 850, 0, 255);
+		float col = PApplet.map(emo.getPos().y, 0, 850, 0, 255);
 		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).setHue(col);
 		}
-
 		for (int i = 0; i < forms.size(); i++) {
 			forms.get(i).setHue(col);
 		}
-
 	}
 
 	// ----------------------Metodo que crea administra el funcionamiento del
@@ -284,11 +280,11 @@ public class Display extends DisplayBack {
 	}
 
 	public void catchEmotion() {
-		if(state==2){
-			if (PApplet.dist(emo.getPos().x, emo.getPos().y, app.mouseX, app.mouseY) < 50 && app.mousePressed) {
+		if (state > 1) {			
+			if (PApplet.dist(emo.getPos().x, emo.getPos().y, app.mouseX, app.mouseY) < 100 && app.mousePressed) {
 				emo.setPos(new Vec2(app.mouseX, app.mouseY));
 			}
-		}		
+		}
 	}
 
 	/// ------------------------

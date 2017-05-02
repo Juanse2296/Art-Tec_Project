@@ -46,6 +46,7 @@ public class Main extends PApplet {
 		textFont(fon);
 		dp.show();
 		box2d.step();
+		dp.catchEmotion();
 	}
 
 	public void keyPressed() {
@@ -53,13 +54,9 @@ public class Main extends PApplet {
 	}
 
 	public void mousePressed() {
-		dp.clic();
-		dp.catchEmotion();
+		dp.clic();	
 	}
-	
-	public void mouseDragged(){
-		System.out.println("je");
-	}
+
 
 	public void beginContact(Contact cp) {
 		dp.beginCon(cp);

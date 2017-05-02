@@ -1,4 +1,5 @@
 posX, posY, name, radio (si lo tiene)
+start,200,100
 obstacle,400,250
 obstacle,880,300
 obstacle,600,600

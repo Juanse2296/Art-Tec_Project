@@ -94,7 +94,7 @@ public class EmotionBack {
 	}
 
 	public void setPos(Vec2 pos) {
-		this.pos = pos;
+		body.setTransform(new Vec2(box2d.coordPixelsToWorld(pos.x, pos.y)), 0);
 	}
 
 }

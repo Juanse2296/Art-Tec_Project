@@ -38,7 +38,7 @@ public class FormBack {
 
 	public boolean catchChekpoin(Vec2 posB) {
 		if (posCheck != null) {
-			if (PApplet.dist(posCheck.x, posCheck.y, posB.x, posB.y) < r && name.equals("checkpoint")) {
+			if (PApplet.dist(posCheck.x, posCheck.y, posB.x, posB.y) < r*2 && name.equals("checkpoint")) {
 				checkVisible = false;
 				return true;
 			}
@@ -46,12 +46,12 @@ public class FormBack {
 		return false;
 	}
 
-	public boolean finishPracticeLeve(Box2DProcessing box2d, Vec2 posB) {
+	public boolean finishLevel(Box2DProcessing box2d, Vec2 posB) {
 		boolean temp = false;
 		if (body != null) {
 			Vec2 posA = box2d.getBodyPixelCoord(body);
 			if (((posB.x >= posA.x - size.x / 2) && (posB.x <= posA.x + size.x / 2) && (posB.y <= posA.y + size.y / 2)
-					&& (posB.y >= (posA.y - size.y / 2) - 10)) && (name.equals("finish"))) {
+					&& (posB.y >= (posA.y - size.y / 2) - 50)) && (name.equals("finish"))) {
 				System.out.println("siguiente nivel");
 				return true;
 			}

@@ -38,7 +38,8 @@ public class DisplayBack implements Observer {
 	protected int state;
 	protected Instruction inst;
 	protected Going go;
-	protected boolean practicelevel=true;
+	protected boolean practicelevel = true;
+	protected Vec2 startPostionTemp;
 
 	// --------------
 
@@ -64,7 +65,7 @@ public class DisplayBack implements Observer {
 	protected void startIntruction() {
 		app.clear();
 		String[] t = app.loadStrings("data/instructions.txt");
-		inst = new Instruction(app,app.width / 2, app.height / t.length, t);
+		inst = new Instruction(app, app.width / 2, app.height / t.length, t);
 		inst.addObserver(this);
 		state = CONFIG.state;
 	}
@@ -153,10 +154,10 @@ public class DisplayBack implements Observer {
 	protected void startLevel(int l) {
 		makeObjects(l);
 		if (emo == null) {
-			emo = new Emotion(app, box2d, sc.getPlayer(), new Vec2(CONFIG.emoX, CONFIG.emoY), 50, 50);
+			emo = new Emotion(app, box2d, sc.getPlayer(), startPostionTemp, 50, 50);
 		}
 		if (go == null) {
-			go = new Going(app, box2d, new Vec2(CONFIG.emoX, CONFIG.emoY), 10);
+			go = new Going(app, box2d, startPostionTemp, 10);
 		}
 		state = 2;
 	}
@@ -175,7 +176,11 @@ public class DisplayBack implements Observer {
 				f.makeRectBody(box2d, data[i], new Vec2(100, 100), true);
 				break;
 			case "finish":
-				f.makeRectBody(box2d, data[i], new Vec2(150,50), true);
+				f.makeRectBody(box2d, data[i], new Vec2(150, 50), true);
+				break;
+			case "start":
+				String[] temp = data[i].split(",");				
+				startPostionTemp = new Vec2(Integer.valueOf(temp[1]),Integer.valueOf(temp[2]));
 				break;
 			}
 			forms.add(f);
@@ -202,11 +207,11 @@ public class DisplayBack implements Observer {
 		}
 		forms.clear();
 		startLevel(l);
-		restarEmotion(false);
+		restarEmotion(false,startPostionTemp);
 	}
 
-	protected void restarEmotion(boolean statusGame) {
-		emo.restartPosition(new Vec2(app.width / 2, app.height / 2));
+	protected void restarEmotion(boolean statusGame, Vec2 pos) {
+		emo.restartPosition(startPostionTemp);
 		if (statusGame) {
 			attempts--;
 			if (attempts < 1) {
@@ -234,7 +239,7 @@ public class DisplayBack implements Observer {
 		emo = null;
 		forms.clear();
 		app.clear();
-		state=3;
+		state = 3;
 	}
 
 	private boolean validador(float xUno, float xDos, float xTres) {
