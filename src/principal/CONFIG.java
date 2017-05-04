@@ -10,7 +10,7 @@ public class CONFIG {
 	public static int maxDown=400;
 	public static int positionMap=500;
 	public static int level = 1;
-	public static int instructionTime= 10;
+	public static int instructionTime= 1;
 	public static int state=1;	
 	public static int sensibleAreaW=500,sensibleAreaH=100;
 }

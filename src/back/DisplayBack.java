@@ -94,7 +94,7 @@ public class DisplayBack implements Observer {
 			Vec2 v[] = allowBridge();
 			for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
 				TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
-				int a = 100;
+				int a = 250;
 				if (v[0] != null && v[1] != null && v[2] != null) {
 					if ((tobj.getSymbolID() == 1) && (validador(v[0].x, v[1].x, v[2].x))
 							&& (go.checkPosition(v[0], v[1], v[2]))) {
@@ -106,13 +106,15 @@ public class DisplayBack implements Observer {
 			}
 		} else {
 			Vec2 v[] = allowBridge();
-			if (go.checkPosition(v[0], v[1], v[2]) && !insideSensibleArea) {
-				go.actionJoint();
-				insideSensibleArea = true;
-				System.out.println("dentro");
-			} else if (!go.checkPosition(v[0], v[1], v[2])) {
-				System.out.println("fuera");
-				insideSensibleArea = false;
+			if (v[0] != null && v[1] != null && v[2] != null) {
+				if (go.checkPosition(v[0], v[1], v[2]) && !insideSensibleArea) {
+					go.actionJoint();
+					insideSensibleArea = true;
+					System.out.println("dentro");
+				} else if (!go.checkPosition(v[0], v[1], v[2])) {
+					System.out.println("fuera");
+					insideSensibleArea = false;
+				}
 			}
 		}
 
@@ -294,8 +296,10 @@ public class DisplayBack implements Observer {
 	}
 
 	protected boolean playGame() {
-		if (allowBridge().length > 2)
+		Vec2[] v = allowBridge();
+		if (v[0] != null && v[1] != null && v[2] != null) {
 			return true;
+		}
 		return false;
 	}
 
