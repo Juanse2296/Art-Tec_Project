@@ -40,6 +40,13 @@ public class Display extends DisplayBack {
 		case 0:
 			if (v != null)
 				v.show(app);
+			// ----jugar
+			if (playGame() && !players) {
+				players = true;
+				v.stop();
+				startIntruction();
+			}
+
 			break;
 		case 1:
 			if (v != null)

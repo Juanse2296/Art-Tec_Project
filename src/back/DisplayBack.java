@@ -41,6 +41,7 @@ public class DisplayBack implements Observer {
 	protected boolean practicelevel = true;
 	protected Vec2 startPostionTemp;
 	protected boolean insideSensibleArea;
+	protected boolean players;
 
 	// --------------
 
@@ -90,11 +91,10 @@ public class DisplayBack implements Observer {
 
 	protected void showBridge() {
 		if (react.getTuioClient() != null && !created) {
-
 			Vec2 v[] = allowBridge();
 			for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
 				TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
-				int a = 100;				
+				int a = 100;
 				if (v[0] != null && v[1] != null && v[2] != null) {
 					if ((tobj.getSymbolID() == 1) && (validador(v[0].x, v[1].x, v[2].x))
 							&& (go.checkPosition(v[0], v[1], v[2]))) {
@@ -104,7 +104,18 @@ public class DisplayBack implements Observer {
 					}
 				}
 			}
+		} else {
+			Vec2 v[] = allowBridge();
+			if (go.checkPosition(v[0], v[1], v[2]) && !insideSensibleArea) {
+				go.actionJoint();
+				insideSensibleArea = true;
+				System.out.println("dentro");
+			} else if (!go.checkPosition(v[0], v[1], v[2])) {
+				System.out.println("fuera");
+				insideSensibleArea = false;
+			}
 		}
+
 		if (bridge != null) {
 			bridge.display();
 		}
@@ -112,25 +123,27 @@ public class DisplayBack implements Observer {
 
 	private Vec2[] allowBridge() {
 		Vec2 v[] = new Vec2[3];
-		int y = 0;
-		for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
-			TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
-			switch (tobj.getSymbolID()) {
-			case 0:
-				y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+		if (react.getTuioClient() != null) {
+			int y = 0;
+			for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
+				TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
+				switch (tobj.getSymbolID()) {
+				case 0:
+					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 
-				v[0] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
-				break;
-			case 1:
-				y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					v[0] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
+					break;
+				case 1:
+					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 
-				v[1] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
-				break;
-			case 2:
-				y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+					v[1] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
+					break;
+				case 2:
+					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
 
-				v[2] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
-				break;
+					v[2] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
+					break;
+				}
 			}
 		}
 		return v;
@@ -162,7 +175,6 @@ public class DisplayBack implements Observer {
 				}
 				app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
 			}
-
 		}
 	}
 
@@ -279,6 +291,12 @@ public class DisplayBack implements Observer {
 		if (obs instanceof InstructionBack) {
 			startGame();
 		}
+	}
+
+	protected boolean playGame() {
+		if (allowBridge().length > 2)
+			return true;
+		return false;
 	}
 
 }
