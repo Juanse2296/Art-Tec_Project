@@ -22,6 +22,8 @@ import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 
 public class DisplayBack implements Observer {
+
+	// ---Variables
 	protected Reactivision react;
 	protected Bridge bridge;
 	protected PApplet app;
@@ -29,28 +31,21 @@ public class DisplayBack implements Observer {
 	protected SoundController sc;
 	private boolean created;
 	protected ArrayList<Form> forms;
-	protected PShape background;
 	protected Emotion emo;
 	protected Video v;
-	protected int attempts = 4;
 	protected Spinner spin;
 	protected boolean winner;
+	protected int attempts = CONFIG.attempts;
 	protected int state;
+	protected int timer;
 	protected Instruction inst;
 	protected Going go;
 	protected boolean practicelevel = true;
 	protected Vec2 startPostionTemp;
 	protected boolean insideSensibleArea;
 	protected boolean players;
-
-	// --------------
-
 	protected ArrayList<Particle> particles = new ArrayList<Particle>();
-	protected float globalHue;
-	protected int colorManage;
-	protected int timer;
-	protected float posXran, posYran;
-	protected int globalControl;
+	// --------------
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
 		this.react = react;
@@ -290,14 +285,14 @@ public class DisplayBack implements Observer {
 			startGame();
 		}
 	}
-	
-	 protected void ready(){
-		 if (playGame() && !players) {
-				players = true;
-				v.stop();
-				startIntruction();
-			}
-	 }
+
+	protected void ready() {
+		if (playGame() && !players) {
+			players = true;
+			v.stop();
+			startIntruction();
+		}
+	}
 
 	protected boolean playGame() {
 		Vec2[] v = allowBridge();

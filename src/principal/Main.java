@@ -43,16 +43,15 @@ public class Main extends PApplet {
 	public void draw() {
 		textFont(fon);
 		dp.show(this);
-		box2d.step();
-		dp.catchEmotion();
+		box2d.step();		
 	}
 
 	public void keyPressed() {
-		dp.key();
+		dp.key(this);
 	}
 
 	public void mousePressed() {
-		dp.clic();	
+		dp.clic(this);	
 	}
 
 

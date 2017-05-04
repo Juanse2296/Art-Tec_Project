@@ -98,52 +98,6 @@ public class Form extends FormBack {
 		app.popMatrix();
 	}
 
-	private void pintarSoportes(PApplet app, int posX, int posY, String dir) {
-		if (dir.equals("arriba")) {
-			app.rectMode(PApplet.CORNER);
-			app.ellipseMode(PApplet.CENTER);
-			app.fill(80);
-			app.rect(posX - 13, posY - 3, 20, -(720));
-			app.fill(150);
-			app.rect(posX - 10, posY, 20, -(720));
-			app.fill(200, 100, 100);
-			app.ellipse(posX, posY, 25, 25);
-		}
-		if (dir.equals("abajo")) {
-			app.rectMode(PApplet.CORNER);
-			app.ellipseMode(PApplet.CENTER);
-			app.fill(80);
-			app.rect(posX - 13, posY - 3, 20, (720));
-			app.fill(150);
-			app.rect(posX - 10, posY, 20, (720));
-			app.fill(200, 100, 100);
-			app.ellipse(posX, posY, 25, 25);
-
-		}
-		if (dir.equals("izquierda")) {
-			app.rectMode(PApplet.CORNER);
-			app.ellipseMode(PApplet.CENTER);
-			app.fill(80);
-			app.rect(posX - 3, posY - 13, -1280, 20);
-			app.fill(150);
-			app.rect(posX, posY - 10, -1280, 20);
-			app.fill(200, 100, 100);
-			app.ellipse(posX, posY, 25, 25);
-
-		}
-		if (dir.equals("derecha")) {
-			app.rectMode(PApplet.CORNER);
-			app.ellipseMode(PApplet.CENTER);
-			app.fill(80);
-			app.rect(posX - 3, posY - 13, 1280, (20));
-			app.fill(150);
-			app.rect(posX, posY - 10, 1280, (20));
-			app.fill(200, 100, 100);
-			app.ellipse(posX, posY, 25, 25);
-
-		}
-	}
-
 	private boolean crearTriangulo(PVector l, PVector[] pts) {
 		PVector p1 = pts[0];
 		PVector p2 = pts[1];

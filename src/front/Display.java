@@ -13,6 +13,7 @@ public class Display extends DisplayBack {
 	private Firework[] fs = new Firework[CONFIG.fireworks];
 	private boolean once;
 	private int point;
+	private int globalControl;
 
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
 		super(app, react, box2d);
@@ -48,7 +49,7 @@ public class Display extends DisplayBack {
 				inst.show(app);
 			break;
 		case 2:
-			showGame();
+			showGame(app);
 			break;
 		case 3:
 			spin.show(app, winner);
@@ -67,23 +68,24 @@ public class Display extends DisplayBack {
 				launchFireWork(app);
 	}
 
-	private void showGame() {
+	private void showGame(PApplet app) {
 		app.background(0);
 		changeHue();
-		showBackground();
+		showBackground(app);
 		emo.show(app);
 		showBridge();
 		showPeople();
-		showForms();
+		showForms(app);
 		if (!practicelevel)
-			showAttemps();
+			showAttemps(app);
 		go.show(app);
+		catchEmotion(app);
 		/// ------debe estar al final
 		if (!winner)
-			tryAgain();
+			tryAgain(app);
 	}
 
-	private void tryAgain() {
+	private void tryAgain(PApplet app) {
 		if (emo.getPos().y > app.height) {
 			if (!practicelevel)
 				restarEmotion(true, startPostionTemp);
@@ -98,15 +100,13 @@ public class Display extends DisplayBack {
 		}
 	}
 
-	private void showForms() {
+	private void showForms(PApplet app) {
 		for (int i = 0; i < forms.size(); i++) {
 			Form f = forms.get(i);
 			f.show(app, box2d);
 		}
 		for (int i = 0; i < forms.size(); i++) {
 			Form f = forms.get(i);
-			// if(f.catchChekpoin(box2d,emo.getPos()))point++;
-			// System.out.println(point);
 			if ((f.catchChekpoin(emo.getPos()))) {
 				point++;
 				forms.remove(f);
@@ -124,12 +124,12 @@ public class Display extends DisplayBack {
 		}
 	}
 
-	public void clic() {
-		Lclick();
-		Rclick();
+	public void clic(PApplet app) {
+		Lclick(app);
+		Rclick(app);
 	}
 
-	private void Lclick() {
+	private void Lclick(PApplet app) {
 		switch (state) {
 		case 0:
 			v.stop();
@@ -144,7 +144,7 @@ public class Display extends DisplayBack {
 		}
 	}
 
-	private void Rclick() {
+	private void Rclick(PApplet app) {
 		if (app.mouseButton == PApplet.RIGHT) {
 			state = 3;
 			winner = true;
@@ -152,36 +152,17 @@ public class Display extends DisplayBack {
 		}
 	}
 
-	public void key() {
+	public void key(PApplet app) {
 		if (state == 2) {
 			go.actionJoint();
-		}
-
-		/// -----
-
-		if (app.key == 'w') {
-			globalControl = 0;
-			globalHue = 0;
-		}
-		// --------Activador de TRANQUILIDAD
-		if (app.key == 's') {
-
-			globalControl = 1;
-			globalHue = 105;
-		}
-		// --------Activador de TRISTEZA
-		if (app.key == 'x') {
-
-			globalControl = 2;
-			globalHue = 180;
 		}
 	}
 
 	// ----------------------------------
 
-	private void showBackground() {
+	private void showBackground(PApplet app) {
 		app.pushMatrix();
-		createParticle();
+		createParticle(app);
 		app.popMatrix();
 	}
 
@@ -197,7 +178,7 @@ public class Display extends DisplayBack {
 
 	// ----------------------Metodo que crea administra el funcionamiento del
 	// background
-	public void createParticle() {
+	public void createParticle(PApplet app) {
 		for (int i = particles.size() - 1; i > -1; i--) {
 			particles.get(i).pintar(app);
 
@@ -205,10 +186,9 @@ public class Display extends DisplayBack {
 				// particles = splice(i, 1);
 			}
 		}
-
+		float posXran = 0, posYran = 0;
 		if (app.millis() - timer >= 1000) {
 			timer = app.millis();
-
 			posXran = randomWithRange(10, 1270);
 			posYran = randomWithRange(10, 710);
 		}
@@ -230,7 +210,7 @@ public class Display extends DisplayBack {
 		return (int) (Math.random() * range) + min;
 	}
 
-	public void catchEmotion() {
+	private void catchEmotion(PApplet app) {
 		if (state > 1 && emo != null) {
 			if (PApplet.dist(emo.getPos().x, emo.getPos().y, app.mouseX, app.mouseY) < 100 && app.mousePressed) {
 				emo.setPos(new Vec2(app.mouseX, app.mouseY));
@@ -238,7 +218,7 @@ public class Display extends DisplayBack {
 		}
 	}
 
-	private void showAttemps() {
+	private void showAttemps(PApplet app) {
 		for (int i = 0; i < attempts; i++) {
 			app.ellipse(100 + (25 * i), 50, 20, 20);
 		}

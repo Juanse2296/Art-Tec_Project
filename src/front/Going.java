@@ -16,7 +16,7 @@ public class Going extends GoingBack {
 	public void show(PApplet app) {
 		showTie(app);
 		createJoint();
-		BridgePosition(app);
+		bridgePosition(app);
 	}
 
 	private void showTie(PApplet app) {
@@ -35,7 +35,7 @@ public class Going extends GoingBack {
 		app.popMatrix();
 	}
 
-	private void BridgePosition(PApplet app) {
+	private void bridgePosition(PApplet app) {
 		app.pushMatrix();
 		app.noFill();
 		app.stroke(255);

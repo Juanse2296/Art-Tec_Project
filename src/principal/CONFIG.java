@@ -13,4 +13,5 @@ public class CONFIG {
 	public static int state=1;	
 	public static int sensibleAreaW=500,sensibleAreaH=100;
 	public static int fireworks=10;	
+	public static int attempts = 4;
 }
