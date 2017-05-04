@@ -13,7 +13,6 @@ public class BridgeBack {
 	// Bridge properties
 	float totalLength; // How long
 	int numPoints, x, y; // How many points
-
 	// Our chain is a list of particles
 	protected ArrayList<Point> particles;
 	protected PApplet app;
@@ -38,14 +37,12 @@ public class BridgeBack {
 		for (int i = 0; i < numPoints + 1; i++) {
 			// Make a new particle
 			Point p = null;
-
 			// First and last particles are made with density of zero
 			if (i == 0 || i == numPoints)
 				p = new Point(app, box2d, x + i * len, y, 4, true);
 			else
 				p = new Point(app, box2d, x + i * len, y, 4, false);
 			particles.add(p);
-
 			// Connect the particles with a distance joint
 			if (i > 0) {
 				DistanceJointDef djd = new DistanceJointDef();

@@ -21,7 +21,7 @@ public class SoundController {
 	public void loadSounds() {
 		player = minim.loadSample("data/tabla.aif");
 		soundBack= minim.loadFile("data/soundback.mp3");
-	//	soundBack.play();
+		soundBack.play();
 	}
 
 	public AudioSample getPlayer() {

@@ -20,8 +20,7 @@ public class Form extends FormBack {
 		case "obstacle":
 			showObstacle(app, box2d);
 			break;
-		case "checkpoint":
-			if (checkVisible)
+		case "checkpoint":		
 				showCircle(app, box2d);
 			break;
 		case "finish":

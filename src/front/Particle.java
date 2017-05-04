@@ -28,54 +28,35 @@ public class Particle {
 
 	public void pintar(PApplet app) {
 		app.colorMode(PApplet.HSB, 255);
-		float offset = PApplet.map(life, 1, 0, 0, maxOffset); // Pushes out along x
-															// axis.
-
+		float offset = PApplet.map(life, 1, 0, 0, maxOffset);
 		// Scales from particle's origin pivot.
 		float s;
 		switch (control) {
 		case 0:
 			s = PApplet.map(life, 1, 0, 0, maxScale);
 			break;
-
 		case 1:
 			s = PApplet.map(life, 1, 0, maxScale, 0);
 			break;
-
 		case 2:
 			s = app.noise(PApplet.map(life, 1, 0, 10, 0));
 			break;
-
 		default:
 			s = PApplet.map(life, 1, 0, 0, maxScale);
 			break;
 		}
-
-		float t = PApplet.map(life, 1, 0, 0, 1); // Represents the time of the
-												// particle's life.
-
+		float t = PApplet.map(life, 1, 0, 0, 1);
 		float opacity = PApplet.map(life, 1, 0, 255, 0);
-
-		app.strokeWeight(5);
-		
-		
-		app.stroke(app.color(hue, 255, 100, (float) (opacity * 0.5))); // Show
-																		// stroke
-		// slightly
-		// darker.
+		app.strokeWeight(5);		
+		app.stroke(app.color(hue, 255, 100, (float) (opacity * 0.5)));
 		app.fill(app.color(hue, 255, 150, (float) (opacity * 0.8)));
-
 		app.pushMatrix();
-
 		// Creates a spiral motion.
 		app.translate(pos.x, pos.y);
 		app.rotate(PApplet.radians(angle + t * rotateRate));
 		app.scale(s);
-
 		app.ellipse(offset, 0, 20, 20);
-
 		app.popMatrix();
-
 		life -= lifeRate;
 		app.colorMode(PApplet.RGB, 255);
 		app.noStroke();

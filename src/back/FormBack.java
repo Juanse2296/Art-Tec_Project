@@ -17,8 +17,7 @@ public class FormBack {
 	protected String name = "";
 	protected float r,a;
 	protected PShape s;
-	protected Vec2 posCheck;
-	protected boolean checkVisible = true;
+	protected Vec2 posCheck;	
 	protected float hue;
 
 
@@ -39,7 +38,6 @@ public class FormBack {
 	public boolean catchChekpoin(Vec2 posB) {
 		if (posCheck != null) {
 			if (PApplet.dist(posCheck.x, posCheck.y, posB.x, posB.y) < r*2 && name.equals("checkpoint")) {
-				checkVisible = false;
 				return true;
 			}
 		}
@@ -52,7 +50,6 @@ public class FormBack {
 			Vec2 posA = box2d.getBodyPixelCoord(body);
 			if (((posB.x >= posA.x - size.x / 2) && (posB.x <= posA.x + size.x / 2) && (posB.y <= posA.y + size.y / 2)
 					&& (posB.y >= (posA.y - size.y / 2) - 50)) && (name.equals("finish"))) {
-				System.out.println("siguiente nivel");
 				return true;
 			}
 		}

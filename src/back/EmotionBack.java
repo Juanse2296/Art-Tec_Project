@@ -16,15 +16,10 @@ public class EmotionBack {
 	protected Box2DProcessing box2d;
 	protected Body body;
 	protected AudioSample sound;
-	protected Vec2 pos;
-	
-	
-	///-----
-	
+	protected Vec2 pos;		
 	protected int f, numEsf = 10, vari = 10;
 	protected float sz, posX , posY, posXM, posYM;
 	protected int col[] = new int[numEsf];
-	protected boolean save;
 
 	public EmotionBack(PApplet app,Box2DProcessing box2d, AudioSample sound, Vec2 pos, float w, float h) {
 		this.pos = pos;

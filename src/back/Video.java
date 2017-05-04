@@ -8,8 +8,7 @@ public class Video {
 	private Movie movie;
 
 	public Video(PApplet app, String v) {
-		movie = new Movie(app, "data/" + v + ".mp4");
-		
+		movie = new Movie(app, "data/" + v + ".mp4");		
 	}
 
 	public void loop(){

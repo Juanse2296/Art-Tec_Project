@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
-
 import org.jbox2d.common.Vec2;
-
 import TUIO.TuioObject;
 import front.Bridge;
 import front.Emotion;
@@ -17,7 +15,6 @@ import front.Particle;
 import front.Spinner;
 import principal.CONFIG;
 import processing.core.PApplet;
-import processing.core.PShape;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 
@@ -29,7 +26,6 @@ public class DisplayBack implements Observer {
 	protected PApplet app;
 	protected Box2DProcessing box2d;
 	protected SoundController sc;
-	private boolean created;
 	protected ArrayList<Form> forms;
 	protected Emotion emo;
 	protected Video v;
@@ -61,6 +57,7 @@ public class DisplayBack implements Observer {
 
 	protected void startIntruction() {
 		app.clear();
+		spin = null;
 		inst = new Instruction(app);
 		inst.addObserver(this);
 		state = CONFIG.state;
@@ -78,41 +75,45 @@ public class DisplayBack implements Observer {
 		startLevel(1);
 	}
 
-	protected void createBridge(int numPoints, int x, int y) {
+	protected boolean createBridge(int numPoints, int x, int y) {
 		int lenght = numPoints * 10;
-		bridge = new Bridge(app, box2d, react, lenght, numPoints, x, y);
+		if (bridge == null) {
+			bridge = new Bridge(app, box2d, react, lenght, numPoints, x, y);
+			return true;
+		}
+		return false;
 	}
 
-	protected void showBridge() {
-		if (react.getTuioClient() != null && !created) {
-			Vec2 v[] = allowBridge();
+	private boolean bridgeCreated(Vec2[] v) {
+		if (bridge == null) {
 			for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
 				TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
 				int a = 250;
 				if (v[0] != null && v[1] != null && v[2] != null) {
 					if ((tobj.getSymbolID() == 1) && (validador(v[0].x, v[1].x, v[2].x))
 							&& (go.checkPosition(v[0], v[1], v[2]))) {
-						createBridge(20, tobj.getScreenX(app.width), a);
-						created = !created;
-						break;
+						return createBridge(20, tobj.getScreenX(app.width), a);
 					}
 				}
 			}
 		} else {
-			Vec2 v[] = allowBridge();
+			return true;
+		}
+		return false;
+	}
+
+	protected void showBridge() {
+		Vec2 v[] = allowBridge();
+		if (bridgeCreated(v)) {
 			if (v[0] != null && v[1] != null && v[2] != null) {
 				if (go.checkPosition(v[0], v[1], v[2]) && !insideSensibleArea) {
 					go.actionJoint();
 					insideSensibleArea = true;
-					System.out.println("dentro");
 				} else if (!go.checkPosition(v[0], v[1], v[2])) {
-					System.out.println("fuera");
 					insideSensibleArea = false;
 				}
 			}
-		}
-
-		if (bridge != null) {
+			// ---
 			bridge.display();
 		}
 	}
@@ -187,7 +188,6 @@ public class DisplayBack implements Observer {
 		String[] names = getName(data);
 		for (int i = 1; i < names.length; i++) {
 			Form f = new Form(names[i]);
-			System.out.println(names[i]);
 			switch (names[i]) {
 			case "checkpoint":
 				f.makeCircleBody(app, box2d, data[i]);
@@ -204,11 +204,6 @@ public class DisplayBack implements Observer {
 				break;
 			}
 			forms.add(f);
-			// ----soporte
-			// Vec2 v = new Vec2(o[i].x,o[i].y-300);
-			// Form fb = new Form();
-			// fb.makeRectBody(box2d, v, new Vec2(20,500), true);
-			// forms.add(fb);
 		}
 	}
 

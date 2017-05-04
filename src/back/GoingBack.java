@@ -19,37 +19,34 @@ public class GoingBack {
 	protected Form table;
 	private DistanceJoint jointB;
 	private int numPoints;
-	private boolean stateJoint=true;
+	private boolean stateJoint = true;
 	private Time tm;
 	protected Box2DProcessing box2d;
 	protected Vec2 pos;
 
 	public GoingBack(PApplet app, Box2DProcessing box2d, Vec2 pos, int numPoints) {
-		this.box2d=box2d;
-		this.pos=new Vec2(pos.x-CONFIG.sensibleAreaW/2,pos.y+200);
+		this.box2d = box2d;
+		this.pos = new Vec2(pos.x - CONFIG.sensibleAreaW / 2, pos.y + 200);
 		particlesLeft = new ArrayList<Point>();
 		particlesRight = new ArrayList<Point>();
-		this.numPoints=numPoints;
+		this.numPoints = numPoints;
 		int distance = 50;
-		int x=(int) pos.x;
-	    int y=(int) pos.y;
-	    tm= new Time();
+		int x = (int) pos.x;
+		int y = (int) pos.y;
+		tm = new Time();
 		createTie(app, box2d, particlesLeft, x - distance, y, numPoints * 10, numPoints);
 		createTie(app, box2d, particlesRight, x + distance, y, numPoints * 10, numPoints);
 		createTable(app, box2d, x, y, numPoints, distance);
 	}
-	
-
 
 	private void createTable(PApplet app, Box2DProcessing box2d, int x, int y, int numPoints, int distance) {
 		table = new Form("table");
-		table.makeRectBody(box2d, new String("table,"+x+","+(y + numPoints * 12)), new Vec2(distance*2, 20), false);		
+		table.makeRectBody(box2d, new String("table," + x + "," + (y + numPoints * 12)), new Vec2(distance * 2, 20),
+				false);
 		Point pA = particlesLeft.get(particlesLeft.size() - 1);
 		Point pB = particlesRight.get(particlesRight.size() - 1);
-		// --
 		joint(box2d, pA, numPoints, -4);
 		jointB = joint(box2d, pB, numPoints, 4);
-		
 	}
 
 	private DistanceJoint joint(Box2DProcessing box2d, Point p, int numPoints, int bodyY) {
@@ -97,8 +94,8 @@ public class GoingBack {
 				// Make the joint. Note we aren't storing a reference to the
 				// joint ourselves anywhere!
 				// We might need to someday, but for now it's ok
-				//DistanceJoint dj = (DistanceJoint) 
-						box2d.world.createJoint(djd);
+				// DistanceJoint dj = (DistanceJoint)
+				box2d.world.createJoint(djd);
 			}
 		}
 	}
@@ -106,25 +103,22 @@ public class GoingBack {
 	private void destroyJoint() {
 		box2d.world.destroyJoint(jointB);
 	}
-	
-	protected void createJoint() {		
-		if(tm.getSeconds()>3 && !stateJoint){			
+
+	protected void createJoint() {
+		if (tm.getSeconds() > 3 && !stateJoint) {
 			Point pB = particlesRight.get(particlesRight.size() - 1);
 			jointB = joint(box2d, pB, numPoints, 4);
 			tm.setSeconds(0);
 			tm.Stop();
-			stateJoint=!stateJoint;	
-		}	
+			stateJoint = !stateJoint;
+		}
 	}
-	
-	public void actionJoint(){		
-		if(stateJoint){
+
+	public void actionJoint() {
+		if (stateJoint) {
 			destroyJoint();
 			tm.Count(1);
-			stateJoint=!stateJoint;	
-		}			
+			stateJoint = !stateJoint;
+		}
 	}
-	
-
-
 }
