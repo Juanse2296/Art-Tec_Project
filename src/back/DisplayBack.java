@@ -102,7 +102,7 @@ public class DisplayBack implements Observer {
 		return false;
 	}
 
-	protected void showBridge() {
+	protected Vec2[] showBridge() {
 		Vec2 v[] = allowBridge();
 		if (bridgeCreated(v)) {
 			if (v[0] != null && v[1] != null && v[2] != null) {
@@ -116,6 +116,7 @@ public class DisplayBack implements Observer {
 			// ---
 			bridge.display();
 		}
+		return v;
 	}
 
 	private Vec2[] allowBridge() {
@@ -143,31 +144,26 @@ public class DisplayBack implements Observer {
 		return v;
 	}
 
-	protected void showPeople() {
-		Vec2[] v = new Vec2[3];
-		if (react.getTuioClient() != null) {
-			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
-			for (int i = 0; i < tuioObjectList.size(); i++) {
-				TuioObject tobj = tuioObjectList.get(i);
-				int y = 0;
-				switch (tobj.getSymbolID()) {
+	protected void showPeople(Vec2[] v) {
+		/**
+		 * MAPEO SUSPENDIDO y = (int) PApplet.map(v[i].y, CONFIG.maxDown,
+		 * CONFIG.maxUp, 0, 720); esta linea de codigo debe ser revisada e
+		 * incluido en el metodo que trae los vectores a este metodo
+		 */
+		for (int i = 0; i < v.length; i++) {
+			if (v[i] != null) {
+				switch (i) {
 				case 0:
 					app.fill(0, 255, 0);
-					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
-					v[0] = new Vec2(tobj.getScreenY(app.height), tobj.getScreenX(app.width));
 					break;
 				case 1:
 					app.fill(0, 0, 255);
-					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
-					v[1] = new Vec2(tobj.getScreenY(app.height), tobj.getScreenX(app.width));
 					break;
 				case 2:
 					app.fill(255, 0, 0);
-					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
-					v[2] = new Vec2(tobj.getScreenY(app.height), tobj.getScreenX(app.width));
 					break;
 				}
-				app.ellipse(tobj.getScreenX(app.width), y + CONFIG.positionMap, 20, 20);
+				app.ellipse(v[i].x, v[i].y, 20, 20);
 			}
 		}
 	}
@@ -226,7 +222,7 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void restarEmotion(boolean statusGame, Vec2 pos) {
-		emo.restartPosition(startPostionTemp);
+		emo.restartPosition(pos);
 		if (statusGame) {
 			attempts--;
 			if (attempts < 1) {
@@ -252,6 +248,7 @@ public class DisplayBack implements Observer {
 	protected void destroyGame() {
 		sc = null;
 		emo = null;
+		go = null;
 		if (forms != null)
 			forms.clear();
 		app.clear();

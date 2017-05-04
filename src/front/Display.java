@@ -72,9 +72,8 @@ public class Display extends DisplayBack {
 		app.background(0);
 		changeHue();
 		showBackground(app);
-		emo.show(app);
-		showBridge();
-		showPeople();
+		emo.show(app);		
+		showPeople(showBridge());
 		showForms(app);
 		if (!practicelevel)
 			showAttemps(app);

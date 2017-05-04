@@ -84,18 +84,6 @@ public class BridgeBack {
 		}
 	}
 
-	public void moveOptions() {
-		int t = particles.size();
-		if ((app.mousePressed && app.mouseButton == PApplet.LEFT) && app.key == 'a') {
-			particles.get((t * 1 / 4)).move(false);
-		} else if ((app.mousePressed && app.mouseButton == PApplet.RIGHT) && app.key == 's') {
-			particles.get((t * 3 / 4)).move(false);
-		} else if ((app.mousePressed && app.mouseButton == PApplet.LEFT)) {
-			particles.get(0).move(true);
-		} else if ((app.mousePressed && app.mouseButton == PApplet.RIGHT)) {
-			particles.get(particles.size() - 1).move(true);
-		}
-		move();
-	}
+
 
 }
