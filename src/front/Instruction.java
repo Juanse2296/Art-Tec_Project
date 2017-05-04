@@ -4,8 +4,8 @@ import back.InstructionBack;
 import processing.core.PApplet;
 
 public class Instruction extends InstructionBack {
-	public Instruction(PApplet app,int x, int y, String[] txt) {
-		super(app,x, y, txt);
+	public Instruction(PApplet app) {
+		super(app);
 	}
 
 	public void show(PApplet app) {		

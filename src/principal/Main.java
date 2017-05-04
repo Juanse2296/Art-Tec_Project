@@ -42,7 +42,7 @@ public class Main extends PApplet {
 
 	public void draw() {
 		textFont(fon);
-		dp.show();
+		dp.show(this);
 		box2d.step();
 		dp.catchEmotion();
 	}

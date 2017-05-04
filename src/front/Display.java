@@ -3,14 +3,15 @@ package front;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
 import back.DisplayBack;
+import principal.CONFIG;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 
 public class Display extends DisplayBack {
 
-	Firework[] fs = new Firework[10];
-	boolean once;
+	private Firework[] fs = new Firework[CONFIG.fireworks];
+	private boolean once;
 	private int point;
 
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
@@ -21,32 +22,26 @@ public class Display extends DisplayBack {
 
 	private void createFireworks() {
 		for (int i = 0; i < fs.length; i++) {
-			fs[i] = new Firework(app);
+			fs[i] = new Firework();
 		}
 	}
 
-	public void launchFireWork() {
+	public void launchFireWork(PApplet app) {
 		once = false;
 		for (int i = 0; i < fs.length; i++) {
 			if (fs[i].isHidden() && !once) {
-				fs[i].launch();
+				fs[i].launch(app);
 				once = true;
 			}
 		}
 	}
 
-	public void show() {
+	public void show(PApplet app) {
 		switch (state) {
 		case 0:
 			if (v != null)
 				v.show(app);
-			// ----jugar
-			if (playGame() && !players) {
-				players = true;
-				v.stop();
-				startIntruction();
-			}
-
+			ready();
 			break;
 		case 1:
 			if (v != null)
@@ -58,18 +53,18 @@ public class Display extends DisplayBack {
 		case 3:
 			spin.show(app, winner);
 			if (winner)
-				showFireworks();
+				showFireworks(app);
 			break;
 		}
 	}
 
-	private void showFireworks() {
+	private void showFireworks(PApplet app) {
 		for (int i = 0; i < fs.length; i++) {
-			fs[i].pintar();
+			fs[i].pintar(app);
 		}
 		if (app.frameCount % 30 == 0)
 			for (int i = 0; i < 100; i++)
-				launchFireWork();
+				launchFireWork(app);
 	}
 
 	private void showGame() {
@@ -188,57 +183,6 @@ public class Display extends DisplayBack {
 		app.pushMatrix();
 		createParticle();
 		app.popMatrix();
-	}
-
-	public void manageColorBack() {
-
-		// ----------------------------Controla las tranciones de color de cada
-		// emocion
-		switch (colorManage) {
-		case 0:
-			globalHue += 0.1;
-			break;
-		case 1:
-			globalHue -= 0.1;
-			break;
-
-		default:
-			globalHue -= 0.1;
-			break;
-		}
-		// ---------------------------Controla los niveles de Hue para mostrar
-		// el color indicado en cada emocion
-		switch (globalControl) {
-		case 0:
-			if (globalHue <= 0) {
-				colorManage = 0;
-			}
-			if (globalHue >= 60) {
-				colorManage = 1;
-			}
-
-			break;
-		case 1:
-			if (globalHue <= 105) {
-				colorManage = 0;
-			}
-			if (globalHue >= 140) {
-				colorManage = 1;
-			}
-
-			break;
-		case 2:
-			if (globalHue <= 170) {
-				colorManage = 0;
-			}
-			if (globalHue >= 220) {
-				colorManage = 1;
-			}
-			break;
-		}
-		for (int i = 0; i < particles.size(); i++) {
-			particles.get(i).setHue(globalHue);
-		}
 	}
 
 	private void changeHue() {

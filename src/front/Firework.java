@@ -2,22 +2,20 @@ package front;
 
 import processing.core.PApplet;
 
-public class Firework {
-	private PApplet app;
+public class Firework {	
 	private float x, y, oldX, oldY, ySpeed, targetX, targetY, explodeTimer, flareWeight, flareAngle;
 	private int flareAmount, duration;
 	private boolean launched, exploded, hidden;
 	private int flare;
 
-	public Firework(PApplet app) {
-		this.app = app;
+	public Firework() {		
 		launched = false;
 		exploded = false;
 		hidden = true;
 
 	}
 
-	void pintar() {
+	void pintar(PApplet app) {
 		app.smooth();
 		if ((launched) && (!exploded) && (!hidden)) {
 			launchMaths();
@@ -45,8 +43,7 @@ public class Firework {
 
 	}
 
-	public void launch() {
-
+	public void launch(PApplet app) {
 		// REPLACING THE MOUSE
 		float posX = app.random(10, app.width-10);
 		float posY = app.random(10, app.height-10);

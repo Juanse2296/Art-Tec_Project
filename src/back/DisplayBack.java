@@ -66,8 +66,7 @@ public class DisplayBack implements Observer {
 
 	protected void startIntruction() {
 		app.clear();
-		String[] t = app.loadStrings("data/instructions.txt");
-		inst = new Instruction(app, app.width / 2, app.height / t.length, t);
+		inst = new Instruction(app);
 		inst.addObserver(this);
 		state = CONFIG.state;
 	}
@@ -132,17 +131,14 @@ public class DisplayBack implements Observer {
 				switch (tobj.getSymbolID()) {
 				case 0:
 					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
-
 					v[0] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
 					break;
 				case 1:
 					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
-
 					v[1] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
 					break;
 				case 2:
 					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
-
 					v[2] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
 					break;
 				}
@@ -294,6 +290,14 @@ public class DisplayBack implements Observer {
 			startGame();
 		}
 	}
+	
+	 protected void ready(){
+		 if (playGame() && !players) {
+				players = true;
+				v.stop();
+				startIntruction();
+			}
+	 }
 
 	protected boolean playGame() {
 		Vec2[] v = allowBridge();
