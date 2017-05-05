@@ -6,6 +6,7 @@ import java.util.Observer;
 import java.util.Random;
 import org.jbox2d.common.Vec2;
 import TUIO.TuioObject;
+import background.DisplayBackground;
 import front.Bridge;
 import front.Emotion;
 import front.Form;
@@ -41,6 +42,7 @@ public class DisplayBack implements Observer {
 	protected boolean insideSensibleArea;
 	protected boolean players;
 	protected ArrayList<Particle> particles = new ArrayList<Particle>();
+	protected DisplayBackground dispb;
 	// --------------
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
@@ -60,6 +62,7 @@ public class DisplayBack implements Observer {
 		spin = null;
 		inst = new Instruction(app);
 		inst.addObserver(this);
+		dispb = new DisplayBackground(app);
 		state = CONFIG.state;
 	}
 
@@ -249,6 +252,8 @@ public class DisplayBack implements Observer {
 		sc = null;
 		emo = null;
 		go = null;
+		dispb.clear();
+		dispb=null;
 		if (forms != null)
 			forms.clear();
 		app.clear();

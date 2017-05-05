@@ -5,6 +5,7 @@ import org.jbox2d.dynamics.contacts.Contact;
 import back.DisplayBack;
 import principal.CONFIG;
 import processing.core.PApplet;
+import processing.core.PVector;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 
@@ -72,6 +73,7 @@ public class Display extends DisplayBack {
 		app.background(0);
 		changeHue();
 		showBackground(app);
+		dispb.draw(app,new PVector(emo.getPos().x,emo.getPos().y));
 		emo.show(app);		
 		showPeople(showBridge());
 		showForms(app);
