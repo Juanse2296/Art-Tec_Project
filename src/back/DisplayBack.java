@@ -64,6 +64,7 @@ public class DisplayBack implements Observer {
 		inst.addObserver(this);
 		dispb = new DisplayBackground(app);
 		state = CONFIG.state;
+		createBridge(20, 150, 350);
 	}
 
 	protected void startGame() {

@@ -50,9 +50,8 @@ public class Particle {
 		app.strokeWeight(5);		
 		app.stroke(app.color(hue, 255, 100, (float) (opacity * 0.5)));
 		app.fill(app.color(hue, 255, 150, (float) (opacity * 0.8)));
-		app.pushMatrix();
-		// Creates a spiral motion.
 		app.translate(pos.x, pos.y);
+		app.pushMatrix();		
 		app.rotate(PApplet.radians(angle + t * rotateRate));
 		app.scale(s);
 		app.ellipse(offset, 0, 20, 20);

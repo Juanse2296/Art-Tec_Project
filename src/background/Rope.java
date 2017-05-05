@@ -68,7 +68,7 @@ public class Rope extends Thread {
 			} else {
 				float mag = p.getVel().mag();
 				// Velocity drives alpha and size.
-				app.stroke(p.getBaseHue(), 255, 255, mag * 20);
+				app.stroke(p.getBaseHue(), 255, 255, mag * 15);
 				app.strokeWeight(mag * 1.5f);
 				app.point(p.getPos().x, p.getPos().y);
 			}

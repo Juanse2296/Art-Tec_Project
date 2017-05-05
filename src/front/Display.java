@@ -71,19 +71,19 @@ public class Display extends DisplayBack {
 
 	private void showGame(PApplet app) {
 		app.background(0);
-		changeHue();
+		 changeHue();
 		showBackground(app);
-		dispb.draw(app,new PVector(emo.getPos().x,emo.getPos().y));
-		emo.show(app);		
-		showPeople(showBridge());
-		showForms(app);
-		if (!practicelevel)
-			showAttemps(app);
+		 dispb.draw(app,new PVector(emo.getPos().x,emo.getPos().y));
+		 emo.show(app);
+		 showPeople(showBridge());
+		 showForms(app);
+		 if (!practicelevel)
+		 showAttemps(app);
 		go.show(app);
-		catchEmotion(app);
-		/// ------debe estar al final
-		if (!winner)
-			tryAgain(app);
+		 catchEmotion(app);
+		//// ------debe estar al final
+		 if (!winner)
+		 tryAgain(app);
 	}
 
 	private void tryAgain(PApplet app) {
@@ -182,26 +182,20 @@ public class Display extends DisplayBack {
 	public void createParticle(PApplet app) {
 		for (int i = particles.size() - 1; i > -1; i--) {
 			particles.get(i).pintar(app);
-
-			if (particles.get(i).getLife() < 0) {
-				// particles = splice(i, 1);
-			}
 		}
 		float posXran = 0, posYran = 0;
-		if (app.millis() - timer >= 1000) {
+		if (app.millis() - timer >= 3000) {
 			timer = app.millis();
 			posXran = randomWithRange(10, 1270);
 			posYran = randomWithRange(10, 710);
 		}
 		particles.add(new Particle(posXran, posYran, app));
-
 		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).setControl(globalControl);
 			if (particles.get(i).getLife() <= 0) {
 				particles.remove(i);
 			}
 		}
-		// manageColorBack();
 	}
 
 	// ---------------Metodo contador que gestiona el tiempo de aparicion de las
