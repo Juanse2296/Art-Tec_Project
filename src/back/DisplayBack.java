@@ -74,6 +74,7 @@ public class DisplayBack implements Observer {
 		if (sc == null) {
 			sc = new SoundController(app);
 		}
+		sc.play();
 		if (forms == null) {
 			forms = new ArrayList<Form>();
 		}
@@ -261,6 +262,7 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void destroyGame() {
+		sc.stop();
 		sc = null;
 		emo = null;
 		go = null;

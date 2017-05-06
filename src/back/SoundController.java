@@ -17,11 +17,16 @@ public class SoundController {
 		minim = new Minim(app);	
 		loadSounds();
 	}
+	public void play(){
+		soundBack.loop();;
+	}
 
+	public void stop(){
+		soundBack.pause();
+	}
 	public void loadSounds() {
 		player = minim.loadSample("data/tabla.aif");
-		soundBack= minim.loadFile("data/soundback.mp3");
-		soundBack.play();
+		soundBack= minim.loadFile("data/soundback.mp3");		
 	}
 
 	public AudioSample getPlayer() {
