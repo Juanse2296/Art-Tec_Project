@@ -11,11 +11,9 @@ public class DisplayBackground extends Thread{
 	float gravityPull = 2;
 	float airDrag = 0.2f;
 	float elasticity = 0.1f;
-
 	ArrayList<Rope> ropes;
 	float collisionSize;
 	boolean debugMode = false;
-
 	float gravitySlider;
 	float airDragSlider;
 	float elasticitySlider;

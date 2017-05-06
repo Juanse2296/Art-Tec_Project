@@ -3,7 +3,7 @@ package background;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class Spring {
+public class Spring extends Thread{
 	float maxForce;
 	PVector pos;
 	PVector vel;
@@ -18,8 +18,20 @@ public class Spring {
 		target = new PVector(x, y);
 		this.maxForce = maxForce;
 	}
+	
+	public void run() {
+		System.out.println("spring");
+		while (true) {
+			try {
+				move();
+				Thread.sleep(10);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+	}
 
-	public synchronized void move() {
+	private synchronized void move() {
 		int distThreshold = 20;
 		// Move towards the target.
 		PVector push = new PVector(target.x, target.y);

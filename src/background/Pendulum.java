@@ -3,14 +3,14 @@ package background;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class Pendulum {
+public class Pendulum extends Thread {
 
 	private PVector pos;
 	private PVector vel;
 	private PVector acc, parent;
 	private float mass, baseHue;
 	private float restLength;
-	private float elasticity=0.1f;
+	private float elasticity = 0.1f;
 
 	// Attaches to another object and acts as a bouncy pendulum.
 	public Pendulum(float x, float y, PVector parent) {
@@ -23,8 +23,20 @@ public class Pendulum {
 		restLength = PApplet.dist(pos.x, pos.y, parent.x, parent.y);
 	}
 
-	public synchronized void move() {
-		float gravityPull=2;
+	@Override
+	public void run() {
+		while (true) {
+			try {
+				move();
+				Thread.sleep(24);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+	}
+
+	private synchronized void move() {
+		float gravityPull = 2;
 		// Push down with gravity.
 		PVector gravity = new PVector(0, gravityPull);
 		gravity.div(mass);
@@ -95,6 +107,5 @@ public class Pendulum {
 	public void setAcc(PVector acc) {
 		this.acc = acc;
 	}
-
 
 }

@@ -14,12 +14,15 @@ public class Rope extends Thread {
 	public Rope(float x, float y, float count) {
 		pends = new ArrayList<>();
 		spg = new Spring(x, y, 1);
+		spg.start();
 		for (int i = 0; i < count; i++) {
 			if (pends.isEmpty()) {
 				Pendulum p = new Pendulum(x, y + i * 15, spg.getPos());
+				p.start();
 				pends.add(p);
 			} else {
 				Pendulum p = new Pendulum(x, y + i * 15, pends.get(i - 1).getPos());
+				p.start();
 				pends.add(p);
 			}
 		}
@@ -38,11 +41,9 @@ public class Rope extends Thread {
 		}
 	}
 
-	private synchronized void move() {
-		spg.move();
+	private synchronized void move() {	
 		for (int i = 0; i < pends.size(); i++) {
-			Pendulum p = pends.get(i);
-			p.move();
+			Pendulum p = pends.get(i);			
 			if (i == 0) {
 				continue;
 			}			
