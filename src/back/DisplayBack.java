@@ -87,14 +87,14 @@ public class DisplayBack extends Thread implements Observer {
 		while (true) {
 			try {
 				moveParticle();
-				Thread.sleep(30);
+				Thread.sleep(10);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 		}
 	}
 
-	private void moveParticle() {
+	protected void moveParticle() {
 		float posXran = 0, posYran = 0;
 		if (app.millis() - timer >= 3000) {
 			timer = app.millis();
@@ -315,6 +315,7 @@ public class DisplayBack extends Thread implements Observer {
 
 	protected void destroyGame() {
 		sc.stop();
+		
 		sc = null;
 		emo = null;
 		go = null;

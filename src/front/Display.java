@@ -172,6 +172,7 @@ public class Display extends DisplayBack {
 	public void createParticle(PApplet app) {
 		for (int i = particles.size() - 1; i > -1; i--) {
 			particles.get(i).pintar(app);
+			
 		}
 	
 	}

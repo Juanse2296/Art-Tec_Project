@@ -20,10 +20,14 @@ public class SoundController {
 	}
 
 	public void play() {
-		soundBack.loop();
-		;
+		soundBack.loop();		
 	}
 
+	public void stopAll(){
+		for (int i = 0; i < audioGame.length; i++) {
+			audioGame[i].pause();			
+		}	
+	}
 	public void playAudioGame(int i) {
 		audioGame[i].loop();
 	}
@@ -35,10 +39,12 @@ public class SoundController {
 	private void clear() {
 		player = null;
 		soundBack = null;
+		audioGame=null;
 	}
 
 	public void stop() {
 		soundBack.pause();
+		stopAll();
 		clear();
 	}
 
