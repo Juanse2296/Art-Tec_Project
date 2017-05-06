@@ -13,7 +13,6 @@ public class Display extends DisplayBack {
 
 	private Firework[] fs = new Firework[CONFIG.fireworks];
 	private boolean once;
-	private int point;
 	private int globalControl;
 
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
@@ -71,19 +70,21 @@ public class Display extends DisplayBack {
 
 	private void showGame(PApplet app) {
 		app.background(0);
-		 changeHue();
+		changeHue();
 		showBackground(app);
-		 dispb.draw(app,new PVector(emo.getPos().x,emo.getPos().y));
-		 emo.show(app);
-		 showPeople(showBridge());
-		 showForms(app);
-		 if (!practicelevel)
-		 showAttemps(app);
-		go.show(app);
-		 catchEmotion(app);
+		dispb.draw(app, new PVector(emo.getPos().x, emo.getPos().y));
+		emo.show(app);
+		showPeople(showBridge());
+		showForms(app);
+		if (!practicelevel) {
+			showAttemps(app);
+		}
+		if (go != null)
+			go.show(app);
+		catchEmotion(app);
 		//// ------debe estar al final
-		 if (!winner)
-		 tryAgain(app);
+		if (!winner)
+			tryAgain(app);
 	}
 
 	private void tryAgain(PApplet app) {
@@ -109,11 +110,11 @@ public class Display extends DisplayBack {
 		for (int i = 0; i < forms.size(); i++) {
 			Form f = forms.get(i);
 			if ((f.catchChekpoin(emo.getPos()))) {
-				point++;
+				point--;
 				forms.remove(f);
 				break;
 			}
-			if (((f.finishLevel(box2d, emo.getPos()))) && point > 3 && practicelevel) {
+			if (((f.finishLevel(box2d, emo.getPos()))) && point < 1 && practicelevel) {
 				nextLevel(2);
 				practicelevel = false;
 			} else if (((f.finishLevel(box2d, emo.getPos()))) && !practicelevel) {

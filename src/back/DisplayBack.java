@@ -43,6 +43,7 @@ public class DisplayBack implements Observer {
 	protected boolean players;
 	protected ArrayList<Particle> particles = new ArrayList<Particle>();
 	protected DisplayBackground dispb;
+	protected int point=2;
 	// --------------
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
@@ -217,6 +218,7 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void nextLevel(int l) {
+		point=3;
 		for (int i = 0; i < forms.size(); i++) {
 			forms.get(i).killBody(box2d);
 		}
