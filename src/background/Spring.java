@@ -19,8 +19,7 @@ public class Spring extends Thread{
 		this.maxForce = maxForce;
 	}
 	
-	public void run() {
-		System.out.println("spring");
+	public void run() {	
 		while (true) {
 			try {
 				move();

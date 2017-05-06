@@ -74,12 +74,12 @@ public class DisplayBack extends Thread implements Observer {
 		if (sc == null) {
 			sc = new SoundController(app);
 		}
-		sc.play();
+
 		if (forms == null) {
 			forms = new ArrayList<Form>();
 		}
-
 		startLevel(1);
+		sc.playAudioGame(0);
 	}
 
 	@Override
@@ -87,7 +87,6 @@ public class DisplayBack extends Thread implements Observer {
 		while (true) {
 			try {
 				moveParticle();
-			
 				Thread.sleep(30);
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -140,7 +139,7 @@ public class DisplayBack extends Thread implements Observer {
 
 	protected void showArrow() {
 		for (int i = 0; i < forms.size(); i++) {
-			forms.get(i).setDisplay(arrow);			
+			forms.get(i).setDisplay(arrow);
 		}
 		go.setDisplayText(!arrow);
 	}
@@ -162,23 +161,23 @@ public class DisplayBack extends Thread implements Observer {
 		}
 		return v;
 	}
-	
-	protected boolean  interactionForms(Form f){		
-			if ((f.catchChekpoin(emo.getPos()))) {
-				point--;
-				forms.remove(f);
-				return true;
-			}
-			if (((f.finishLevel(box2d, emo.getPos()))) && point < 1 && practicelevel) {
-				nextLevel(2);
-				practicelevel = false;
-			} else if (((f.finishLevel(box2d, emo.getPos()))) && !practicelevel) {
-				state = 3;
-				winner = true;
-				gameOver();
-				return true;
-			}
-			return false;		
+
+	protected boolean interactionForms(Form f) {
+		if ((f.catchChekpoin(emo.getPos()))) {
+			point--;
+			forms.remove(f);
+			return true;
+		}
+		if (((f.finishLevel(box2d, emo.getPos()))) && point < 1 && practicelevel) {
+			nextLevel(2);
+			practicelevel = false;
+		} else if (((f.finishLevel(box2d, emo.getPos()))) && !practicelevel) {
+			state = 3;
+			winner = true;
+			gameOver();
+			return true;
+		}
+		return false;
 	}
 
 	private Vec2[] allowBridge() {

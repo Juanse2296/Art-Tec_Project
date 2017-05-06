@@ -83,6 +83,7 @@ public class Display extends DisplayBack {
 		if (go != null)
 			go.show(app);
 		catchEmotion(app);
+		sc.changeAudio(emo,app.height);
 		//// ------debe estar al final
 		if (!winner)
 			tryAgain(app);
