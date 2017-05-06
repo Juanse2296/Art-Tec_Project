@@ -19,7 +19,7 @@ import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 
-public class DisplayBack implements Observer {
+public class DisplayBack extends Thread implements Observer {
 
 	// ---Variables
 	protected Reactivision react;
@@ -43,8 +43,9 @@ public class DisplayBack implements Observer {
 	protected boolean players;
 	protected ArrayList<Particle> particles = new ArrayList<Particle>();
 	protected DisplayBackground dispb;
-	protected int point=2;
+	protected int point = 2;
 	protected boolean arrow;
+	private int globalControl;
 	// --------------
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
@@ -64,7 +65,6 @@ public class DisplayBack implements Observer {
 		spin = null;
 		inst = new Instruction(app);
 		inst.addObserver(this);
-		dispb = new DisplayBackground(app);
 		state = CONFIG.state;
 	}
 
@@ -78,7 +78,36 @@ public class DisplayBack implements Observer {
 		if (forms == null) {
 			forms = new ArrayList<Form>();
 		}
+
 		startLevel(1);
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			try {
+				moveParticle();
+				Thread.sleep(30);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+	}
+
+	private void moveParticle() {
+		float posXran = 0, posYran = 0;
+		if (app.millis() - timer >= 3000) {
+			timer = app.millis();
+			posXran = randomWithRange(10, 1270);
+			posYran = randomWithRange(10, 710);
+		}
+		particles.add(new Particle(posXran, posYran, app));
+		for (int i = 0; i < particles.size(); i++) {
+			particles.get(i).setControl(globalControl);
+			if (particles.get(i).getLife() <= 0) {
+				particles.remove(i);
+			}
+		}
 	}
 
 	protected boolean createBridge(int numPoints, int x, int y) {
@@ -107,7 +136,8 @@ public class DisplayBack implements Observer {
 		}
 		return false;
 	}
-	protected void showArrow(){
+
+	protected void showArrow() {
 		for (int i = 0; i < forms.size(); i++) {
 			forms.get(i).setDisplay(arrow);
 			go.setDisplayText(!arrow);
@@ -119,11 +149,11 @@ public class DisplayBack implements Observer {
 		if (bridgeCreated(v)) {
 			if (v[0] != null && v[1] != null && v[2] != null) {
 				if (go.checkPosition(v[0], v[1], v[2]) && !insideSensibleArea) {
-					go.actionJoint();	
-					arrow=true;
+					go.actionJoint();
+					arrow = true;
 					insideSensibleArea = true;
 				} else if (!go.checkPosition(v[0], v[1], v[2])) {
-					insideSensibleArea = false;					
+					insideSensibleArea = false;
 				}
 			}
 			// ---
@@ -189,6 +219,10 @@ public class DisplayBack implements Observer {
 		if (go == null) {
 			go = new Going(app, box2d, startPostionTemp, 10);
 		}
+		if (dispb == null) {
+			dispb = new DisplayBackground(app, emo);
+			dispb.start();
+		}
 		state = 2;
 	}
 
@@ -227,7 +261,7 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void nextLevel(int l) {
-		point=3;
+		point = 3;
 		for (int i = 0; i < forms.size(); i++) {
 			forms.get(i).killBody(box2d);
 		}
@@ -245,7 +279,7 @@ public class DisplayBack implements Observer {
 				winner = false;
 			}
 		}
-		arrow=false;
+		arrow = false;
 	}
 
 	protected int getRandom(int[] array) {
@@ -267,7 +301,7 @@ public class DisplayBack implements Observer {
 		emo = null;
 		go = null;
 		dispb.clear();
-		dispb=null;
+		dispb = null;
 		if (forms != null)
 			forms.clear();
 		app.clear();
@@ -311,6 +345,12 @@ public class DisplayBack implements Observer {
 			return true;
 		}
 		return false;
+	}
+
+	// particulas
+	public int randomWithRange(int min, int max) {
+		int range = (max - min) + 1;
+		return (int) (Math.random() * range) + min;
 	}
 
 }

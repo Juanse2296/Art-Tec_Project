@@ -37,6 +37,7 @@ public class Main extends PApplet {
 		box2d.listenForCollisions();
 		/// ---
 		dp = new Display(this, box2d, react);
+		dp.start();
 		smooth();
 	}
 

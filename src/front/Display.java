@@ -13,7 +13,7 @@ public class Display extends DisplayBack {
 
 	private Firework[] fs = new Firework[CONFIG.fireworks];
 	private boolean once;
-	private int globalControl;
+	
 
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
 		super(app, react, box2d);
@@ -186,27 +186,11 @@ public class Display extends DisplayBack {
 		for (int i = particles.size() - 1; i > -1; i--) {
 			particles.get(i).pintar(app);
 		}
-		float posXran = 0, posYran = 0;
-		if (app.millis() - timer >= 3000) {
-			timer = app.millis();
-			posXran = randomWithRange(10, 1270);
-			posYran = randomWithRange(10, 710);
-		}
-		particles.add(new Particle(posXran, posYran, app));
-		for (int i = 0; i < particles.size(); i++) {
-			particles.get(i).setControl(globalControl);
-			if (particles.get(i).getLife() <= 0) {
-				particles.remove(i);
-			}
-		}
+	
 	}
 
 	// ---------------Metodo contador que gestiona el tiempo de aparicion de las
-	// particulas
-	public int randomWithRange(int min, int max) {
-		int range = (max - min) + 1;
-		return (int) (Math.random() * range) + min;
-	}
+	
 
 	private void catchEmotion(PApplet app) {
 		if (state > 1 && emo != null) {
