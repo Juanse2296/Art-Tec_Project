@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PShape;
 import shiffman.box2d.Box2DProcessing;
 
@@ -19,7 +20,16 @@ public class FormBack {
 	protected PShape s;
 	protected Vec2 posCheck;	
 	protected float hue;
+	protected PImage p;
+	protected boolean display;
 
+	public boolean isDisplay() {
+		return display;
+	}
+
+	public void setDisplay(boolean display) {
+		this.display = display;
+	}
 
 	public FormBack(String name) {
 		this.name = name;
@@ -113,6 +123,15 @@ public class FormBack {
 	public void setHue(float hue) {
 		this.hue = hue;
 	}
+
+	public PImage getP() {
+		return p;
+	}
+
+	public void setP(PImage p) {
+		this.p = p;
+	}
+
 
 
 }

@@ -20,6 +20,15 @@ public class GoingBack {
 	private DistanceJoint jointB;
 	private int numPoints;
 	private boolean stateJoint = true;
+	protected boolean displayText=true;
+	public boolean isStateJoint() {
+		return stateJoint;
+	}
+
+	public void setStateJoint(boolean stateJoint) {
+		this.stateJoint = stateJoint;
+	}
+
 	private Time tm;
 	protected Box2DProcessing box2d;
 	protected Vec2 pos;
@@ -120,5 +129,13 @@ public class GoingBack {
 			tm.Count(1);
 			stateJoint = !stateJoint;
 		}
+	}
+
+	public boolean isDisplayText() {
+		return displayText;
+	}
+
+	public void setDisplayText(boolean displayText) {
+		this.displayText = displayText;
 	}
 }

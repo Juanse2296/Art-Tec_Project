@@ -35,12 +35,77 @@ public class Going extends GoingBack {
 		app.popMatrix();
 	}
 
+	private boolean tam, a;
+	private float sumTam, alpha = 140;
+
 	private void bridgePosition(PApplet app) {
 		app.pushMatrix();
 		app.noFill();
 		app.stroke(255);
 		app.rectMode(PApplet.CORNER);
-		app.rect(pos.x, pos.y, CONFIG.sensibleAreaW, CONFIG.sensibleAreaH);
+		app.rect(pos.x - sumTam, pos.y - sumTam, CONFIG.sensibleAreaW + sumTam * 2, CONFIG.sensibleAreaH + sumTam * 2);
+		if (displayText)
+			text(app, sumTam);
+		app.popMatrix();
+		if (tam) {
+			sumTam += 0.2;
+			if (sumTam > 10) {
+				tam = !tam;
+			}
+		} else {
+			sumTam -= 0.2;
+			if (sumTam < 1) {
+				tam = !tam;
+			}
+		}
+	}
+
+	private void text(PApplet app, float col) {
+		app.textSize(25);
+		app.fill(255);
+		app.textAlign(PApplet.CENTER, PApplet.CENTER);
+		app.text("Todos aquí para atrapar el emoción", pos.x + CONFIG.sensibleAreaW / 2,
+				pos.y + CONFIG.sensibleAreaH / 4);
+		app.noFill();
+		showOrder(app);
+		if (a) {
+			alpha += 3;
+			if (alpha > 220) {
+				a = !a;
+			}
+		} else {
+			alpha -= 3;
+			if (alpha < 110) {
+				a = !a;
+			}
+		}
+	}
+
+	private void showOrder(PApplet app) {
+		app.pushMatrix();
+		app.noStroke();
+		app.ellipseMode(PApplet.CENTER);
+
+		for (int i = 0; i < 3; i++) {
+			switch (i) {
+			case 0:
+				app.fill(100, 255, 255, alpha);
+				app.ellipse(pos.x + CONFIG.sensibleAreaW / 5 + (150 * i), pos.y + (CONFIG.sensibleAreaH / 4) * 3, 25,
+						25);
+				break;
+			case 1:
+				app.fill(150, 255, 255, alpha);
+				app.ellipse(pos.x + CONFIG.sensibleAreaW / 5 + (150 * i), pos.y + (CONFIG.sensibleAreaH / 4) * 3, 25,
+						25);
+				break;
+			case 2:
+				app.fill(0, 255, 255, alpha);
+				app.ellipse(pos.x + CONFIG.sensibleAreaW / 5 + (150 * i), pos.y + (CONFIG.sensibleAreaH / 4) * 3, 25,
+						25);
+				break;
+			}
+
+		}
 		app.popMatrix();
 	}
 

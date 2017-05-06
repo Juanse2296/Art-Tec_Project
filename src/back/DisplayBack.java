@@ -44,6 +44,7 @@ public class DisplayBack implements Observer {
 	protected ArrayList<Particle> particles = new ArrayList<Particle>();
 	protected DisplayBackground dispb;
 	protected int point=2;
+	protected boolean arrow;
 	// --------------
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
@@ -65,7 +66,6 @@ public class DisplayBack implements Observer {
 		inst.addObserver(this);
 		dispb = new DisplayBackground(app);
 		state = CONFIG.state;
-		createBridge(20, 150, 350);
 	}
 
 	protected void startGame() {
@@ -106,16 +106,23 @@ public class DisplayBack implements Observer {
 		}
 		return false;
 	}
+	protected void showArrow(){
+		for (int i = 0; i < forms.size(); i++) {
+			forms.get(i).setDisplay(arrow);
+			go.setDisplayText(!arrow);
+		}
+	}
 
 	protected Vec2[] showBridge() {
 		Vec2 v[] = allowBridge();
 		if (bridgeCreated(v)) {
 			if (v[0] != null && v[1] != null && v[2] != null) {
 				if (go.checkPosition(v[0], v[1], v[2]) && !insideSensibleArea) {
-					go.actionJoint();
+					go.actionJoint();	
+					arrow=true;
 					insideSensibleArea = true;
 				} else if (!go.checkPosition(v[0], v[1], v[2])) {
-					insideSensibleArea = false;
+					insideSensibleArea = false;					
 				}
 			}
 			// ---
@@ -192,6 +199,7 @@ public class DisplayBack implements Observer {
 			switch (names[i]) {
 			case "checkpoint":
 				f.makeCircleBody(app, box2d, data[i]);
+				f.setP(app.loadImage("data/arrow.png"));
 				break;
 			case "obstacle":
 				f.makeRectBody(box2d, data[i], new Vec2(100, 100), true);
@@ -236,6 +244,7 @@ public class DisplayBack implements Observer {
 				winner = false;
 			}
 		}
+		arrow=false;
 	}
 
 	protected int getRandom(int[] array) {

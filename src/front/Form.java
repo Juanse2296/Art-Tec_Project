@@ -14,14 +14,14 @@ public class Form extends FormBack {
 
 	public void show(PApplet app, Box2DProcessing box2d) {
 		app.colorMode(PApplet.HSB, 255);
-		app.stroke(app.color(hue, 255, 100)); 
+		app.stroke(app.color(hue, 255, 100));
 		app.fill(app.color(hue, 255, 150));
 		switch (name) {
 		case "obstacle":
 			showObstacle(app, box2d);
 			break;
-		case "checkpoint":		
-				showCircle(app, box2d);
+		case "checkpoint":
+			showCircle(app, box2d);
 			break;
 		case "finish":
 			display(app, box2d);
@@ -42,6 +42,11 @@ public class Form extends FormBack {
 		app.noStroke();
 		app.fill(app.color(hue, 255, 100));
 		app.ellipse(0, 0, r * 2, r * 2);
+		app.popMatrix();
+		app.pushMatrix();
+		app.translate(posCheck.x, posCheck.y - 100);
+		if(display)
+		showMessage(app);
 		app.popMatrix();
 	}
 
@@ -109,10 +114,7 @@ public class Form extends FormBack {
 	}
 
 	public void showCheckpoint(PApplet app) {
-		int posX = 0;
-		int posY = 0;
 		app.pushMatrix();
-		app.translate(posX, posY);
 		for (int i = 0; i < NUM; i++) {
 			float angle = i * PApplet.TWO_PI / NUM;
 			float v = PApplet.pow(PApplet.abs(PApplet.sin(angle / 2 + app.frameCount * 0.03f)), 4);
@@ -120,6 +122,34 @@ public class Form extends FormBack {
 			app.fill(app.lerpColor(app.color(20, 150, 100), app.color(20 + 15, 150 + 10, 100 + 10), v));
 			app.ellipse((50 + r) * PApplet.cos(angle), (50 + r) * PApplet.sin(angle), r * 2, r * 2);
 		}
+		app.popMatrix();
+	}
+
+	private float transpa = 255;
+	private boolean fill;
+
+	private void showMessage(PApplet app) {
+		app.pushMatrix();
+		if (p != null) {
+			app.tint(255, transpa);
+			app.imageMode(PApplet.CENTER);
+			app.image(p, 0, 0, p.width / 2, p.height / 2);
+		}
+		if (fill) {
+			transpa += 5;
+			if (transpa > 244) {
+				fill = !fill;
+			}
+		} else {
+			transpa -= 5;
+			if (transpa < 60) {
+				fill = !fill;
+			}
+		}
+		app.fill(transpa);
+		app.textSize(30);
+		app.textAlign(PApplet.CENTER, PApplet.CENTER);
+		app.text("Atrapar", 0, -p.height / 2);
 		app.popMatrix();
 	}
 

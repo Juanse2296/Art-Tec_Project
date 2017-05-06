@@ -74,6 +74,7 @@ public class Display extends DisplayBack {
 		showBackground(app);
 		dispb.draw(app, new PVector(emo.getPos().x, emo.getPos().y));
 		emo.show(app);
+		showArrow();
 		showPeople(showBridge());
 		showForms(app);
 		if (!practicelevel) {
@@ -157,6 +158,7 @@ public class Display extends DisplayBack {
 	public void key(PApplet app) {
 		if (state == 2) {
 			go.actionJoint();
+			arrow=true;
 		}
 	}
 
