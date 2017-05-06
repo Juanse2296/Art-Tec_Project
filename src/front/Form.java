@@ -25,6 +25,7 @@ public class Form extends FormBack {
 			break;
 		case "finish":
 			display(app, box2d);
+	
 			break;
 		}
 	}
@@ -64,6 +65,9 @@ public class Form extends FormBack {
 		app.rect(0, 0, size.x, size.y);
 		app.fill(255);
 		app.rect(0, 0, size.x - 20, size.y - 20);
+		app.textSize(25);
+		if(name.equals("finish"))
+		app.text("Meta", 0, size.y);
 		app.popMatrix();
 	}
 
