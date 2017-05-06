@@ -29,11 +29,7 @@ public class BridgeBack {
 		totalLength = l;
 		numPoints = n;
 		particles = new ArrayList<Point>();
-
-		float len = totalLength / numPoints;
-
-		// Here is the real work, go through and add particles to the chain
-		// itself
+		float len = totalLength / numPoints;		
 		for (int i = 0; i < numPoints + 1; i++) {
 			// Make a new particle
 			Point p = null;
@@ -83,7 +79,5 @@ public class BridgeBack {
 			}
 		}
 	}
-
-
 
 }
