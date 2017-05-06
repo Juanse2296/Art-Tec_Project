@@ -107,24 +107,10 @@ public class Display extends DisplayBack {
 		for (int i = 0; i < forms.size(); i++) {
 			Form f = forms.get(i);
 			f.show(app, box2d);
-		}
-		for (int i = 0; i < forms.size(); i++) {
-			Form f = forms.get(i);
-			if ((f.catchChekpoin(emo.getPos()))) {
-				point--;
-				forms.remove(f);
+			if(interactionForms(f)){
 				break;
 			}
-			if (((f.finishLevel(box2d, emo.getPos()))) && point < 1 && practicelevel) {
-				nextLevel(2);
-				practicelevel = false;
-			} else if (((f.finishLevel(box2d, emo.getPos()))) && !practicelevel) {
-				state = 3;
-				winner = true;
-				gameOver();
-				break;
-			}
-		}
+		}		
 	}
 
 	public void clic(PApplet app) {
