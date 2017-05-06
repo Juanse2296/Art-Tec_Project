@@ -12,7 +12,7 @@ public class SoundController {
 	private AudioSample player;
 	private AudioPlayer soundBack;
 	private AudioPlayer[] audioGame;
-
+	
 	public SoundController(PApplet app) {
 		minim = new Minim(app);
 		audioGame = new AudioPlayer[3];
