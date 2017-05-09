@@ -263,7 +263,7 @@ public class DisplayBack implements Observer {
 				break;
 			case "start":
 				String[] temp = data[i].split(",");
-				startPostionTemp = new Vec2(Integer.valueOf(temp[1]), Integer.valueOf(temp[2])+100);
+				startPostionTemp = new Vec2(Integer.valueOf(temp[1]), Integer.valueOf(temp[2]));
 				break;
 			}
 			forms.add(f);
@@ -286,7 +286,7 @@ public class DisplayBack implements Observer {
 		}
 		forms.clear();
 		startLevel(l);
-		restarEmotion(false, startPostionTemp);
+		restarEmotion(false, new Vec2(startPostionTemp.x,startPostionTemp.y+100));
 	}
 
 	protected void restarEmotion(boolean statusGame, Vec2 pos) {
