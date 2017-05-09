@@ -10,11 +10,10 @@ public class SoundController {
 	private Minim minim;
 	private AudioSample player;
 	private AudioPlayer soundBack;
-	private AudioPlayer[] audioGame;
+
 	
 	public SoundController(PApplet app) {
-		minim = new Minim(app);
-		audioGame = new AudioPlayer[3];
+		minim = new Minim(app);	
 		loadSounds();
 	}
 
@@ -22,19 +21,9 @@ public class SoundController {
 		soundBack.loop();		
 	}
 
-
-	public void playAudioGame(int i) {
-		audioGame[i].loop();
-	}
-
-	public void stopAudioGame(int i) {
-		audioGame[i].pause();
-	}
-
 	private void clear() {
 		player = null;
 		soundBack = null;
-		audioGame=null;
 	}
 
 	public void stop() {
@@ -45,10 +34,7 @@ public class SoundController {
 	private void loadSounds() {
 		player = minim.loadSample("data/sounds/tabla.mp3");
 		soundBack = minim.loadFile("data/sounds/soundback.mp3");
-		soundBack.loop();
-		//audioGame[0] = minim.loadFile("data/sounds/felicidad.mp3");
-	//	audioGame[1] = minim.loadFile("data/sounds/tranquilidad.mp3");
-		//audioGame[2] = minim.loadFile("data/sounds/tristeza.mp3");
+		soundBack.loop();	
 	}
 
 
