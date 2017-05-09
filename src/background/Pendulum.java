@@ -3,7 +3,7 @@ package background;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class Pendulum extends Thread {
+public class Pendulum {
 
 	private PVector pos;
 	private PVector vel;
@@ -23,19 +23,9 @@ public class Pendulum extends Thread {
 		restLength = PApplet.dist(pos.x, pos.y, parent.x, parent.y);
 	}
 
-	@Override
-	public void run() {
-		while (true) {
-			try {
-				move();
-				Thread.sleep(24);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-	}
 
-	private synchronized void move() {
+
+	public synchronized void move() {
 		float gravityPull = 2;
 		// Push down with gravity.
 		PVector gravity = new PVector(0, gravityPull);

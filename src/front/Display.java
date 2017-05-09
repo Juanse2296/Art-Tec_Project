@@ -83,7 +83,8 @@ public class Display extends DisplayBack {
 		if (go != null)
 			go.show(app);
 		catchEmotion(app);
-		sc.changeAudio(emo,app.height);
+		changeStateBackgroundEffect(emo, app.height);
+	//	sc.changeAudio(emo,app.height);
 		//// ------debe estar al final
 		if (!winner)
 			tryAgain(app);
@@ -171,10 +172,9 @@ public class Display extends DisplayBack {
 	// background
 	public void createParticle(PApplet app) {
 		for (int i = particles.size() - 1; i > -1; i--) {
-			particles.get(i).pintar(app);
-			
+			particles.get(i).pintar(app);			
 		}
-	
+		moveParticle();	
 	}
 
 	// ---------------Metodo contador que gestiona el tiempo de aparicion de las
@@ -193,6 +193,8 @@ public class Display extends DisplayBack {
 			app.ellipse(100 + (25 * i), 50, 20, 20);
 		}
 	}
+	
+	
 
 	/// ------------------------
 }

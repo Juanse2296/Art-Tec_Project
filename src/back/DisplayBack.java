@@ -19,7 +19,7 @@ import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
 import tuio.Reactivision;
 
-public class DisplayBack extends Thread implements Observer {
+public class DisplayBack implements Observer {
 
 	// ---Variables
 	protected Reactivision react;
@@ -79,19 +79,7 @@ public class DisplayBack extends Thread implements Observer {
 			forms = new ArrayList<Form>();
 		}
 		startLevel(1);
-		sc.playAudioGame(0);
-	}
-
-	@Override
-	public void run() {
-		while (true) {
-			try {
-				moveParticle();
-				Thread.sleep(10);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
+		// sc.playAudioGame(0);
 	}
 
 	protected void moveParticle() {
@@ -315,7 +303,7 @@ public class DisplayBack extends Thread implements Observer {
 
 	protected void destroyGame() {
 		sc.stop();
-		
+
 		sc = null;
 		emo = null;
 		go = null;
@@ -370,6 +358,34 @@ public class DisplayBack extends Thread implements Observer {
 	public int randomWithRange(int min, int max) {
 		int range = (max - min) + 1;
 		return (int) (Math.random() * range) + min;
+	}
+
+	protected int stateNumber;
+
+	protected void changeStateBackgroundEffect(Emotion emo, int y) {
+		if (emo.getPos().y < y / 3 && stateNumber != 0) {
+			stateNumber = 0;
+			for (int i = particles.size() - 1; i > -1; i--) {
+				particles.get(i).setControl(stateNumber);
+				;
+			}
+		}
+		// --------
+		if (emo.getPos().y > y / 3 && stateNumber != 1) {
+			stateNumber = 1;
+			for (int i = particles.size() - 1; i > -1; i--) {
+				particles.get(i).setControl(stateNumber);
+				;
+			}
+		}
+		// --
+		if (emo.getPos().y > (y / 3) * 2 && stateNumber != 2) {
+			stateNumber = 2;
+			for (int i = particles.size() - 1; i > -1; i--) {
+				particles.get(i).setControl(stateNumber);
+				;
+			}
+		}
 	}
 
 }
