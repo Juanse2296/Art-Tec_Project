@@ -52,9 +52,9 @@ public class EmotionBack {
 		fd.shape = cir;
 
 		/// --caracteristicas
-		fd.density = 0.1f;
+		fd.density = 0.5f;
 		fd.friction = 0.3f;
-		fd.restitution = 0.5f;
+		fd.restitution = 0.2f;
 
 		// --Unir forma al cuerpo con sus caracteristicas
 		body.createFixture(fd);

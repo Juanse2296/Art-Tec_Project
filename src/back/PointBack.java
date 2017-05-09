@@ -65,13 +65,15 @@ public class PointBack {
 		return false;
 	}
 
-	public void move(TuioObject tobj, boolean corner) {
-		if (corner) {
-			int a = tobj.getScreenY(app.height);
-			body.setTransform(new Vec2(box2d.coordPixelsToWorld(x, a)), 0);
-		} else {
-			Vec2 v = body.getPosition();
-			body.setTransform(new Vec2(box2d.coordPixelsToWorld(v.x, tobj.getScreenY(app.height))), 30);
+	public void move(Vec2 v, boolean corner) {
+		if (v != null) {
+			if (corner) {
+				float a = v.y;
+				body.setTransform(new Vec2(box2d.coordPixelsToWorld(x, a)), 0);
+			} else {
+				Vec2 v2 = body.getPosition();
+				body.setTransform(new Vec2(box2d.coordPixelsToWorld(v2.x, v.y)), 30);
+			}
 		}
 	}
 

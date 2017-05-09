@@ -1,5 +1,7 @@
 package front;
 
+import org.jbox2d.common.Vec2;
+
 import back.BridgeBack;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
@@ -12,11 +14,11 @@ public class Bridge extends BridgeBack {
 	}
 
 	// Draw the bridge
-	public void display() {
+	public void display(Vec2 []v) {
 		for (Point p : particles) {
 			app.fill(255);
 			p.display();
 		}
-		move();
+		move(v);
 	}
 }

@@ -145,7 +145,7 @@ public class DisplayBack implements Observer {
 				}
 			}
 			// ---
-			bridge.display();
+			bridge.display(v);
 		}
 		return v;
 	}
@@ -168,25 +168,38 @@ public class DisplayBack implements Observer {
 		return false;
 	}
 
+	private float playersX = 0;
+
+	/**
+	 * pediente del mapeo para las posiciones porque puede varias
+	 * dependiendo de la posicion de la camara y la distancia en la que esta la personas
+	 * @return
+	 */
+	
 	private Vec2[] allowBridge() {
 		Vec2 v[] = new Vec2[3];
 		if (react.getTuioClient() != null) {
-			int y = 0;
+			float y = 0;
 			for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
 				TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
-				switch (tobj.getSymbolID()) {
-				case 0:
-					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
-					v[0] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
-					break;
-				case 1:
-					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
-					v[1] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
-					break;
-				case 2:
-					y = (int) PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
-					v[2] = new Vec2(tobj.getScreenX(app.width), y + CONFIG.positionMap);
-					break;
+				if (tobj != null) {
+					if (tobj.getSymbolID() == 1) {
+						playersX = tobj.getScreenX(app.width);
+					}
+					switch (tobj.getSymbolID()) {
+					case 0:					
+						y =PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp,0,720);
+						v[0] = new Vec2(playersX-150, y);
+						break;
+					case 1:
+						y = tobj.getScreenY(app.width);
+						v[1] = new Vec2(tobj.getScreenX(app.width), 360);
+						break;
+					case 2:
+						y =PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp,0,720);
+						v[2] = new Vec2(playersX+150, y);
+						break;
+					}
 				}
 			}
 		}
@@ -194,25 +207,25 @@ public class DisplayBack implements Observer {
 	}
 
 	protected void showPeople(Vec2[] v) {
-		/**
-		 * MAPEO SUSPENDIDO y = (int) PApplet.map(v[i].y, CONFIG.maxDown,
-		 * CONFIG.maxUp, 0, 720); esta linea de codigo debe ser revisada e
-		 * incluido en el metodo que trae los vectores a este metodo
-		 */
+		app.colorMode(PApplet.HSB, 255);
+		app.noStroke();
 		for (int i = 0; i < v.length; i++) {
 			if (v[i] != null) {
 				switch (i) {
 				case 0:
-					app.fill(0, 255, 0);
+					app.fill(100, 255, 255);
+					app.ellipse(v[i].x, v[i].y, 20, 20);
 					break;
 				case 1:
-					app.fill(0, 0, 255);
+					app.fill(160, 255, 255);
+					app.ellipse(v[i].x, v[i].y, 20, 20);
 					break;
 				case 2:
-					app.fill(255, 0, 0);
+					app.fill(0, 255, 255);
+					app.ellipse(v[i].x, v[i].y, 20, 20);
 					break;
 				}
-				app.ellipse(v[i].x, v[i].y, 20, 20);
+
 			}
 		}
 	}
@@ -250,7 +263,7 @@ public class DisplayBack implements Observer {
 				break;
 			case "start":
 				String[] temp = data[i].split(",");
-				startPostionTemp = new Vec2(Integer.valueOf(temp[1]), Integer.valueOf(temp[2]));
+				startPostionTemp = new Vec2(Integer.valueOf(temp[1]), Integer.valueOf(temp[2])+100);
 				break;
 			}
 			forms.add(f);

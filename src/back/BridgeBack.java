@@ -1,6 +1,8 @@
 package back;
 
 import java.util.ArrayList;
+
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 import TUIO.TuioObject;
 import front.Point;
@@ -29,7 +31,7 @@ public class BridgeBack {
 		totalLength = l;
 		numPoints = n;
 		particles = new ArrayList<Point>();
-		float len = totalLength / numPoints;		
+		float len = totalLength / numPoints;
 		for (int i = 0; i < numPoints + 1; i++) {
 			// Make a new particle
 			Point p = null;
@@ -55,29 +57,25 @@ public class BridgeBack {
 				// Make the joint. Note we aren't storing a reference to the
 				// joint ourselves anywhere!
 				// We might need to someday, but for now it's ok
-			//	DistanceJoint dj = (DistanceJoint) 
-						box2d.world.createJoint(djd);
+				// DistanceJoint dj = (DistanceJoint)
+				box2d.world.createJoint(djd);
 			}
 		}
 	}
 
-	public void move() {		
-		if (react.getTuioClient() != null) {
-			ArrayList<TuioObject> tuioObjectList = react.getTuioClient().getTuioObjectList();
-			for (int i = 0; i < tuioObjectList.size(); i++) {
-				TuioObject tobj = tuioObjectList.get(i);						
-				if (tobj.getSymbolID() == 0) {
-					particles.get(0).move(tobj, true);
-				}
-				if (tobj.getSymbolID() == 2) {
-					particles.get(particles.size() - 1).move(tobj, true);
-				}
-				if (tobj.getSymbolID() == 1) {
-					particles.get(0).setX(tobj.getScreenX(app.width)-+totalLength/2);
-					particles.get(particles.size() - 1).setX(tobj.getScreenX(app.width)+totalLength/2);
-				}
-			}
+	public void move(Vec2[] v) {
+		/// ---0
+		if (v[0] != null) {
+			particles.get(0).move(v[0], true);
+		}
+		// ---1
+		if (v[1] != null) {
+			particles.get(0).setX(v[1].x - +totalLength / 2);
+			particles.get(particles.size() - 1).setX(v[1].x + totalLength / 2);
+		}
+		// ---2
+		if (v[2] != null) {
+			particles.get(particles.size() - 1).move(v[2], true);
 		}
 	}
-
 }
