@@ -13,7 +13,6 @@ public class Display extends DisplayBack {
 
 	private Firework[] fs = new Firework[CONFIG.fireworks];
 	private boolean once;
-	
 
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
 		super(app, react, box2d);
@@ -83,9 +82,16 @@ public class Display extends DisplayBack {
 		if (go != null)
 			go.show(app);
 		catchEmotion(app);
-		changeStateBackgroundEffect(emo, app.height);
-	//	sc.changeAudio(emo,app.height);
-		//// ------debe estar al final
+		if (emo != null)
+			changeStateBackgroundEffect(emo, app.height);	
+
+		/// ----Aqui debe ir el mensaje para que se muestre encima de todo y
+		/// luego desaparece
+		
+		if(ms!=null)
+			ms.show(app, numberMs);
+		
+	//// ------debe estar al final
 		if (!winner)
 			tryAgain(app);
 	}
@@ -109,10 +115,10 @@ public class Display extends DisplayBack {
 		for (int i = 0; i < forms.size(); i++) {
 			Form f = forms.get(i);
 			f.show(app, box2d);
-			if(interactionForms(f)){
+			if (interactionForms(f)) {
 				break;
 			}
-		}		
+		}
 	}
 
 	public void clic(PApplet app) {
@@ -146,7 +152,7 @@ public class Display extends DisplayBack {
 	public void key(PApplet app) {
 		if (state == 2) {
 			go.actionJoint();
-			arrow=true;
+			arrow = true;
 		}
 	}
 
@@ -172,13 +178,12 @@ public class Display extends DisplayBack {
 	// background
 	public void createParticle(PApplet app) {
 		for (int i = particles.size() - 1; i > -1; i--) {
-			particles.get(i).pintar(app);			
+			particles.get(i).pintar(app);
 		}
-		moveParticle();	
+		moveParticle();
 	}
 
 	// ---------------Metodo contador que gestiona el tiempo de aparicion de las
-	
 
 	private void catchEmotion(PApplet app) {
 		if (state > 1 && emo != null) {
@@ -193,8 +198,6 @@ public class Display extends DisplayBack {
 			app.ellipse(100 + (25 * i), 50, 20, 20);
 		}
 	}
-	
-	
 
 	/// ------------------------
 }

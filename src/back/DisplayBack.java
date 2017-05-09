@@ -12,6 +12,7 @@ import front.Emotion;
 import front.Form;
 import front.Going;
 import front.Instruction;
+import front.Message;
 import front.Particle;
 import front.Spinner;
 import principal.CONFIG;
@@ -46,6 +47,8 @@ public class DisplayBack implements Observer {
 	protected int point = 2;
 	protected boolean arrow;
 	private int globalControl;
+	protected Message ms;
+	protected int numberMs;
 	// --------------
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
@@ -77,6 +80,9 @@ public class DisplayBack implements Observer {
 
 		if (forms == null) {
 			forms = new ArrayList<Form>();
+		}
+		if(ms==null){
+			ms= new Message(app);
 		}
 		startLevel(1);
 		// sc.playAudioGame(0);
@@ -170,7 +176,6 @@ public class DisplayBack implements Observer {
 	}
 
 	private float playersX = 0;
-
 	/**
 	 * pediente del mapeo para las posiciones porque puede varias
 	 * dependiendo de la posicion de la camara y la distancia en la que esta la personas
@@ -226,7 +231,6 @@ public class DisplayBack implements Observer {
 					app.ellipse(v[i].x, v[i].y, 20, 20);
 					break;
 				}
-
 			}
 		}
 	}
@@ -243,7 +247,14 @@ public class DisplayBack implements Observer {
 			dispb = new DisplayBackground(app, emo);
 			dispb.start();
 		}
+		messageState(l);
 		state = 2;
+	}
+	private void messageState(int l){
+		numberMs=l-1;
+		if(numberMs>0){
+			ms.next();
+		}
 	}
 
 	public void makeObjects(int l) {

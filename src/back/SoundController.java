@@ -23,11 +23,7 @@ public class SoundController {
 		soundBack.loop();		
 	}
 
-	public void stopAll(){
-		for (int i = 0; i < audioGame.length; i++) {
-			audioGame[i].pause();			
-		}	
-	}
+
 	public void playAudioGame(int i) {
 		audioGame[i].loop();
 	}
@@ -43,8 +39,7 @@ public class SoundController {
 	}
 
 	public void stop() {
-		soundBack.pause();
-		stopAll();
+		soundBack.pause();		
 		clear();
 	}
 
