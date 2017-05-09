@@ -3,7 +3,6 @@ package back;
 import ddf.minim.AudioPlayer;
 import ddf.minim.AudioSample;
 import ddf.minim.Minim;
-import front.Emotion;
 import processing.core.PApplet;
 
 public class SoundController {
@@ -52,37 +51,6 @@ public class SoundController {
 		//audioGame[2] = minim.loadFile("data/sounds/tristeza.mp3");
 	}
 
-	private boolean playing;
-	private int numberAudio;
-
-	private void changeAudio(Emotion emo, int y) {
-
-		if (emo.getPos().y < y / 3 && numberAudio != 0) {
-			numberAudio = 0;
-			playing = false;
-		}
-
-		// --------
-		if (emo.getPos().y > y / 3 && numberAudio != 1) {
-			numberAudio = 1;
-			playing = false;
-		}
-		// ---
-
-		if (emo.getPos().y > (y / 3) * 2 && numberAudio != 2) {
-			numberAudio = 2;
-			playing = false;
-		}
-
-		if (!playing) {
-			for (int i = 0; i < audioGame.length; i++) {
-				audioGame[i].pause();			
-			}
-			audioGame[numberAudio].play();
-			playing = true;
-		}
-
-	}
 
 	public AudioSample getPlayer() {
 		return player;

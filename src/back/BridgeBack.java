@@ -1,10 +1,8 @@
 package back;
 
 import java.util.ArrayList;
-
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
-import TUIO.TuioObject;
 import front.Point;
 import processing.core.PApplet;
 import shiffman.box2d.Box2DProcessing;
