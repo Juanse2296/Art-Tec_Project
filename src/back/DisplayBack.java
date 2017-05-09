@@ -115,7 +115,8 @@ public class DisplayBack implements Observer {
 				if (v[0] != null && v[1] != null && v[2] != null) {
 					if ((tobj.getSymbolID() == 1) && (validador(v[0].x, v[1].x, v[2].x))
 							&& (go.checkPosition(v[0], v[1], v[2]))) {
-						return createBridge(20, tobj.getScreenX(app.width), a);
+						int point=20;
+						return createBridge(point, tobj.getScreenX(app.width)-(point*10/2), a);
 					}
 				}
 			}
