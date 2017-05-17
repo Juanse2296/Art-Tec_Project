@@ -84,7 +84,7 @@ public class BridgeBack {
 		if(dj!=null){
 			box2d.world.destroyJoint(dj);
 		}		
-	//	clear();
+		clear();
 	}
 	
 	private void clear(){

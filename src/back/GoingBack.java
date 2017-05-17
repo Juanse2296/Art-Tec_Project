@@ -27,11 +27,12 @@ public class GoingBack {
 
 	public void setStateJoint(boolean stateJoint) {
 		this.stateJoint = stateJoint;
-	}
+	}	
 
 	private Time tm;
 	protected Box2DProcessing box2d;
 	protected Vec2 pos;
+	private DistanceJoint dj;
 
 	public GoingBack(PApplet app, Box2DProcessing box2d, Vec2 pos, int numPoints) {
 		this.box2d = box2d;
@@ -104,13 +105,29 @@ public class GoingBack {
 				// joint ourselves anywhere!
 				// We might need to someday, but for now it's ok
 				// DistanceJoint dj = (DistanceJoint)
-				box2d.world.createJoint(djd);
+				 dj = (DistanceJoint) box2d.world.createJoint(djd);
 			}
 		}
 	}
 
 	private void destroyJoint() {
 		box2d.world.destroyJoint(jointB);
+	}
+	public void killBody(Box2DProcessing box2d) {
+		if (dj != null) {
+			box2d.world.destroyJoint(dj);
+		}
+		clear();
+	}
+	private void clear(){
+		for(Point p:particlesLeft){
+			p.killBody();
+		}		
+		particlesLeft.clear();	
+		for(Point p:particlesRight){
+			p.killBody();
+		}		
+		particlesRight.clear();	
 	}
 
 	protected void createJoint() {

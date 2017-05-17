@@ -354,13 +354,13 @@ public class DisplayBack implements Observer {
 		return array[rnd];
 	}
 
-	protected void destroyGame() {	
-		System.out.println();
+	protected void destroyGame() {		
 		deleteBridge();
 		sc.stop();
 		sc = null;
 		emo.killBody(box2d);
 		emo = null;
+		go.killBody(box2d);
 		go = null;
 		dispb.clear();
 		if (forms != null) {
