@@ -8,7 +8,7 @@ import processing.core.PApplet;
 public class SoundController {
 
 	private Minim minim;
-	private AudioSample player, checkpoint,finish;
+	private AudioSample player, checkpoint,finish, lost, win;
 	private AudioPlayer soundBack; 
 
 	
@@ -37,6 +37,8 @@ public class SoundController {
 		finish = minim.loadSample("data/sounds/spaceblast.aif");
 		checkpoint = minim.loadSample("data/sounds/zapkick.aif");
 		player = minim.loadSample("data/sounds/tabla.mp3");
+		lost = minim.loadSample("data/sounds/lost.mp3");
+		win = minim.loadSample("data/sounds/win.wav");
 		soundBack = minim.loadFile("data/sounds/soundback.mp3");
 		soundBack.loop();		
 	}
@@ -64,6 +66,22 @@ public class SoundController {
 
 	public void setFinish(AudioSample finish) {
 		this.finish = finish;
+	}
+
+	public AudioSample getLost() {
+		return lost;
+	}
+
+	public AudioSample getWin() {
+		return win;
+	}
+
+	public void setLost(AudioSample lost) {
+		this.lost = lost;
+	}
+
+	public void setWin(AudioSample win) {
+		this.win = win;
 	}
 
 }

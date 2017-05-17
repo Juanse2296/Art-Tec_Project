@@ -2,6 +2,7 @@ package back;
 
 import java.util.ArrayList;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 import front.Point;
 import processing.core.PApplet;
@@ -18,6 +19,8 @@ public class BridgeBack {
 	protected PApplet app;
 	Box2DProcessing box2d;
 	protected Reactivision react;
+	private DistanceJoint dj;
+
 
 	// Chain constructor
 	protected BridgeBack(PApplet app, Box2DProcessing box2d, Reactivision react, float l, int n, int x, int y) {
@@ -41,7 +44,7 @@ public class BridgeBack {
 			particles.add(p);
 			// Connect the particles with a distance joint
 			if (i > 0) {
-				DistanceJointDef djd = new DistanceJointDef();
+				 DistanceJointDef djd = new DistanceJointDef();
 				Point previous = particles.get(i - 1);
 				// Connection between previous particle and this one
 				djd.bodyA = previous.body;
@@ -55,8 +58,8 @@ public class BridgeBack {
 				// Make the joint. Note we aren't storing a reference to the
 				// joint ourselves anywhere!
 				// We might need to someday, but for now it's ok
-				// DistanceJoint dj = (DistanceJoint)
-				box2d.world.createJoint(djd);
+				// DistanceJoint dj = (DistanceJoint)		
+				 dj = (DistanceJoint) box2d.world.createJoint(djd);
 			}
 		}
 	}
@@ -75,5 +78,19 @@ public class BridgeBack {
 		if (v[2] != null) {
 			particles.get(particles.size() - 1).move(v[2], true);
 		}
+	}
+
+	public void killBody(Box2DProcessing box2d) {
+		if(dj!=null){
+			box2d.world.destroyJoint(dj);
+		}		
+	//	clear();
+	}
+	
+	private void clear(){
+		for(Point p:particles){
+			p.killBody();
+		}		
+		particles.clear();	
 	}
 }

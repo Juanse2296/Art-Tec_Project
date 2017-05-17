@@ -78,12 +78,13 @@ public class DisplayBack implements Observer {
 		inst = null;
 		winner=false;
 		fs = new Firework[CONFIG.fireworks];
+		deleteBridge();
 		switch (l) {
 		case 1:
 			practicelevel = true;
-			numbersChekPoint = 2;
+			numbersChekPoint = 2;			
 			break;
-		case 2:
+		case 2:						
 			attempts = CONFIG.attempts;
 			practicelevel = false;
 			numbersChekPoint = 3;
@@ -91,18 +92,23 @@ public class DisplayBack implements Observer {
 				forms.get(i).killBody(box2d);
 			}
 			forms.clear();			
-			restarEmotion(false, new Vec2(startPostionTemp.x, startPostionTemp.y + 10));
+			restarEmotion(false, new Vec2(startPostionTemp.x, startPostionTemp.y + 10));		
 			break;
 		}
 		startLevel(l);
 	}
 
-	protected void gameOver() {
+	protected void gameOver() {		
+		if(winner){
+			sc.getWin().trigger();
+			createFireworks();	
+		}else{
+			sc.getLost().trigger();
+		}
 		destroyGame();
 		if (spin == null) {
 			spin = new Spinner();
-			spin.addObserver(this);
-			createFireworks();
+			spin.addObserver(this);			
 		}
 	}
 
@@ -348,10 +354,12 @@ public class DisplayBack implements Observer {
 		return array[rnd];
 	}
 
-	protected void destroyGame() {
-		app.clear();
+	protected void destroyGame() {	
+		System.out.println();
+		deleteBridge();
 		sc.stop();
 		sc = null;
+		emo.killBody(box2d);
 		emo = null;
 		go = null;
 		dispb.clear();
@@ -361,8 +369,16 @@ public class DisplayBack implements Observer {
 			}
 			forms.clear();
 		}
-		dispb = null;		
+		dispb = null;	
+		app.clear();
 		state = 3;
+	}
+	
+	private void deleteBridge(){		
+		if(bridge!=null){
+			bridge.killBody(box2d);
+			bridge=null;
+		}		
 	}
 
 	private boolean validador(float xUno, float xDos, float xTres) {

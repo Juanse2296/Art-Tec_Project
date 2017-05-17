@@ -60,6 +60,12 @@ public class EmotionBack {
 		// --Unir forma al cuerpo con sus caracteristicas
 		body.createFixture(fd);
 	}
+	
+	public void killBody(Box2DProcessing box2d) {
+		if (body != null) {
+			box2d.destroyBody(body);
+		}
+	}
 
 	public void restartPosition(Vec2 start) {
 		body.setTransform(new Vec2(box2d.coordPixelsToWorld(start.x, start.y+60)), 0);

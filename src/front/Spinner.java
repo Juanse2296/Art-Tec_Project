@@ -3,6 +3,7 @@ package front;
 import java.util.Observable;
 
 import back.Time;
+import ddf.minim.AudioSample;
 import processing.core.*;
 
 public class Spinner extends Observable {
@@ -10,7 +11,6 @@ public class Spinner extends Observable {
 	private float mill = 0;
 	private int prevSec, time;
 	private Time tm, tmB;
-
 	public Spinner() {
 		prevSec = 0;
 		tm = new Time();
