@@ -9,6 +9,7 @@ import TUIO.TuioObject;
 import background.DisplayBackground;
 import front.Bridge;
 import front.Emotion;
+import front.Firework;
 import front.Form;
 import front.Going;
 import front.Instruction;
@@ -32,7 +33,7 @@ public class DisplayBack implements Observer {
 	protected Emotion emo;
 	protected Video v;
 	protected Spinner spin;
-	protected boolean winner;
+	protected boolean winner,once;
 	protected int attempts;
 	protected int state;
 	protected int timer;
@@ -49,6 +50,7 @@ public class DisplayBack implements Observer {
 	private int globalControl;
 	protected Message ms;
 	protected int numberMs;
+	protected Firework[] fs;
 	// --------------
 
 	public DisplayBack(PApplet app, Reactivision react, Box2DProcessing box2d) {
@@ -75,6 +77,7 @@ public class DisplayBack implements Observer {
 		app.clear();
 		inst = null;
 		winner=false;
+		fs = new Firework[CONFIG.fireworks];
 		switch (l) {
 		case 1:
 			practicelevel = true;
@@ -99,6 +102,7 @@ public class DisplayBack implements Observer {
 		if (spin == null) {
 			spin = new Spinner();
 			spin.addObserver(this);
+			createFireworks();
 		}
 	}
 
@@ -369,9 +373,11 @@ public class DisplayBack implements Observer {
 	}
 
 	private void startVideo() {
-		state = 0;
-		v.loop();
+		clearFireworks();
 		spin = null;
+		app.clear();
+		state = 0;
+		v.loop();		
 	}
 
 	@Override
@@ -431,6 +437,18 @@ public class DisplayBack implements Observer {
 				particles.get(i).setControl(stateNumber);
 				;
 			}
+		}
+	}
+	
+	
+	protected void createFireworks() {
+		for (int i = 0; i < fs.length; i++) {
+			fs[i] = new Firework();
+		}
+	}
+	protected void clearFireworks() {
+		for (int i = 0; i < fs.length; i++) {
+			fs[i] = null;
 		}
 	}
 

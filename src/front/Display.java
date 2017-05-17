@@ -3,7 +3,6 @@ package front;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
 import back.DisplayBack;
-import principal.CONFIG;
 import processing.core.PApplet;
 import processing.core.PVector;
 import shiffman.box2d.Box2DProcessing;
@@ -11,29 +10,9 @@ import tuio.Reactivision;
 
 public class Display extends DisplayBack {
 
-	private Firework[] fs = new Firework[CONFIG.fireworks];
-	private boolean once;
-
 	public Display(PApplet app, Box2DProcessing box2d, Reactivision react) {
 		super(app, react, box2d);
 		app.colorMode(PApplet.HSB);
-		createFireworks();
-	}
-
-	private void createFireworks() {
-		for (int i = 0; i < fs.length; i++) {
-			fs[i] = new Firework();
-		}
-	}
-
-	public void launchFireWork(PApplet app) {
-		once = false;
-		for (int i = 0; i < fs.length; i++) {
-			if (fs[i].isHidden() && !once) {
-				fs[i].launch(app);
-				once = true;
-			}
-		}
 	}
 
 	public void show(PApplet app) {
@@ -60,11 +39,25 @@ public class Display extends DisplayBack {
 
 	private void showFireworks(PApplet app) {
 		for (int i = 0; i < fs.length; i++) {
-			fs[i].pintar(app);
+			if (fs[i] != null) {
+				fs[i].pintar(app);
+			}
 		}
 		if (app.frameCount % 30 == 0)
 			for (int i = 0; i < 100; i++)
 				launchFireWork(app);
+	}
+
+	private void launchFireWork(PApplet app) {
+		once = false;
+		for (int i = 0; i < fs.length; i++) {
+			if (fs[i] != null) {
+				if (fs[i].isHidden() && !once) {
+					fs[i].launch(app);
+					once = true;
+				}
+			}
+		}
 	}
 
 	private void showGame(PApplet app) {
@@ -83,15 +76,15 @@ public class Display extends DisplayBack {
 			go.show(app);
 		catchEmotion(app);
 		if (emo != null)
-			changeStateBackgroundEffect(emo, app.height);	
+			changeStateBackgroundEffect(emo, app.height);
 
 		/// ----Aqui debe ir el mensaje para que se muestre encima de todo y
 		/// luego desaparece
-		
-		if(ms!=null)
+
+		if (ms != null)
 			ms.show(app, numberMs);
-		
-	//// ------debe estar al final
+
+		//// ------debe estar al final
 		if (!winner)
 			tryAgain(app);
 	}
@@ -114,10 +107,10 @@ public class Display extends DisplayBack {
 	private void showForms(PApplet app) {
 		for (int i = 0; i < forms.size(); i++) {
 			Form f = forms.get(i);
-			f.show(app, box2d);			
+			f.show(app, box2d);
 		}
 		for (int i = 0; i < forms.size(); i++) {
-			Form f = forms.get(i);			
+			Form f = forms.get(i);
 			if (interactionForms(f)) {
 				break;
 			}
