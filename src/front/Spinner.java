@@ -1,9 +1,7 @@
 package front;
 
 import java.util.Observable;
-
 import back.Time;
-import ddf.minim.AudioSample;
 import processing.core.*;
 
 public class Spinner extends Observable {

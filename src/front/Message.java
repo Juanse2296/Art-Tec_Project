@@ -8,9 +8,10 @@ public class Message {
 
 	private PImage img[];
 	private Time t;
-	private boolean display = true;
+	private boolean display;
 
 	public Message(PApplet app) {
+		display = true;
 		t = new Time();
 		t.Count(1);
 		img = new PImage[2];
@@ -19,16 +20,24 @@ public class Message {
 	}
 
 	public void show(PApplet app, int n) {
-		if (display)
+		app.pushMatrix();	
+		if (display) {
 			app.image(img[n], 0, 0);
+		}
 		if (t.getSeconds() > 3 && display) {
 			display = false;
 		}
+		app.popMatrix();
 	}
-	
-	public void next(){
+
+	public void next() {
 		t.setSeconds(0);
-		display=true;		
+		display = true;
+	}
+
+	public void clear() {
+		t = null;
+		img = null;
 	}
 
 }

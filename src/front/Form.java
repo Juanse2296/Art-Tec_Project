@@ -143,6 +143,8 @@ public class Form extends FormBack {
 			app.tint(255, transpa);
 			app.imageMode(PApplet.CENTER);
 			app.image(p, 0, 0, p.width / 2, p.height / 2);
+			app.imageMode(PApplet.CORNER);
+			app.noTint();
 		}
 		if (fill) {
 			transpa += 5;

@@ -367,6 +367,8 @@ public class DisplayBack implements Observer {
 		emo = null;
 		go.killBody(box2d);
 		go = null;
+		ms.clear();
+		ms=null;
 		dispb.clear();
 		if (forms != null) {
 			for (int i = 0; i < forms.size(); i++) {

@@ -8,12 +8,13 @@ public class Video {
 	private Movie movie;
 
 	public Video(PApplet app, String v) {
-		movie = new Movie(app, "data/" + v + ".mp4");		
+		movie = new Movie(app, "data/" + v + ".mp4");
 	}
 
-	public void loop(){
+	public void loop() {
 		movie.loop();
 	}
+
 	public void show(PApplet app) {
 		if (movie.available())
 			movie.read();
@@ -21,6 +22,6 @@ public class Video {
 	}
 
 	public void stop() {
-		movie.stop();		
+		movie.stop();
 	}
 }

@@ -85,7 +85,6 @@ public class Going extends GoingBack {
 		app.pushMatrix();
 		app.noStroke();
 		app.ellipseMode(PApplet.CENTER);
-
 		for (int i = 0; i < 3; i++) {
 			switch (i) {
 			case 0:
