@@ -33,18 +33,18 @@ public class DisplayBack implements Observer {
 	protected Video v;
 	protected Spinner spin;
 	protected boolean winner;
-	protected int attempts = CONFIG.attempts;
+	protected int attempts;
 	protected int state;
 	protected int timer;
 	protected Instruction inst;
 	protected Going go;
-	protected boolean practicelevel = true;
+	protected boolean practicelevel;
 	protected Vec2 startPostionTemp;
 	protected boolean insideSensibleArea;
 	protected boolean players;
 	protected ArrayList<Particle> particles = new ArrayList<Particle>();
 	protected DisplayBackground dispb;
-	protected int point = 2;
+	protected int numbersChekPoint;
 	protected boolean arrow;
 	private int globalControl;
 	protected Message ms;
@@ -71,20 +71,35 @@ public class DisplayBack implements Observer {
 		state = CONFIG.state;
 	}
 
-	protected void startGame() {
+	protected void startGame(int l) {
 		app.clear();
 		inst = null;
-		if (sc == null) {
-			sc = new SoundController(app);
+		winner=false;
+		switch (l) {
+		case 1:
+			practicelevel = true;
+			numbersChekPoint = 2;
+			break;
+		case 2:
+			attempts = CONFIG.attempts;
+			practicelevel = false;
+			numbersChekPoint = 3;
+			for (int i = 0; i < forms.size(); i++) {
+				forms.get(i).killBody(box2d);
+			}
+			forms.clear();			
+			restarEmotion(false, new Vec2(startPostionTemp.x, startPostionTemp.y + 10));
+			break;
 		}
+		startLevel(l);
+	}
 
-		if (forms == null) {
-			forms = new ArrayList<Form>();
+	protected void gameOver() {
+		destroyGame();
+		if (spin == null) {
+			spin = new Spinner();
+			spin.addObserver(this);
 		}
-		if(ms==null){
-			ms= new Message(app);
-		}
-		startLevel(1);
 	}
 
 	protected void moveParticle() {
@@ -120,8 +135,8 @@ public class DisplayBack implements Observer {
 				if (v[0] != null && v[1] != null && v[2] != null) {
 					if ((tobj.getSymbolID() == 1) && (validador(v[0].x, v[1].x, v[2].x))
 							&& (go.checkPosition(v[0], v[1], v[2]))) {
-						int point=20;
-						return createBridge(point, tobj.getScreenX(app.width)-(point*10/2), a);
+						int point = 20;
+						return createBridge(point, tobj.getScreenX(app.width) - (point * 10 / 2), a);
 					}
 				}
 			}
@@ -158,30 +173,35 @@ public class DisplayBack implements Observer {
 
 	protected boolean interactionForms(Form f) {
 		if ((f.catchChekpoin(emo.getPos()))) {
-			point--;
+			numbersChekPoint--;
 			f.getSound().trigger();
 			forms.remove(f);
 			return true;
 		}
-		if (((f.finishLevel(box2d, emo.getPos()))) && point < 1 && practicelevel) {
-			nextLevel(2);
-			practicelevel = false;
-		} else if (((f.finishLevel(box2d, emo.getPos()))) && !practicelevel) {
-			state = 3;
-			winner = true;
-			gameOver();
-			return true;
+
+		if (((f.finishLevel(box2d, emo.getPos()))) && numbersChekPoint < 1) {
+			if (practicelevel) {
+				startGame(2);
+				return true;
+			} else {
+				state = 3;
+				winner = true;
+				gameOver();			
+			}
 		}
+
 		return false;
 	}
 
 	private float playersX = 0;
+
 	/**
-	 * pediente del mapeo para las posiciones porque puede varias
-	 * dependiendo de la posicion de la camara y la distancia en la que esta la personas
+	 * pediente del mapeo para las posiciones porque puede varias dependiendo de
+	 * la posicion de la camara y la distancia en la que esta la personas
+	 * 
 	 * @return
 	 */
-	
+
 	private Vec2[] allowBridge() {
 		Vec2 v[] = new Vec2[3];
 		if (react.getTuioClient() != null) {
@@ -193,17 +213,17 @@ public class DisplayBack implements Observer {
 						playersX = tobj.getScreenX(app.width);
 					}
 					switch (tobj.getSymbolID()) {
-					case 0:					
-						y =PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp,0,720);
-						v[0] = new Vec2(playersX-150, y);
+					case 0:
+						y = PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+						v[0] = new Vec2(playersX - 150, y);
 						break;
 					case 1:
 						y = tobj.getScreenY(app.width);
 						v[1] = new Vec2(tobj.getScreenX(app.width), 360);
 						break;
 					case 2:
-						y =PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp,0,720);
-						v[2] = new Vec2(playersX+150, y);
+						y = PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
+						v[2] = new Vec2(playersX + 150, y);
 						break;
 					}
 				}
@@ -235,29 +255,42 @@ public class DisplayBack implements Observer {
 		}
 	}
 
-	protected void startLevel(int l) {
-		makeObjects(l);
+	protected void startLevel(int l) {		
+		if (ms == null) {
+			ms = new Message(app);
+		}	
+		messageState(l);
+		makeObjects(l);		
+		//-----
 		if (emo == null) {
 			emo = new Emotion(app, box2d, sc.getPlayer(), startPostionTemp, 50, 50);
-		}
+		}		
 		if (go == null) {
 			go = new Going(app, box2d, startPostionTemp, 10);
-		}
+		}		
+		//-----
 		if (dispb == null) {
 			dispb = new DisplayBackground(app, emo);
 			dispb.start();
-		}
-		messageState(l);
+		}			
 		state = 2;
 	}
-	private void messageState(int l){
-		numberMs=l-1;
-		if(numberMs>0){
+
+	private void messageState(int l) {
+		numberMs = l - 1;
+		if (numberMs > 0) {
 			ms.next();
 		}
 	}
 
 	public void makeObjects(int l) {
+		if (sc == null) {
+			sc = new SoundController(app);
+		}
+		if (forms == null) {
+			forms = new ArrayList<Form>();
+		}
+		//-------
 		String[] data = app.loadStrings("data/levels/level" + l + ".txt");
 		String[] names = getName(data);
 		for (int i = 1; i < names.length; i++) {
@@ -293,16 +326,6 @@ public class DisplayBack implements Observer {
 		return a;
 	}
 
-	protected void nextLevel(int l) {
-		point = 3;
-		for (int i = 0; i < forms.size(); i++) {
-			forms.get(i).killBody(box2d);
-		}
-		forms.clear();
-		startLevel(l);
-		restarEmotion(false, new Vec2(startPostionTemp.x,startPostionTemp.y+100));
-	}
-
 	protected void restarEmotion(boolean statusGame, Vec2 pos) {
 		emo.restartPosition(pos);
 		if (statusGame) {
@@ -320,25 +343,20 @@ public class DisplayBack implements Observer {
 		return array[rnd];
 	}
 
-	protected void gameOver() {
-		destroyGame();
-		if (spin == null) {
-			spin = new Spinner();
-			spin.addObserver(this);
-		}
-	}
-
 	protected void destroyGame() {
+		app.clear();
 		sc.stop();
-
 		sc = null;
 		emo = null;
 		go = null;
 		dispb.clear();
-		dispb = null;
-		if (forms != null)
+		if (forms != null) {
+			for (int i = 0; i < forms.size(); i++) {
+				forms.get(i).killBody(box2d);
+			}
 			forms.clear();
-		app.clear();
+		}
+		dispb = null;		
 		state = 3;
 	}
 
@@ -361,7 +379,7 @@ public class DisplayBack implements Observer {
 			startVideo();
 		}
 		if (obs instanceof InstructionBack) {
-			startGame();
+			startGame(1);
 		}
 	}
 

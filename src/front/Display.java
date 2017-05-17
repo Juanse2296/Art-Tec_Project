@@ -114,7 +114,10 @@ public class Display extends DisplayBack {
 	private void showForms(PApplet app) {
 		for (int i = 0; i < forms.size(); i++) {
 			Form f = forms.get(i);
-			f.show(app, box2d);
+			f.show(app, box2d);			
+		}
+		for (int i = 0; i < forms.size(); i++) {
+			Form f = forms.get(i);			
 			if (interactionForms(f)) {
 				break;
 			}

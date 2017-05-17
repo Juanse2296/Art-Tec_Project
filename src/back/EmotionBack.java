@@ -38,6 +38,7 @@ public class EmotionBack {
 		// ---- posicionamiento de objeto en coordenadas de box
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.DYNAMIC;
+		
 		bd.position.set(box2d.coordPixelsToWorld(pos.x, pos.y));
 
 		// Creacion del body
