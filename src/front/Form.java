@@ -25,7 +25,7 @@ public class Form extends FormBack {
 			break;
 		case "finish":
 			display(app, box2d);
-	
+
 			break;
 		}
 	}
@@ -46,8 +46,8 @@ public class Form extends FormBack {
 		app.popMatrix();
 		app.pushMatrix();
 		app.translate(posCheck.x, posCheck.y - 100);
-		if(display)
-		showMessage(app);
+		if (display)
+			showMessage(app, "Atrapar");
 		app.popMatrix();
 	}
 
@@ -66,8 +66,13 @@ public class Form extends FormBack {
 		app.fill(255);
 		app.rect(0, 0, size.x - 20, size.y - 20);
 		app.textSize(25);
-		if(name.equals("finish"))
 		app.text("Meta", 0, size.y);
+		if (name.equals("finish")) {
+			if (display) {
+				app.translate(0, -80);
+				showMessage(app, "¡Llegada!");
+			}	
+		}
 		app.popMatrix();
 	}
 
@@ -132,7 +137,7 @@ public class Form extends FormBack {
 	private float transpa = 255;
 	private boolean fill;
 
-	private void showMessage(PApplet app) {
+	private void showMessage(PApplet app, String ms) {
 		app.pushMatrix();
 		if (p != null) {
 			app.tint(255, transpa);
@@ -153,7 +158,7 @@ public class Form extends FormBack {
 		app.fill(transpa);
 		app.textSize(30);
 		app.textAlign(PApplet.CENTER, PApplet.CENTER);
-		app.text("Atrapar", 0, -p.height / 2);
+		app.text(ms, 0, -p.height / 2);
 		app.popMatrix();
 	}
 

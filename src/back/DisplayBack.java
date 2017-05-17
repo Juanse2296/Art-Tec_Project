@@ -33,7 +33,7 @@ public class DisplayBack implements Observer {
 	protected Emotion emo;
 	protected Video v;
 	protected Spinner spin;
-	protected boolean winner,once;
+	protected boolean winner, once;
 	protected int attempts;
 	protected int state;
 	protected int timer;
@@ -76,39 +76,39 @@ public class DisplayBack implements Observer {
 	protected void startGame(int l) {
 		app.clear();
 		inst = null;
-		winner=false;
+		winner = false;
 		fs = new Firework[CONFIG.fireworks];
 		deleteBridge();
 		switch (l) {
 		case 1:
 			practicelevel = true;
-			numbersChekPoint = 2;			
+			numbersChekPoint = 2;
 			break;
-		case 2:						
+		case 2:
 			attempts = CONFIG.attempts;
 			practicelevel = false;
 			numbersChekPoint = 3;
 			for (int i = 0; i < forms.size(); i++) {
 				forms.get(i).killBody(box2d);
 			}
-			forms.clear();			
-			restarEmotion(false, new Vec2(startPostionTemp.x, startPostionTemp.y + 10));		
+			forms.clear();
+			restarEmotion(false, new Vec2(startPostionTemp.x, startPostionTemp.y + 10));
 			break;
 		}
 		startLevel(l);
 	}
 
-	protected void gameOver() {		
-		if(winner){
+	protected void gameOver() {
+		if (winner) {
 			sc.getWin().trigger();
-			createFireworks();	
-		}else{
+			createFireworks();
+		} else {
 			sc.getLost().trigger();
 		}
 		destroyGame();
 		if (spin == null) {
 			spin = new Spinner();
-			spin.addObserver(this);			
+			spin.addObserver(this);
 		}
 	}
 
@@ -158,7 +158,11 @@ public class DisplayBack implements Observer {
 
 	protected void showArrow() {
 		for (int i = 0; i < forms.size(); i++) {
-			forms.get(i).setDisplay(arrow);
+			Form f = forms.get(i);
+			if (!f.getName().equals("finish"))
+				f.setDisplay(arrow);
+			else if (numbersChekPoint < 1)
+				f.setDisplay(arrow);
 		}
 		go.setDisplayText(!arrow);
 	}
@@ -197,7 +201,7 @@ public class DisplayBack implements Observer {
 			} else {
 				state = 3;
 				winner = true;
-				gameOver();			
+				gameOver();
 			}
 		}
 
@@ -266,24 +270,24 @@ public class DisplayBack implements Observer {
 		}
 	}
 
-	protected void startLevel(int l) {		
+	protected void startLevel(int l) {
 		if (ms == null) {
 			ms = new Message(app);
-		}	
+		}
 		messageState(l);
-		makeObjects(l);		
-		//-----
+		makeObjects(l);
+		// -----
 		if (emo == null) {
 			emo = new Emotion(app, box2d, sc.getPlayer(), startPostionTemp, 50, 50);
-		}		
+		}
 		if (go == null) {
 			go = new Going(app, box2d, startPostionTemp, 10);
-		}		
-		//-----
+		}
+		// -----
 		if (dispb == null) {
 			dispb = new DisplayBackground(app, emo);
 			dispb.start();
-		}			
+		}
 		state = 2;
 	}
 
@@ -301,7 +305,7 @@ public class DisplayBack implements Observer {
 		if (forms == null) {
 			forms = new ArrayList<Form>();
 		}
-		//-------
+		// -------
 		String[] data = app.loadStrings("data/levels/level" + l + ".txt");
 		String[] names = getName(data);
 		for (int i = 1; i < names.length; i++) {
@@ -317,6 +321,7 @@ public class DisplayBack implements Observer {
 				break;
 			case "finish":
 				f.makeRectBody(box2d, data[i], new Vec2(150, 50), true);
+				f.setP(app.loadImage("data/arrow.png"));
 				f.setSound(sc.getFinish());
 				break;
 			case "start":
@@ -354,7 +359,7 @@ public class DisplayBack implements Observer {
 		return array[rnd];
 	}
 
-	protected void destroyGame() {		
+	protected void destroyGame() {
 		deleteBridge();
 		sc.stop();
 		sc = null;
@@ -369,16 +374,16 @@ public class DisplayBack implements Observer {
 			}
 			forms.clear();
 		}
-		dispb = null;	
+		dispb = null;
 		app.clear();
 		state = 3;
 	}
-	
-	private void deleteBridge(){		
-		if(bridge!=null){
+
+	private void deleteBridge() {
+		if (bridge != null) {
 			bridge.killBody(box2d);
-			bridge=null;
-		}		
+			bridge = null;
+		}
 	}
 
 	private boolean validador(float xUno, float xDos, float xTres) {
@@ -393,7 +398,7 @@ public class DisplayBack implements Observer {
 		spin = null;
 		app.clear();
 		state = 0;
-		v.loop();		
+		v.loop();
 	}
 
 	@Override
@@ -455,13 +460,13 @@ public class DisplayBack implements Observer {
 			}
 		}
 	}
-	
-	
+
 	protected void createFireworks() {
 		for (int i = 0; i < fs.length; i++) {
 			fs[i] = new Firework();
 		}
 	}
+
 	protected void clearFireworks() {
 		for (int i = 0; i < fs.length; i++) {
 			fs[i] = null;

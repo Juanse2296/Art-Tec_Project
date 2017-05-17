@@ -144,6 +144,19 @@ public class FormBack {
 		this.sound = sound;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public PShape getS() {
+		return s;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	
 
 
 }
