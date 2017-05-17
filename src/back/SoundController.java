@@ -8,8 +8,8 @@ import processing.core.PApplet;
 public class SoundController {
 
 	private Minim minim;
-	private AudioSample player;
-	private AudioPlayer soundBack;
+	private AudioSample player, checkpoint,finish;
+	private AudioPlayer soundBack; 
 
 	
 	public SoundController(PApplet app) {
@@ -24,6 +24,8 @@ public class SoundController {
 	private void clear() {
 		player = null;
 		soundBack = null;
+		checkpoint = null;
+		finish = null;
 	}
 
 	public void stop() {
@@ -32,9 +34,11 @@ public class SoundController {
 	}
 
 	private void loadSounds() {
+		finish = minim.loadSample("data/sounds/spaceblast.aif");
+		checkpoint = minim.loadSample("data/sounds/zapkick.aif");
 		player = minim.loadSample("data/sounds/tabla.mp3");
 		soundBack = minim.loadFile("data/sounds/soundback.mp3");
-		soundBack.loop();	
+		soundBack.loop();		
 	}
 
 
@@ -44,6 +48,22 @@ public class SoundController {
 
 	public void setPlayer(AudioSample player) {
 		this.player = player;
+	}
+
+	public AudioSample getCheckpoint() {
+		return checkpoint;
+	}
+
+	public AudioSample getFinish() {
+		return finish;
+	}
+
+	public void setCheckpoint(AudioSample checkpoint) {
+		this.checkpoint = checkpoint;
+	}
+
+	public void setFinish(AudioSample finish) {
+		this.finish = finish;
 	}
 
 }

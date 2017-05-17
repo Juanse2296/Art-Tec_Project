@@ -6,6 +6,8 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+
+import ddf.minim.AudioSample;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PShape;
@@ -22,7 +24,13 @@ public class FormBack {
 	protected float hue;
 	protected PImage p;
 	protected boolean display;
+	private AudioSample sound;
 
+
+	public FormBack(String name) {
+		this.name = name;
+	}
+	
 	public boolean isDisplay() {
 		return display;
 	}
@@ -30,11 +38,7 @@ public class FormBack {
 	public void setDisplay(boolean display) {
 		this.display = display;
 	}
-
-	public FormBack(String name) {
-		this.name = name;
-	}
-
+	
 	public void restartPosition(Box2DProcessing box2d, Vec2 start) {
 		body.setTransform(new Vec2(box2d.coordPixelsToWorld(start.x, start.y - 100)), 0);
 	}
@@ -60,6 +64,7 @@ public class FormBack {
 			Vec2 posA = box2d.getBodyPixelCoord(body);
 			if (((posB.x >= posA.x - size.x / 2) && (posB.x <= posA.x + size.x / 2) && (posB.y <= posA.y + size.y / 2)
 					&& (posB.y >= (posA.y - size.y / 2) - 50)) && (name.equals("finish"))) {
+				sound.trigger();
 				return true;
 			}
 		}
@@ -130,6 +135,14 @@ public class FormBack {
 
 	public void setP(PImage p) {
 		this.p = p;
+	}
+
+	public AudioSample getSound() {
+		return sound;
+	}
+
+	public void setSound(AudioSample sound) {
+		this.sound = sound;
 	}
 
 

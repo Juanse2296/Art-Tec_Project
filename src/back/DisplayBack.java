@@ -85,7 +85,6 @@ public class DisplayBack implements Observer {
 			ms= new Message(app);
 		}
 		startLevel(1);
-		// sc.playAudioGame(0);
 	}
 
 	protected void moveParticle() {
@@ -160,6 +159,7 @@ public class DisplayBack implements Observer {
 	protected boolean interactionForms(Form f) {
 		if ((f.catchChekpoin(emo.getPos()))) {
 			point--;
+			f.getSound().trigger();
 			forms.remove(f);
 			return true;
 		}
@@ -266,12 +266,14 @@ public class DisplayBack implements Observer {
 			case "checkpoint":
 				f.makeCircleBody(app, box2d, data[i]);
 				f.setP(app.loadImage("data/arrow.png"));
+				f.setSound(sc.getCheckpoint());
 				break;
 			case "obstacle":
 				f.makeRectBody(box2d, data[i], new Vec2(100, 100), true);
 				break;
 			case "finish":
 				f.makeRectBody(box2d, data[i], new Vec2(150, 50), true);
+				f.setSound(sc.getFinish());
 				break;
 			case "start":
 				String[] temp = data[i].split(",");

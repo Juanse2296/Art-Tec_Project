@@ -14,8 +14,8 @@ public class Message {
 		t = new Time();
 		t.Count(1);
 		img = new PImage[2];
-		img[0] = app.loadImage("data/prueba.png");
-		img[1] = app.loadImage("data/intentos.png");
+		img[0] = app.loadImage("data/prueba.jpg");
+		img[1] = app.loadImage("data/intentos.jpg");
 	}
 
 	public void show(PApplet app, int n) {
