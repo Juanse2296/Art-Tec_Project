@@ -53,16 +53,16 @@ public class EmotionBack {
 		fd.shape = cir;
 
 		/// --caracteristicas
-		fd.density = 0.5f;
+		fd.density = 0.7f;
 		fd.friction = 0.3f;
-		fd.restitution = 0.2f;
+		fd.restitution = 0.1f;
 
 		// --Unir forma al cuerpo con sus caracteristicas
 		body.createFixture(fd);
 	}
 
 	public void restartPosition(Vec2 start) {
-		body.setTransform(new Vec2(box2d.coordPixelsToWorld(start.x, start.y-100)), 0);
+		body.setTransform(new Vec2(box2d.coordPixelsToWorld(start.x, start.y+60)), 0);
 	}
 
 	public void soundPlayer() {

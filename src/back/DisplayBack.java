@@ -181,6 +181,7 @@ public class DisplayBack implements Observer {
 
 		if (((f.finishLevel(box2d, emo.getPos()))) && numbersChekPoint < 1) {
 			if (practicelevel) {
+				f.getSound().trigger();
 				startGame(2);
 				return true;
 			} else {

@@ -63,8 +63,7 @@ public class FormBack {
 		if (body != null) {
 			Vec2 posA = box2d.getBodyPixelCoord(body);
 			if (((posB.x >= posA.x - size.x / 2) && (posB.x <= posA.x + size.x / 2) && (posB.y <= posA.y + size.y / 2)
-					&& (posB.y >= (posA.y - size.y / 2) - 50)) && (name.equals("finish"))) {
-				sound.trigger();
+					&& (posB.y >= (posA.y - size.y / 2) - 50)) && (name.equals("finish"))) {				
 				return true;
 			}
 		}
