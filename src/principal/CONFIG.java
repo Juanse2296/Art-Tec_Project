@@ -8,7 +8,7 @@ public class CONFIG {
 	public static int maxUp=450;
 	public static int maxDown=150;
 	public static int level = 1;
-	public static int instructionTime= 10;
+	public static int instructionTime= 1;
 	public static int state=1;	
 	public static int sensibleAreaW=500,sensibleAreaH=100;
 	public static int fireworks=10;	

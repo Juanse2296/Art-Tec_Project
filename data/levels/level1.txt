@@ -1,6 +1,6 @@
 posX, posY, name, radio (si lo tiene)
 start,280,100
-obstacle,850,350
-checkpoint,650,400,25
-checkpoint,1050,450,25
-finish,1100,600
+obstacle,750,280
+checkpoint,500,400,25
+checkpoint,950,450,25
+finish,1000,600

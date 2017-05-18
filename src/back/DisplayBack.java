@@ -63,6 +63,7 @@ public class DisplayBack implements Observer {
 	private void video() {
 		v = new Video(app, "tutorial");
 		v.loop();
+		players=false;
 	}
 
 	protected void startIntruction() {
@@ -221,6 +222,7 @@ public class DisplayBack implements Observer {
 		Vec2 v[] = new Vec2[3];
 		if (react.getTuioClient() != null) {
 			float y = 0;
+			float x = 0;
 			for (int i = 0; i < react.getTuioClient().getTuioObjectList().size(); i++) {
 				TuioObject tobj = react.getTuioClient().getTuioObjectList().get(i);
 				if (tobj != null) {
@@ -233,8 +235,12 @@ public class DisplayBack implements Observer {
 						v[0] = new Vec2(playersX - 150, y);
 						break;
 					case 1:
-						y = tobj.getScreenY(app.width);
-						v[1] = new Vec2(tobj.getScreenX(app.width), 360);
+						x = tobj.getScreenX(app.width);
+						
+					
+						float temp=PApplet.map(x, 300, 1100, 0, 1280);
+						
+						v[1] = new Vec2(temp, 360);
 						break;
 					case 2:
 						y = PApplet.map(tobj.getScreenY(app.height), CONFIG.maxDown, CONFIG.maxUp, 0, 720);
